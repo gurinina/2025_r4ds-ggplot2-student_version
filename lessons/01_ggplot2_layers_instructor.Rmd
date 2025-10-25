@@ -3,7 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-# Layers
+# Layers chapter: layers stack, they don't replace. display
 Total points: 67
 
 ## Introduction
@@ -82,6 +82,69 @@ When `class` is mapped to `shape`, we get two warnings:
 Since `ggplot2` will only use six shapes at a time, by default, additional groups will go unplotted when you use the shape aesthetic.
 The second warning is related -- there are 62 SUVs in the dataset and they're not plotted.
 
+We have to remember that ggplot2 does not replace but layers. For example:
+
+```{r}
+# Create a saved plot
+p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) + 
+  geom_point()
+
+p1  # p1
+
+```
+
+```{r}
+# Save a plot
+p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+
+p1  # Show original
+
+# Step 1: Try to make points bigger
+p1 + geom_point(size = 4)
+# "Looks like it worked!" (because bigger covers smaller)
+
+# Step 2: Now try to make them smaller  
+p1 + geom_point(size = 2)
+# "Wait... now I see BOTH layers! Small points on top of the original size!"
+```
+
+
+What if I wanted to make all the points bigger? If I add another geom_point(size = 10), it looks like it worked!
+
+```{r}
+
+p1 + geom_point(size = 10)
+```
+
+What if I wanted too make all the points smaller?
+
+**The grammar of graphics works like painting - each `+` adds a new layer of paint on top.** You can paint over something, but the old layer is still there underneath. When the new layer is bigger, it hides the original. When it's smaller, you see both!
+
+**Layers stack, they don't replace!**
+
+To actually change `p1`, you need to recreate it from scratch:
+```{r}
+p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 10)
+```
+
+However, you CAN modify **non-data elements** - these are like changing the frame around your painting, not the painting itself:
+```{r}
+# Change the labels
+p1 + labs(title = "Fuel Efficiency by Car Class")
+
+# Change the theme  
+p1 + theme_classic()
+```
+
+These don't add new data layers - they modify how the existing plot is displayed.
+
+**The rule:**
+- **Data layers** (geom_point, geom_line, etc.) → Stack like layers of paint
+- **Display elements** (labs, themes) → Modify the frame and presentation
+
+
 Sometimes it's helpful to compare plots side-by-side. The `patchwork` package makes this easy:
 
 ```{r}
@@ -104,6 +167,8 @@ p1 / p2
 ```
 
 This is particularly useful when comparing different visualizations of the same data, as you'll often need to do in your research when comparing treatment groups or experimental conditions.
+
+
 
 **What about other aesthetics?** Similarly, we can map `class` to `size` or `alpha` aesthetics as well, which control the size and the transparency of the points, respectively.
 
@@ -248,31 +313,26 @@ ggplot(mpg, aes(x = hwy, y = displ)) +
 ```
 :::
 
-
 2. What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point`). Add stroke to the above plot. +2pts
 
 ::: {.fold .s .o}
-**Ans-2.2.1.4:**
-
-```{r}
+**Ans-2.2.1.2:**
+```{r Ans-2.2.1.2}
 # Stroke controls the width of the edge/border for the shapes (21-25)
 # that have a fill aesthetic.
-
 ggplot(mpg, aes(x = hwy, y = displ)) +
-  geom_point(color = "black", shape = 24, size = 3, fill = "pink", stroke=5)
+  geom_point(color = "black", shape = 24, size = 3, fill = "pink", stroke = 5)
 ```
 :::
 
-
 3. Why did the following code not result in a plot with blue points? +2pts
-
-```{r}
+```{r, eval = FALSE}
 ggplot(mpg) + 
   geom_point(aes(x = displ, y = hwy, color = "blue"))
 ```
 
 ::: {.fold .s .o}
-**Ans-2.2.1.2:**
+**Ans-2.2.1.3:**
 
 The points are NOT blue because `color = "blue"` is inside `aes()`.
 
@@ -295,14 +355,13 @@ ggplot(mpg) +
 :::
 
 4. What's wrong with the following code? How would you fix it? +2pts
-
-```{r, eval=FALSE}
+```{r, eval = FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = class, size = 3)
 ```
 
 ::: {.fold .s .o}
-**Ans-2.2.1.3:**
+**Ans-2.2.1.4:**
 
 This code will give an error: `Error: object 'class' not found`
 
@@ -316,22 +375,19 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 Note that `size = 3` stays outside `aes()` because it's a constant (all points are size 3).
+
+**The key difference:**
+- **Inside `aes()`**: R looks for columns in your data
+- **Outside `aes()`**: R looks for objects in your environment
 :::
 
-So the rule is:
-
-Inside aes(): R looks for columns in your data
-Outside aes(): R looks for objects in your environment
-
 5. What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? Try it by adding color to the following plot: +2pts
-
-```{r}
+```{r, eval = FALSE}
 ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
 
 ::: {.fold .s .o}
 **Ans-2.2.1.5:**
-
 ```{r}
 # It creates a logical variable with values `TRUE` and `FALSE` 
 # for cars with displacement values below and above 5. 
@@ -342,6 +398,38 @@ ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ggplot(mpg) + 
   geom_point(aes(x = displ, y = hwy, color = displ < 5)) 
 ```
+:::
+
+6. What's wrong with the following code? Why doesn't it make blue points? How would you fix it? +2pts
+```{r, eval = FALSE}
+ggplot(mpg, aes(x = displ, y = hwy), color = "blue") + 
+  geom_point()
+```
+
+::: {.fold .s .o}
+**Ans-2.2.1.6:**
+
+This code produces a warning: 
+```
+Warning message:
+In fortify(data, ...) : Arguments in `...` must be used.
+x Problematic argument:
+* color = "blue"
+```
+
+The problem is that `color = "blue"` is in the **wrong place**. The `ggplot()` function only accepts `data` and `mapping = aes()` arguments. You cannot put styling constants (like `color`, `size`, `alpha`) directly in `ggplot()`.
+
+Constants must go in the `geom_*()` layer, outside `aes()`:
+```{r}
+# Correct: constant in geom layer
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(color = "blue")
+```
+
+**Where things can go:**
+- **In `ggplot()`**: Only `data` and `aes()` mappings
+- **In `geom_*()` outside `aes()`**: Constants like `color = "blue"`, `size = 3`
+- **In `aes()` (anywhere)**: Variables from your data like `color = class`
 :::
 
 ## Geometric objects
