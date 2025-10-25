@@ -219,7 +219,8 @@ What you CANNOT put in ggplot():
 ggplot(mpg, aes(x = displ, y = hwy), color = "blue") +
   geom_point()
 ```
-# ❌ This fails! Constants can't go in ggplot()
+
+❌ This fails! Constants can't go in ggplot()
 
 You can't put anything outside the `aes` except for data in the ggplot argument because The Correct Rule:
 
