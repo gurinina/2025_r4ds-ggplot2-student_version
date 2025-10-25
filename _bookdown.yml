@@ -1,0 +1,13 @@
+book_filename: "2025_r4ds-ggplot2-instructor"
+new_session: no
+rmd_files:
+  - index.Rmd
+  - lessons/01_ggplot2_layers_instructor.Rmd
+  - lessons/02_ggplot2_communication_instructor.Rmd
+delete_merged_file: false
+chapter_name: "Chapter "
+language:
+  label:
+    fig: "Figure "
+    tab: "Table "
+rmd_subdir: ["lessons"]  # Only look in lessons folder
