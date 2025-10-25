@@ -24,11 +24,13 @@ We won't cover every single function and option, but we'll walk you through the 
 
 Load the necessary packages into your session:
 
-```{r}
-library(tidyverse)  # ggplot2 also gets loaded with the suite of packages
-library(patchwork)  # for combining plots
-library(scales)
 
+Load the necessary packages:
+
+```{r}
+library(tidyverse)           # for ggplot2
+library(patchwork)           # for combining plots
+library(scales)              # for axis formatting
 ```
 
 
