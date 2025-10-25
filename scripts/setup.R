@@ -66,4 +66,3 @@ if (!knitr::is_html_output()) {
 
 # Use suppressPackageStartupMessages() in your Rmd files when loading packages:
 # suppressPackageStartupMessages(library(tidyverse))
-# suppressPackageStartupMessages(library(DESeq2))
