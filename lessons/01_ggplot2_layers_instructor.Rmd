@@ -10,6 +10,7 @@ Total points: 71
 
 You've already learned the basics of ggplot2: how to create scatterplots and boxplots, how to map aesthetics like color and shape, and how to customize your plots with themes and labels. 
 
+
 In this chapter, we'll dive deeper into the **grammar of graphics** - the idea that you can build every graph from the same components: a dataset, a coordinate system, and geoms (geometric objects that represent data points). We'll explore:
 
 - A deeper understanding of **aesthetic mappings** (inside vs outside aes)
@@ -19,6 +20,7 @@ In this chapter, we'll dive deeper into the **grammar of graphics** - the idea t
 - **Position adjustments** - how geoms are positioned relative to each other
 
 We won't cover every single function and option, but we'll walk you through the most important and commonly used functionality in ggplot2.
+
 
 ### Prerequisites
 
@@ -303,7 +305,7 @@ So size, color, shape, alpha, fill - all follow the same pattern.
 
 In the next section we dive deeper into `geoms`.
 
-### 2.2.1 Exercises {.unnumbered}
+#### 1.2.1 Exercises {.unnumbered}
 
 1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
 
@@ -534,7 +536,7 @@ The histogram and density plot reveal that the distribution of highway mileage i
 `ggplot2` provides more than 40 `geoms` but these don't cover all possible plots one could make. The best place to get a comprehensive overview of all of the `geoms` `ggplot2` offers is the [reference page:](<https://ggplot2.tidyverse.org/reference>.
 To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
 
-### 2.3.1 Exercises {.unnumbered}
+#### 1.3.1 Exercises {.unnumbered}
 
 1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap?? ('jitter plot') +4pts or +5pts (bonus point for line charts using TWO geometries)
 
@@ -656,7 +658,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ cyl, scales = "free_y")
 ```
 
-### 2.4.1 Exercises {.unnumbered}
+#### 1.4.1 Exercises {.unnumbered}
 
 1. What happens if you facet on a continuous variable? Try faceting the plot below on `hwy`. +2pts
 
@@ -782,116 +784,6 @@ You can also combine both approaches!
 `facet_grid()` doesn't have `nrow` and `ncol` arguments because the number of rows and columns is determined by the number of unique values of the variables you're faceting by. For example, if you facet by `drv ~ cyl`, the number of rows is determined by the number of unique `drv` values (3), and the number of columns by the number of unique `cyl` values (4).
 :::
 
-## Statistical transformations
-
-Consider a basic bar chart, drawn with `geom_bar()`. The following chart displays the total number of diamonds in the `diamonds` dataset, grouped by `cut`. The `diamonds` dataset is in the `ggplot2` package and contains information on ~54,000 diamonds, including the `price`, `carat`, `color`, `clarity`, and `cut` of each diamond. The chart shows that more diamonds are available with high quality cuts than with low quality cuts.
-
-```{r}
-ggplot(diamonds, aes(x = cut)) + 
-  geom_bar()
-```
-
-On the x-axis, the chart displays `cut`, a variable from `diamonds`. On the y-axis, it displays count, but count is not a variable in `diamonds`! Where does count come from? 
-
-Many graphs, like scatterplots, plot the raw values of your dataset. Other graphs, like bar charts, calculate new values to plot:
-
--   Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.
-
--   Smoothers fit a model to your data and then plot predictions from the model.
-
--   Boxplots compute the five-number summary of the distribution and then display that summary as a specially formatted box.
-
-The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation.
-
-You can learn which stat a `geom` uses by inspecting the default value for the `stat` argument. For example, `?geom_bar` shows that the default value for `stat` is "count", which means that `geom_bar()` uses `stat_count()`. `stat_count()` is documented on the same page as `geom_bar()`. If you scroll down, the section called "Computed variables" explains that it computes two new variables: `count` and `prop`.
-
-Every `geom` has a default stat; and every stat has a default `geom`. This means that you can typically use `geoms` without worrying about the underlying statistical transformation. However, there are three reasons why you might need to use a stat explicitly:
-
-1. **You might want to override the default stat.** In the code below, we change the stat of `geom_bar()` from count (the default) to identity. This lets us map the height of the bars to the raw values of a y variable.
-
-```{r}
-diamonds |>
-  count(cut) |>
-  ggplot(aes(x = cut, y = n)) +
-  geom_bar(stat = "identity")
-```
-
-2. **You might want to override the default mapping from transformed variables to aesthetics.** For example, you might want to display a bar chart of proportions, rather than counts:
-
-```{r}
-ggplot(diamonds, aes(x = cut, y = after_stat(prop), group = 1)) +
-  geom_bar()
-```
-
-The `prop` variable is a computed value provided by the `stat = "count"` transformation (the default for `geom_bar`). To find the possible variables that can be computed by the stat, look for the section titled "computed variables" in the help for `geom_bar()`.
-
-`ggplot2` provides more than 20 stats for you to use. Each stat is a function, so you can get help in the usual way, e.g., `?stat_bin`.
-
-### 2.5.1 Exercises {.unnumbered}
-
-1. What does `geom_col()` do? How is it different from `geom_bar()`? +2pts
-
-::: {.fold .s .o}
-
-**Ans-2.5.1.1:**
-
-`geom_bar()` uses `stat_count()` by default: it counts the number of occurrences for each x value or category. It doesn't expect a y-value, since it's going to count that up itself.
-
-`geom_col()` is the same as `geom_bar(stat = 'identity')`. Use `geom_col()` when your data already contains both x values and y values (counts).
-
-**Example:**
-```{r}
-# geom_bar counts for you
-ggplot(mpg, aes(x = class)) + 
-  geom_bar()
-
-# geom_col requires pre-counted data
-mpg |>
-  count(class) |>
-  ggplot(aes(x = class, y = n)) +
-  geom_col()
-```
-:::
-
-2. Most geoms and stats come in pairs that are almost always used in concert. Make a list of all the pairs. What do they have in common? (Hint: Read through the documentation.) +2pts
-
-::: {.fold .s .o}
-
-**Ans-2.5.1.2:**
-
-Common geom/stat pairs:
-- `geom_bar()` / `stat_count()`
-- `geom_bin2d()` / `stat_bin_2d()`
-- `geom_boxplot()` / `stat_boxplot()`
-- `geom_contour()` / `stat_contour()`
-- `geom_count()` / `stat_sum()`
-- `geom_density()` / `stat_density()`
-- `geom_histogram()` / `stat_bin()`
-- `geom_smooth()` / `stat_smooth()`
-
-They have in common that the `geom` function and `stat` function have the same suffix (e.g., `_count`, `_bin`, `_boxplot`). Each geom has a default stat, and each stat has a default geom.
-:::
-
-3. What variables does `stat_smooth()` compute? What arguments control its behavior? +2pts
-
-::: {.fold .s .o}
-
-**Ans-2.5.1.3:**
-
-`stat_smooth()` computes:
-- `y` or `x`: predicted value
-- `ymin` or `xmin`: lower pointwise confidence interval
-- `ymax` or `xmax`: upper pointwise confidence interval
-- `se`: standard error
-
-Key arguments that control its behavior:
-- `method`: smoothing method (e.g., "lm", "loess", "gam")
-- `se`: whether to display confidence interval (TRUE/FALSE)
-- `level`: level of confidence interval (default 0.95)
-- `span`: controls amount of smoothing for loess
-
-You can see all of these in `?stat_smooth` or `?geom_smooth`.
-:::
 ## Position adjustments
 
 Position adjustments control how geoms are arranged when they might overlap. This is particularly important for bar charts.
@@ -912,7 +804,7 @@ ggplot(mpg, aes(x = drv, fill = class)) +
 
 The stacking is controlled by the `position` argument. You can use different positions to change how the bars are displayed:
 
-### `position = "fill"` - Show proportions
+#### `position = "fill"` - Show proportions
 
 Makes each set of stacked bars the same height, making it easier to compare proportions across groups:
 ```{r}
@@ -921,7 +813,7 @@ ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = "fill")
 ```
 
-### `position = "dodge"` - Side-by-side comparison
+#### `position = "dodge"` - Side-by-side comparison
 
 Places bars directly beside one another, making it easier to compare individual counts:
 ```{r}
@@ -938,13 +830,13 @@ ggplot(mpg, aes(x = drv, fill = class)) +
 
 To learn more about position adjustments, see `?position_dodge`, `?position_fill`, `?position_jitter`, and `?position_stack`.
 
-### 2.6.1 Exercises {.unnumbered}
+#### 1.6.1 Exercises {.unnumbered}
 
 1. What's the difference between `position = "stack"` and `position = "fill"` for bar charts? When would you use each? +2pts
 
 ::: {.fold .s .o}
 
-**Ans-2.6.1.1:**
+**Ans-1.6.1.1:**
 
 `position = "stack"` shows actual counts - bars have different heights based on total observations in each category.
 
@@ -968,7 +860,7 @@ ggplot(mpg, aes(x = drv, fill = class)) +
 
 ::: {.fold .s .o}
 
-**Ans-2.6.1.2:**
+**Ans-1.6.1.2:**
 ```{r}
 ggplot(mpg, aes(x = class, fill = drv)) +
   geom_bar(position = "dodge")

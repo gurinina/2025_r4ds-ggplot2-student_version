@@ -63,7 +63,7 @@ If you need to add more text, there are two other useful labels:
 
 You can also use `labs()` to replace the axis and legend titles. It's usually a good idea to replace short variable names with more detailed descriptions, and to include the units.
 
-### Exercises 1.2.1 {.unnumbered}
+#### Exercises 2.2.1 {.unnumbered}
 
 1. Add labels to make this plot publication-ready. Include a title describing an interesting pattern (not just "boxplot of..."), subtitle, caption, and improved axis/legend labels. +6pts
 
@@ -255,7 +255,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 Annotation is a powerful tool for communicating main takeaways and interesting features of your visualizations!
 
-### Exercises 1.3.1 {.unnumbered}
+#### Exercises 2.3.1 {.unnumbered}
 
 1. Use `annotate()` to add a point geom in the middle of the following plot without having to create a tibble. Customize the shape, size, or color of the point. +2pts
 
@@ -506,7 +506,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   scale_color_viridis_c()
 ```
 
-### Exercises 1.4.1 {.unnumbered}
+#### Exercises 2.4.1 {.unnumbered}
 
 1. Why doesn't the following code override the default scale? Fix the plot so that it colors the points with a gradient. +2pts
 
@@ -638,7 +638,7 @@ Note that customization of theme elements is done with `element_*()` functions:
 
 For an overview of all `theme()` components, see help with `?theme`.
 
-### Exercises 1.5.1 {.unnumbered}
+#### Exercises 2.5.1 {.unnumbered}
 
 1. Pick a theme offered by `ggplot2` or the `ggthemes` package and apply it to this plot: +2pts
 
@@ -732,7 +732,7 @@ Additionally, patchwork allows you to add a common title, subtitle, and caption 
 
 If you'd like to learn more about patchwork, see the package website: <https://patchwork.data-imaginist.com>.
 
-### Exercises 1.6.1 {.unnumbered}
+#### Exercises 2.6.1 {.unnumbered}
 
 1. What happens if you omit the parentheses in the following plot layout? Try it. Can you explain why this happens? +2pts
 
