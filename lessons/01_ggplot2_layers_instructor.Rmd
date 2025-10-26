@@ -308,6 +308,7 @@ In the next section we dive deeper into `geoms`.
 1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
 
 ::: {.fold .s .o}
+
 ```{r Ans-2.2.1.1}
 ggplot(mpg, aes(x = hwy, y = displ)) +
   geom_point(color = "pink", shape = 24, size = 3, fill = "pink")
@@ -317,6 +318,7 @@ ggplot(mpg, aes(x = hwy, y = displ)) +
 2. What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point`). Add stroke to the above plot. +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.2.1.2:**
 ```{r Ans-2.2.1.2}
 # Stroke controls the width of the edge/border for the shapes (21-25)
@@ -333,6 +335,7 @@ ggplot(mpg) +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.2.1.3:**
 
 The points are NOT blue because `color = "blue"` is inside `aes()`.
@@ -362,6 +365,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.2.1.4:**
 
 This code will give an error: `Error: object 'class' not found`
@@ -388,6 +392,7 @@ ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.2.1.5:**
 ```{r}
 # It creates a logical variable with values `TRUE` and `FALSE` 
@@ -408,6 +413,7 @@ ggplot(mpg, aes(x = displ, y = hwy), color = "blue") +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.2.1.6:**
 
 This code produces a warning: 
@@ -533,6 +539,7 @@ To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
 1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap?? ('jitter plot') +4pts or +5pts (bonus point for line charts using TWO geometries)
 
 ::: {.fold .s .o}
+
 **Ans-2.3.1.1:**
 
 For a line chart you can use `geom_path()` or `geom_line()`. 
@@ -548,6 +555,7 @@ For a jitter plot, `geom_jitter()`
 2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
 
 ::: {.fold .s .o}
+
 **Ans-2.3.1.2:**
 ```{r}
 ggplot(mpg, aes(x = class, y = hwy)) +
@@ -567,6 +575,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.3.1.3:**
 
 It removes the legend for the `geom` it's specified in. In this case it removes the legend for the smooth lines that are colored based on `drv`.
@@ -582,6 +591,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 4. What does the `se` argument to `geom_smooth()` do? +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.3.1.4:**
 
 It displays the confidence interval (standard error) around the smooth line.
@@ -606,6 +616,7 @@ ggplot() +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.3.1.5:**
 
 No, they will look the same. In the first plot, the data and aesthetic mappings are defined globally in `ggplot()` and inherited by both geoms. In the second plot, each geom has its own local data and mappings that are identical. The result is the same plot.
@@ -655,6 +666,7 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.4.1.1:**
 
 Faceting by a continuous variable results in one facet for each unique value of the continuous variable. We can see this in the scatterplot below of `cyl` vs. `drv`, faceted by `hwy`.
@@ -676,6 +688,7 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.4.1.2:**
 
 There are no cars with certain combinations of drive train and cylinders. For example, there are no cars with rear-wheel drive and 5 cylinders. Therefore the facet corresponding to that combination is empty. In general, empty facets mean no observations fall in that category.
@@ -700,6 +713,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ::: {.fold .s .o}
+
 **Ans-2.4.1.3:**
 
 In the first plot, with `facet_grid(drv ~ .)`, the period means "don't facet across columns" - so you get facets in rows only.
@@ -818,6 +832,7 @@ The `prop` variable is a computed value provided by the `stat = "count"` transfo
 1. What does `geom_col()` do? How is it different from `geom_bar()`? +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.5.1.1:**
 
 `geom_bar()` uses `stat_count()` by default: it counts the number of occurrences for each x value or category. It doesn't expect a y-value, since it's going to count that up itself.
@@ -841,6 +856,7 @@ mpg |>
 2. Most geoms and stats come in pairs that are almost always used in concert. Make a list of all the pairs. What do they have in common? (Hint: Read through the documentation.) +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.5.1.2:**
 
 Common geom/stat pairs:
@@ -859,6 +875,7 @@ They have in common that the `geom` function and `stat` function have the same s
 3. What variables does `stat_smooth()` compute? What arguments control its behavior? +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.5.1.3:**
 
 `stat_smooth()` computes:
