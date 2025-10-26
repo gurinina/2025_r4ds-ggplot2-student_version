@@ -22,10 +22,10 @@ These skills are essential for creating publication-quality figures for your res
 Load the necessary packages:
 
 ```{r}
-library(tidyverse)           # for ggplot2 and mpg
-library(ggrepel)             # for smart label placement
-library(patchwork)           # for combining plots
-library(scales)              # for axis formatting
+library(tidyverse)                 # for ggplot2 and mpg
+library(ggrepel)                   # for smart label placement
+library(patchwork)                 # for combining plots
+library(scales)                    # for axis formatting
 ```
 
 ## Labels

@@ -2,7 +2,8 @@ Layers: 55' up to facets
 
 
 Layers AES = 55'
-Layers GEOMs= 
+Layers GEOMs= 1hr 18"
+Layers FACETs = 
 
 51' up to statistical TF
 

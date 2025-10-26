@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 # Layers chapter: Layers STACK
-Total points: 67
+Total points: 71
 
 ## Introduction
 
@@ -530,7 +530,7 @@ To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
 
 ### 2.3.1 Exercises {.unnumbered}
 
-1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out for categorical x-axis? ('jitter plot') +2pts
+1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap?? ('jitter plot') +4pts or +5pts (bonus point for line charts using TWO geometries)
 
 ::: {.fold .s .o}
 **Ans-2.3.1.1:**
@@ -545,8 +545,20 @@ For a jitter plot, `geom_jitter()`
 
 :::
 
+2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
 
-2. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
+::: {.fold .s .o}
+**Ans-2.3.1.2:**
+```{r}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot(outlier.shape = NA) +  # Don't show outliers twice
+  geom_jitter(width = 0.2, alpha = 0.5)
+```
+
+Note: `outlier.shape = NA` removes the outlier points from the boxplot so they only appear once (as jittered points) rather than twice.
+:::
+
+3. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -554,7 +566,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ::: {.fold .s .o}
-**Ans-2.3.1.2:**
+**Ans-2.3.1.3:**
 
 It removes the legend for the `geom` it's specified in. In this case it removes the legend for the smooth lines that are colored based on `drv`.
 
@@ -566,10 +578,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 :::
 
-3. What does the `se` argument to `geom_smooth()` do? +2pts
+4. What does the `se` argument to `geom_smooth()` do? +2pts
 
 ::: {.fold .s .o}
-**Ans-2.3.1.3:**
+**Ans-2.3.1.4:**
 
 It displays the confidence interval (standard error) around the smooth line.
 You can remove this with `se = FALSE`.
@@ -580,7 +592,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 :::
 
-4. Will these two graphs look different? Why/why not? +2pts
+5. Will these two graphs look different? Why/why not? +2pts
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -593,7 +605,7 @@ ggplot() +
 ```
 
 ::: {.fold .s .o}
-**Ans-2.3.1.4:**
+**Ans-2.3.1.5:**
 
 No, they will look the same. In the first plot, the data and aesthetic mappings are defined globally in `ggplot()` and inherited by both geoms. In the second plot, each geom has its own local data and mappings that are identical. The result is the same plot.
 :::
@@ -601,8 +613,6 @@ No, they will look the same. In the first plot, the data and aesthetic mappings 
 ## Facets
 
 Facets are a powerful way to split your plot into multiple subplots based on the values of one or more categorical variables. This is especially useful when you want to see patterns within different groups.
-
-You've already seen this concept - it's similar to creating separate boxplots for each genotype in your previous exercise!
 
 To facet your plot by a single variable, use `facet_wrap()`. The first argument of `facet_wrap()` is a formula (created with `~` followed by a variable name). The variable passed to `facet_wrap()` should be categorical.
 
@@ -714,9 +724,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_wrap(~ class, nrow = 2)
 ```
 
-What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +2pts
+What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +4pts
 
 ::: {.fold .s .o}
+
 **Ans-2.4.1.4:**
 
 **Advantages of faceting:**
@@ -747,6 +758,7 @@ You can also combine both approaches!
 5. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.4.1.5:**
 
 `nrow` sets the number of rows in the facet layout.
@@ -862,167 +874,99 @@ Key arguments that control its behavior:
 
 You can see all of these in `?stat_smooth` or `?geom_smooth`.
 :::
-
 ## Position adjustments
 
-There's one more piece of magic associated with bar charts. You can color a bar chart using either the `color` aesthetic, or, more usefully, the `fill` aesthetic:
+Position adjustments control how geoms are arranged when they might overlap. This is particularly important for bar charts.
 
-```{r}
-# Color only affects the outline
-ggplot(mpg, aes(x = drv, color = drv)) + 
-  geom_bar()
-```
-
+You can color bar charts using either the `color` aesthetic (outline) or the `fill` aesthetic (inside):
 ```{r}
 # Fill colors the inside of the bars
 ggplot(mpg, aes(x = drv, fill = drv)) + 
   geom_bar()
 ```
 
-Note what happens if you map the fill aesthetic to another variable, like `class`: the bars are automatically stacked. Each colored rectangle represents a combination of `drv` and `class`.
-
+When you map `fill` to another variable, the bars are automatically **stacked**. Each colored rectangle represents a combination of the two variables:
 ```{r}
+# Stacked bars (default)
 ggplot(mpg, aes(x = drv, fill = class)) + 
   geom_bar()
 ```
 
-The stacking is performed automatically using the **position adjustment** specified by the `position` argument. If you don't want a stacked bar chart, you can use one of three other options: `"identity"`, `"dodge"` or `"fill"`.
+The stacking is controlled by the `position` argument. You can use different positions to change how the bars are displayed:
 
--   `position = "fill"` works like stacking, but makes each set of stacked bars the same height. This makes it easier to compare proportions across groups.
+### `position = "fill"` - Show proportions
 
--   `position = "dodge"` places overlapping objects directly *beside* one another. This makes it easier to compare individual values.
-
+Makes each set of stacked bars the same height, making it easier to compare proportions across groups:
 ```{r}
-# Fill makes all bars the same height (shows proportions)
+# All bars go to 100%
 ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = "fill")
 ```
 
+### `position = "dodge"` - Side-by-side comparison
+
+Places bars directly beside one another, making it easier to compare individual counts:
 ```{r}
-# Dodge places bars side-by-side
+# Side-by-side bars
 ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = "dodge")
 ```
 
-There's one other type of adjustment that's not useful for bar charts, but can be very useful for scatterplots. Recall our first scatterplot. Did you notice that the plot displays only 126 points, even though there are 234 observations in the dataset?
+**Position adjustments summary:**
+- `position = "stack"` (default): Shows total counts with composition breakdown
+- `position = "fill"`: Shows proportions (all bars reach 100%)
+- `position = "dodge"`: Shows side-by-side for easy comparison
+- `position = "jitter"`: Adds random noise (you learned this with `geom_jitter()` earlier!)
 
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point()
-```
-
-The underlying values of `hwy` and `displ` are rounded so the points appear on a grid and many points overlap each other. This problem is known as **overplotting**. This arrangement makes it difficult to see the distribution of the data.
-
-You can avoid this gridding by setting the position adjustment to "jitter". `position = "jitter"` adds a small amount of random noise to each point. This spreads the points out because no two points are likely to receive the same amount of random noise.
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point(position = "jitter")
-```
-
-Adding randomness seems like a strange way to improve your plot, but while it makes your graph less accurate at small scales, it makes your graph *more* revealing at large scales. Because this is such a useful operation, `ggplot2` comes with a shorthand for `geom_point(position = "jitter")`: `geom_jitter()`.
-
-To learn more about a position adjustment, look up the help page associated with each adjustment: `?position_dodge`, `?position_fill`, `?position_identity`, `?position_jitter`, and `?position_stack`.
+To learn more about position adjustments, see `?position_dodge`, `?position_fill`, `?position_jitter`, and `?position_stack`.
 
 ### 2.6.1 Exercises {.unnumbered}
 
-1. What is the problem with the following plot? How could you improve it? +2pts
-
-```{r}
-ggplot(mpg, aes(x = cty, y = hwy)) +
-  geom_point()
-```
+1. What's the difference between `position = "stack"` and `position = "fill"` for bar charts? When would you use each? +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.6.1.1:**
 
-The `mpg` dataset has 234 observations, however the plot shows fewer observations than that. This is due to overplotting; many cars have the same city and highway mileage. This can be addressed by jittering the points.
+`position = "stack"` shows actual counts - bars have different heights based on total observations in each category.
 
+`position = "fill"` shows proportions - all bars are normalized to the same height (100%), making it easy to compare percentages across groups.
+
+**Use stack when:** You want to see both totals and composition  
+**Use fill when:** You want to compare proportions across groups
 ```{r}
-# Solution 1: Add jitter
-ggplot(mpg, aes(x = cty, y = hwy)) +
-  geom_jitter()
+# Stack: different heights (shows totals)
+ggplot(mpg, aes(x = drv, fill = class)) +
+  geom_bar(position = "stack")
 
-# Solution 2: Use position = "jitter"
-ggplot(mpg, aes(x = cty, y = hwy)) +
-  geom_point(position = "jitter")
+# Fill: same heights (shows proportions)
+ggplot(mpg, aes(x = drv, fill = class)) +
+  geom_bar(position = "fill")
 ```
+
 :::
 
-2. What, if anything, is the difference between these two plots? Why? +2pts
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() 
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(position = "identity") 
-```
+2. Create a dodged bar chart showing the count of cars by `class` and `drv`. +2pts
 
 ::: {.fold .s .o}
+
 **Ans-2.6.1.2:**
-
-They are identical because `position = "identity"` is the default value for `geom_point`.
-:::
-
-3. What parameters to `geom_jitter()` control the amount of jittering? Add jittering to the following plot: +2pts
-
 ```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() 
+ggplot(mpg, aes(x = class, fill = drv)) +
+  geom_bar(position = "dodge")
 ```
 
+:::
+
+3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
+
 ::: {.fold .s .o}
+
 **Ans-2.6.1.3:**
 
-The `width` and `height` parameters control the amount of horizontal and vertical displacement, respectively. Higher values mean more displacement.
-
-```{r}
-# Default jitter
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_jitter()
-
-# Custom jitter amount
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_jitter(width = 0.5, height = 0.5)
-```
-:::
-
-4. Compare and contrast `geom_jitter()` with `geom_count()` using the following ggplot. +2pts
-
-```{r}
-g <- ggplot(mpg, aes(x = displ, y = hwy))
-```
-
-::: {.fold .s .o}
-**Ans-2.6.1.4:**
-
-`geom_jitter()` adds random noise to the location of the points to avoid overplotting by spreading them out.
-
-`geom_count()` sizes the points based on the number of observations at a given location - larger points indicate more overlapping observations.
-
-```{r}
-# Jitter spreads points out
-g + geom_jitter()
-```
-
-```{r}
-# Count sizes points by number of observations
-g + geom_count()
-```
-
-Use jitter when you want to see individual data points. Use count when you want to see how many observations are at each location.
-:::
-
-5. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
-
-::: {.fold .s .o}
-**Ans-2.6.1.5:**
-
 The default position for `geom_boxplot()` is `"dodge2"`.
-
 ```{r}
-# Default position (dodge2)
+# Default position (dodge2) - boxplots are side-by-side
 ggplot(mpg, aes(x = class, y = hwy, fill = drv)) +
   geom_boxplot()
 
@@ -1031,36 +975,38 @@ ggplot(mpg, aes(x = class, y = hwy, fill = drv)) +
   geom_boxplot(position = "dodge2")
 ```
 
-The dodge2 position places boxplots side-by-side within each class, making it easy to compare different groups.
+The `dodge2` position places boxplots side-by-side within each class, making it easy to compare different drive types.
+
 :::
 
 ## Summary
 
-In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, statistics for understanding how `geoms` are calculated, position adjustments for controlling the fine details of position when `geoms` might otherwise overlap.
+In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, and position adjustments for controlling how geoms are displayed when they might overlap.
 
 ### Key concepts learned:
 
 1. **Aesthetics**: Map variables from your data to visual properties
    - Inside `aes()` for variables: `aes(color = class)`
    - Outside `aes()` for constants: `color = "blue"`
+   - **Memory trick:** Can you do `mpg$class`? YES → inside `aes()`
 
 2. **Geoms**: The geometric objects that represent your data
-   - `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`, etc.
+   - `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`, `geom_jitter()`, etc.
    - Can layer multiple geoms in one plot
+   - **Layers stack, they don't replace!**
 
 3. **Facets**: Split your plot into subplots
-   - `facet_wrap()` for one variable
-   - `facet_grid()` for two variables
+   - `facet_wrap(~ variable)` for one variable
+   - `facet_grid(rows ~ cols)` for two variables
+   - Use `.` as placeholder: `facet_grid(. ~ cols)` or `facet_grid(rows ~ .)`
 
-4. **Stats**: Statistical transformations that create new variables
-   - Bar charts count observations
-   - Boxplots compute summary statistics
-   - Smoothers fit models
+4. **Position adjustments**: Fine-tune positioning for overlapping geoms
+   - `position = "stack"` - default for bars (shows totals with composition)
+   - `position = "fill"` - proportional stacking (all bars reach 100%)
+   - `position = "dodge"` - side-by-side bars
+   - `position = "jitter"` - adds random noise to avoid overplotting
 
-5. **Position adjustments**: Fine-tune positioning
-   - `position = "dodge"` for side-by-side bars
-   - `position = "fill"` for proportional stacking
-   - `position = "jitter"` for avoiding overplotting
+### The grammar of graphics works like painting:
+Each `+` adds a new layer of paint on top. You can paint over something, but the old layer is still there underneath. **Data layers stack, but display elements (themes, labels, scales) can be modified.**
 
 Two very useful resources for getting an overview of the complete `ggplot2` functionality are the `ggplot2` cheatsheet (which you can find at <https://posit.co/resources/cheatsheets>) and the `ggplot2` package documentation at <https://ggplot2.tidyverse.org/reference>.
-
