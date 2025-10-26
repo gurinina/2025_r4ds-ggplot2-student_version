@@ -1,5 +1,9 @@
 Layers: 55' up to facets
 
+
+Layers AES = 55'
+Layers GEOMs= 
+
 51' up to statistical TF
 
 Communication: 1hr no exercises

@@ -3,7 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-# Layers chapter: layers stack, they don't replace. display
+# Layers chapter: Layers STACK
 Total points: 67
 
 ## Introduction
@@ -25,9 +25,9 @@ We won't cover every single function and option, but we'll walk you through the 
 Load the necessary packages into your session:
 
 ```{r}
-library(tidyverse)           # for ggplot2 and mpg
-library(patchwork)           # for combining plots
-library(scales)              # for axis formatting
+library(tidyverse)                # for ggplot2 and mpg
+library(patchwork)                # for combining plots
+library(scales)                   # for axis formatting
 ```
 
 
@@ -435,7 +435,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ## Geometric objects
 
-You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (`geom_bar()`), line charts use line geoms (`geom_line()`), boxplots use boxplot geoms (`geom_boxplot()`), and scatterplots use point geoms (`geom_point()`).
+You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (`geom_bar()`), line charts use line geoms (`geom_line()`), histograms use histograms geoms (`geom_histogram()`), and density plots use density geoms (`geom_density()`). There are over 40 geoms and they can also be extended by using different packages.
 
 How are these two plots similar?
 

@@ -1,4 +1,4 @@
-# Communication
+# Communication chapter: Polish for PUBLICATION
 Total points: 42
 
 "The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
