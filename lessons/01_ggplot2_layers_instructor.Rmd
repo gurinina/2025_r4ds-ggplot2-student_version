@@ -551,7 +551,8 @@ For a jitter plot, `geom_jitter()`
 **Ans-2.3.1.2:**
 ```{r}
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot(outlier.shape = NA) +  # Don't show outliers twice
+  geom_boxplot(outlier.shape = NA) +  
+  # Don't show outliers twice
   geom_jitter(width = 0.2, alpha = 0.5)
 ```
 

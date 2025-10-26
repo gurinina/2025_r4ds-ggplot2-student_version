@@ -1,5 +1,10 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Communication chapter: Polish for PUBLICATION
-Total points: 42
+Total points: 40
 
 "The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
 
@@ -30,7 +35,7 @@ library(scales)                    # for axis formatting
 
 ## Labels
 
-The easiest place to start when turning an exploratory graphic into a publication-ready graphic is with good labels. You add labels with the `labs()` function:
+The easiest place to start when turning an exploratory graphic into a publication-ready graphic is with good x and y-axes labels. You add labels with the `labs()` function:
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -60,16 +65,23 @@ You can also use `labs()` to replace the axis and legend titles. It's usually a 
 
 ### Exercises 1.2.1 {.unnumbered}
 
-1. Create a boxplot on the fuel economy data with x = `class` and y = `hwy` with customized `title`, `subtitle`, `caption`, `x`, `y`, and `fill` labels. Make the title describe an interesting pattern you see in the data. +8pts
+1. Add labels to make this plot publication-ready. Include a title describing an interesting pattern (not just "boxplot of..."), subtitle, caption, and improved axis/legend labels. +6pts
+
+Start with this plot:
+```{r}
+g1 <-  ggplot(
+  data = mpg,
+  mapping = aes(x = class, y = hwy, fill = class)) +
+  geom_boxplot()
+
+g1
+```
+
 
 ::: {.fold .s .o}
 **Ans-1.2.1.1:**
 ```{r Ans-1.2.1.1}
-ggplot(
-  data = mpg,
-  mapping = aes(x = class, y = hwy, fill = class)) +
-  geom_boxplot() + 
-  labs(
+g1 + labs(
     title = "Compact Cars have > 10 Hwy MPG than Pickup Trucks",
     subtitle = "Comparing the median highway mpg in each class",
     caption = "Data from fueleconomy.gov",
@@ -80,29 +92,40 @@ ggplot(
 ```
 :::
 
-2. Recreate the following plot using the fuel economy data. Note that both the colors and shapes of points vary by type of drive train. +6pts
 
-```{r fuel-economy, echo = FALSE, fig.cap = 'Scatterplot of highway versus city fuel efficiency.'}
-knitr::include_graphics("images/fueleconomy.png")
-```
+2. Recreate the following plot. Add appropriate labels for the axes and legend, AND add a meaningful title describing a pattern you see. Note that both color and shape vary by drive type. +6pts
 
 ::: {.fold .s .o}
-**Ans-1.2.1.2:**
-```{r Ans-1.2.1.2, echo = FALSE}
-ggplot(mpg, aes(
-  x = cty,
-  y = hwy,
-  color = drv,
-  shape = drv
-)) +
+
+**Plot to recreate:**
+```{r echo=FALSE}
+ggplot(mpg, aes(x = cty, y = hwy, color = drv, shape = drv)) +
   geom_point() +
   labs(
     x = "City MPG",
     y = "Highway MPG",
-    shape = "Type of\ndrive train",
-    color = "Type of\ndrive train"
+    color = "Type of\ndrive train",
+    shape = "Type of\ndrive train"
   )
 ```
+
+:::
+
+::: {.fold .s .o}
+
+**Ans-1.2.1.2:**
+```{r Ans-1.2.1.2}
+ggplot(mpg, aes(x = cty, y = hwy, color = drv, shape = drv)) +
+  geom_point() +
+  labs(
+    title = "City and highway fuel economy are strongly correlated",
+    x = "City MPG",
+    y = "Highway MPG",
+    color = "Type of\ndrive train",
+    shape = "Type of\ndrive train"
+  )
+```
+
 :::
 
 ## Annotations
