@@ -435,7 +435,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ## Geometric objects
 
-You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (`geom_bar()`), line charts use line geoms (`geom_line()`), histograms use histograms geoms (`geom_histogram()`), and density plots use density geoms (`geom_density()`). There are over 40 geoms and they can also be extended by using different packages.
+You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (`geom_bar()`), line charts use line geoms (`geom_line()`), histograms use histograms geoms (`geom_histogram()`), and density plots use density geoms (`geom_density()`). 
 
 How are these two plots similar?
 
@@ -525,12 +525,12 @@ ggplot(mpg, aes(x = hwy)) +
 
 The histogram and density plot reveal that the distribution of highway mileage is bimodal and right skewed, while the boxplot reveals two potential outliers.
 
-`ggplot2` provides more than 40 `geoms` but these don't cover all possible plots one could make. The best place to get a comprehensive overview of all of the `geoms` `ggplot2` offers is the reference page: <https://ggplot2.tidyverse.org/reference>.
+`ggplot2` provides more than 40 `geoms` but these don't cover all possible plots one could make. The best place to get a comprehensive overview of all of the `geoms` `ggplot2` offers is the [reference page:](<https://ggplot2.tidyverse.org/reference>.
 To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
 
 ### 2.3.1 Exercises {.unnumbered}
 
-1. What `geom` would you use to draw a line chart? A boxplot? A histogram? An area chart? +2pts
+1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out for categorical x-axis? ('jitter plot') +2pts
 
 ::: {.fold .s .o}
 **Ans-2.3.1.1:**
@@ -541,12 +541,14 @@ For a boxplot you can use `geom_boxplot()`.
 
 For a histogram, `geom_histogram()`.
 
-For an area chart, `geom_area()`.
+For a jitter plot, `geom_jitter()` 
+
 :::
 
-2. Earlier in this chapter we used `show.legend` without explaining it. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
 
-```{r
+2. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
+
+```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(aes(color = drv), show.legend = FALSE)
 ```
