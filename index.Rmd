@@ -21,7 +21,7 @@ cover-image: "images/koosggplot.png"     # Custom cover image
 source("scripts/_common.R")
 source("scripts/setup.R")
 ```
-# R for data science workshop:  {-}
+# R for data science workshop (r4ds):  {-}
 
 <p align="center">
   <img src="images/koosggplot.png" alt="Welcome to Omics Science!" width="300" />
