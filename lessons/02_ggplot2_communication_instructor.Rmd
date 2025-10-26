@@ -382,7 +382,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   scale_color_discrete()
 ```
 
-Note the naming scheme for scales: `scale_` followed by the name of the aesthetic, then `_`, then the name of the scale. The default scales are named according to the type of variable they align with: continuous, discrete, datetime, or date.
+**Note:** The naming scheme for scales: `scale_` followed by the name of the aesthetic, then `_`, then the name of the scale. The default scales are named according to the type of variable they align with: continuous, discrete, datetime, or date.
 
 There are lots of non-default scales which you'll learn about below. The default scales have been carefully chosen to do a good job for a wide range of inputs. Nevertheless, you might want to override the defaults for two reasons:
 
@@ -484,10 +484,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 The ColorBrewer scales are documented at <https://colorbrewer2.org/> and made available in R via the **RColorBrewer** package, by Erich Neuwirth. You can see all the available palettes with `RColorBrewer::display.brewer.all()`.
 
-When you have a predefined mapping between values and colors, use `scale_color_manual()`. For example, if we map presidential party to color, we want to use the standard mapping of red for Republicans and blue for Democrats. One approach is to use `scale_color_manual()`:
+When you have a predefined mapping between values and colors, use `scale_color_manual()`. For example, if we map presidential party to color (see `?presidential`), we want to use the standard mapping of red for Republicans and blue for Democrats. One approach is to use `scale_color_manual()`:
 
 ```{r}
 presidential |>
+  # to assign an ID to each president
   mutate(id = 33 + row_number()) |>
   ggplot(aes(x = start, y = id, color = party)) +
   geom_point() +
@@ -495,16 +496,7 @@ presidential |>
   scale_color_manual(values = c(Republican = "#E81B23", Democratic = "#00AEF3"))
 ```
 
-For continuous color, you can use the built-in `scale_color_gradient()` or `scale_fill_gradient()`. If you have a diverging scale, you can use `scale_color_gradient2()`. That allows you to give a different color for the midpoint (usually 0).
-
-Another option is `scale_color_viridis_c()` provided by the **viridis** package (bundled with **ggplot2**). It's a continuous analog of the categorical ColorBrewer scales. The viridis scales are designed to be perceptually uniform in both color and when converted to black and white, and to be perceptible to people with various forms of color blindness.
-
-```{r}
-# Viridis scale
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = cty)) +
-  scale_color_viridis_c()
-```
+For continuous color, you can use the built-in `scale_color_gradient()` or `scale_fill_gradient()` that you have seen before. If you have a diverging scale, you can use `scale_color_gradient2()`. That allows you to give a different color for the midpoint (usually 0).
 
 #### Exercises 2.4.1 {.unnumbered}
 
@@ -558,32 +550,9 @@ ggplot(mpg, aes(displ, hwy)) +
   scale_color_discrete("Car type")
 ```
 :::
-
-3. First, create the following plot. Then, modify the code using `override.aes` to make the legend easier to see. +2pts
-
-```{r}
-ggplot(diamonds, aes(x = carat, y = price)) +
-  geom_point(aes(color = cut), alpha = 1 / 20)
-```
-
-::: {.fold .s .o}
-
-**Ans-2.4.1.3:**
-```{r Ans-2.4.1.3}
-# The problem with the legend is that the alpha value makes the colors hard to see. 
-# So we'll override the alpha value to make the points solid in the legend.
-
-ggplot(diamonds, aes(carat, price)) +
-  geom_point(aes(color = cut), alpha = 1 / 20) +
-  theme(legend.position = "bottom") +
-  guides(color = guide_legend(nrow = 1, override.aes = list(alpha = 1)))
-```
-:::
-
 ## Themes
 
-Finally, you can customize the non-data elements of your plot with a theme:
-
+You can customize the overall appearance of your plot with built-in themes:
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
@@ -594,54 +563,32 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 `ggplot2` includes eight built-in themes, with `theme_gray()` as the default:
 
 - `theme_gray()` - The default (gray background, white gridlines)
-- `theme_bw()` - White background with gridlines
-- `theme_classic()` - No gridlines (classic look)
+- `theme_bw()` - White background with gridlines  
+- `theme_classic()` - No gridlines (classic look for publications)
 - `theme_minimal()` - Minimal theme
 - `theme_light()` - Light background
 - `theme_dark()` - Dark background
 - `theme_linedraw()` - Black lines
 - `theme_void()` - Empty theme
-
 ```{r fig-themes, echo = FALSE, fig.cap = 'The eight themes built-in to ggplot2.'}
 knitr::include_graphics("images/visualization-themes.png")
 ```
 
-Many more themes are included in add-on packages like **ggthemes** (<https://jrnold.github.io/ggthemes>).
+For publication figures, `theme_bw()`, `theme_classic()`, and `theme_minimal()` are popular choices.
 
-It's also possible to control individual components of each theme, like the size and color of the font used for the axes. We've already seen that `legend.position` controls where the legend is drawn.
-
-For example, in the plot below we change several theme elements:
-
+You can also customize individual theme elements using `theme()`. For example, to move the legend position:
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
-  labs(
-    title = "Larger engine sizes tend to have lower fuel economy",
-    caption = "Source: https://fueleconomy.gov."
-  ) +
-  theme(
-    legend.position = c(0.6, 0.7),
-    legend.direction = "horizontal",
-    legend.box.background = element_rect(color = "black"),
-    plot.title = element_text(face = "bold"),
-    plot.title.position = "plot",
-    plot.caption.position = "plot",
-    plot.caption = element_text(hjust = 0)
-  )
+  theme_bw() +
+  theme(legend.position = "bottom")
 ```
 
-Note that customization of theme elements is done with `element_*()` functions:
-- `element_text()` for text elements (size, color, face)
-- `element_rect()` for borders and backgrounds
-- `element_line()` for lines
-- `element_blank()` to remove an element
-
-For an overview of all `theme()` components, see help with `?theme`.
+Common theme customizations include `legend.position`, `plot.title`, and `axis.text`. For a complete list, see `?theme`.
 
 #### Exercises 2.5.1 {.unnumbered}
 
-1. Pick a theme offered by `ggplot2` or the `ggthemes` package and apply it to this plot: +2pts
-
+1. Apply a different theme to the following plot. Try `theme_bw()`, `theme_classic()`, or `theme_minimal()`. Which do you think looks best for a publication? +2pts
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
@@ -661,25 +608,9 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
     title = "Larger engine sizes tend to have lower fuel economy",
     caption = "Source: https://fueleconomy.gov."
   ) + 
-  theme_minimal()
+  theme_classic()  # Clean look for publications
 ```
-:::
 
-2. Make the axis labels of your plot blue and bolded. +2pts
-
-::: {.fold .s .o}
-
-**Ans-2.5.1.2:**
-```{r Ans-2.5.1.2}
-ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
-  geom_point() +
-  labs(
-    title = "Larger engine sizes tend to have lower fuel economy",
-    caption = "Source: https://fueleconomy.gov."
-  ) + 
-  theme_minimal() + 
-  theme(axis.text = element_text(color = "blue", face = "bold"))
-```
 :::
 
 ## Layout
@@ -780,9 +711,13 @@ p1 / (p2 + p3)
 In this chapter you've learned about:
 
 - **Labels**: Adding informative titles, subtitles, captions, and axis labels with `labs()`
+
 - **Annotations**: Using `geom_text()`, `geom_label_repel()`, and `annotate()` to highlight specific features
+
 - **Scales**: Customizing axes and legends with `scale_*()` functions
+
 - **Themes**: Changing the overall appearance with built-in themes and `theme()` customization
+
 - **Layout**: Combining multiple plots with the **patchwork** package using `+` and `/`
 
 These skills are essential for creating publication-quality figures for your research!
