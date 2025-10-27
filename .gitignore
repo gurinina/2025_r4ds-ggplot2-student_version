@@ -8,13 +8,13 @@ _book/
 _pdf/
 _epub/
 _bookdown_files/
-2025_r4ds-ggplot2-instructor_version_files/
-2025_r4ds-ggplot2-instructor_version.Rmd
-2025_r4ds-ggplot2-instructor_version.log
+2025_r4ds-ggplot2-student_version_files/
+2025_r4ds-ggplot2-student_version.Rmd
+2025_r4ds-ggplot2-student_version.log
 r-for-data-science-workshop.html
 404.html
-02_ggplot2_communication_instructor_files
-01_ggplot2_layers_instructor_files
+02_ggplot2_communication_files
+01_ggplot2_layers_files
 scripts/viewer_output.Rmd
 r-for-data-science-workshop.html
 

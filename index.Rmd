@@ -10,8 +10,8 @@ output:
         collapse: section                # Collapsible Table of Contents
       download: ["pdf", "epub"]          # Enable download links for PDF and EPUB
 link-citations: yes                      # Enable citation links
-github-repo: "gurinina/2025_r4ds-ggplot2-instructor_version" # GitHub repo for linking
-url: 'https://bookdown.org/ggiaever/2025_r4ds-ggplot2-instructor_version/' # Published book URL
+github-repo: "gurinina/2025_r4ds-ggplot2-student_version" # GitHub repo for linking
+url: 'https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/' # Published book URL
 site: bookdown::bookdown_site            # Bookdown-specific site configuration
 documentclass: book                      # Use book formatting for PDF output
 cover-image: "images/koosggplot.png"     # Custom cover image

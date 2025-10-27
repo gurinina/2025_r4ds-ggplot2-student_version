@@ -27,8 +27,9 @@ bookdown::pdf_book:
 bookdown::epub_book:
   fig_caption: false
   epub_version: "epub3"
-  pandoc_args: ["--wrap=none"]
-    
+  toc: true
+  chapter_level: 2
+  stylesheet: css/epub.css
     
     
     

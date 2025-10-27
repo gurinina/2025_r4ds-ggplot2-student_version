@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Layers
-Total points: 71
+# Layers: Layers_STACK
+Total points: 43
 
 **Instructions:** 
 

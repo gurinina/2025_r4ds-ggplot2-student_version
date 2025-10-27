@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ```
 
 # Communication
-Total points: 40
+Total points: 30
 
 **Instructions:** 
 
@@ -103,15 +103,7 @@ g1 <-  ggplot(
 g1
 ```
 
-
-
-
-
 2. Recreate the following plot. Add appropriate labels for the axes and legend, AND add a meaningful title describing a pattern you see. Note that both color and shape vary by drive type. +6pts
-
-
-
-
 
 ## Annotations
 
