@@ -2,8 +2,8 @@ book_filename: "2025_r4ds-ggplot2-instructor_version"
 new_session: no
 rmd_files:
   - index.Rmd
-  - lessons/01_ggplot2_layers_instructor.Rmd
-  - lessons/02_ggplot2_communication_instructor.Rmd
+  - lessons/01_ggplot2_layers.Rmd
+  - lessons/02_ggplot2_communication.Rmd
 delete_merged_file: false
 chapter_name: "Chapter "
 language:

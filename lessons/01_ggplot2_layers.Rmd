@@ -1,10 +1,34 @@
 ---
-output: html_document
+title: "ggplot2 Layers - Complete Lessons"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
 editor_options: 
   chunk_output_type: console
 ---
-# Layers chapter: Layers STACK
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.width = 7,
+  fig.asp = 0.618
+)
+```
+
+# Layers
 Total points: 71
+
+**Instructions:** 
+
+- This is the **complete lessons version** with all working examples
+- Run all the code as you go to see how everything works
+- Exercise questions are shown but without answer spaces
+- Use the **STUDENT version** to practice writing your own code
 
 ## Introduction
 
@@ -16,7 +40,6 @@ In this chapter, we'll dive deeper into the **grammar of graphics** - the idea t
 - A deeper understanding of **aesthetic mappings** (inside vs outside aes)
 - More **geometric objects** (geoms) for different plot types
 - **Faceting** - creating multiple plots split by categories
-- **Statistical transformations** - calculations ggplot2 does behind the scenes
 - **Position adjustments** - how geoms are positioned relative to each other
 
 We won't cover every single function and option, but we'll walk you through the most important and commonly used functionality in ggplot2.
@@ -309,26 +332,11 @@ In the next section we dive deeper into `geoms`.
 
 1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
 
-::: {.fold .s .o}
 
-```{r Ans-1.2.1.1}
-ggplot(mpg, aes(x = hwy, y = displ)) +
-  geom_point(color = "pink", shape = 24, size = 3, fill = "pink")
-```
-:::
 
 2. What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point`). Add stroke to the above plot. +2pts
 
-::: {.fold .s .o}
 
-**Ans-1.2.1.2:**
-```{r Ans-1.2.1.2}
-# Stroke controls the width of the edge/border for the shapes (21-25)
-# that have a fill aesthetic.
-ggplot(mpg, aes(x = hwy, y = displ)) +
-  geom_point(color = "black", shape = 24, size = 3, fill = "pink", stroke = 5)
-```
-:::
 
 3. Why did the following code not result in a plot with blue points? +2pts
 ```{r, eval = FALSE}
@@ -336,29 +344,7 @@ ggplot(mpg) +
   geom_point(aes(x = displ, y = hwy, color = "blue"))
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.2.1.3:**
-
-The points are NOT blue because `color = "blue"` is inside `aes()`.
-
-When you put a value inside `aes()`, ggplot2 thinks it's a column name from your data. Since there's no column called "blue", ggplot2 creates a fake categorical variable with one value (the string "blue") and assigns it the first default color (salmon/coral).
-
-**The fix - move color OUTSIDE aes():**
-```{r}
-# Correct: color is a constant, so it goes outside aes()
-ggplot(mpg) + 
-  geom_point(aes(x = displ, y = hwy), color = "blue")
-```
-
-**The rule:**
-- **Inside `aes()`**: for column names from your data
-  - Example: `aes(color = class)` - `class` is a column
-- **Outside `aes()`**: for fixed constants
-  - Example: `color = "blue"` - "blue" is a constant
-
-**Memory trick:** Can you do `mpg$blue`? NO! → Then it goes OUTSIDE `aes()`
-:::
 
 4. What's wrong with the following code? How would you fix it? +2pts
 ```{r, eval = FALSE}
@@ -366,47 +352,14 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = class, size = 3)
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.2.1.4:**
-
-This code will give an error: `Error: object 'class' not found`
-
-`class` is a column name from the data, so it must go **inside** `aes()`. When you put it outside, R looks for an object called `class` in your environment (not in the data) and doesn't find it.
-
-**The fix:**
-```{r}
-# Correct: class is from data, so it goes inside aes()
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class), size = 3)
-```
-
-Note that `size = 3` stays outside `aes()` because it's a constant (all points are size 3).
-
-**The key difference:**
-- **Inside `aes()`**: R looks for columns in your data
-- **Outside `aes()`**: R looks for objects in your environment
-:::
 
 5. What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? Try it by adding color to the following plot: +2pts
 ```{r, eval = FALSE}
 ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.2.1.5:**
-```{r}
-# It creates a logical variable with values `TRUE` and `FALSE` 
-# for cars with displacement values below and above 5. 
-
-# Notice color is inside aes() because we're creating a variable
-# from the data (the result of displ < 5).
-
-ggplot(mpg) + 
-  geom_point(aes(x = displ, y = hwy, color = displ < 5)) 
-```
-:::
 
 6. What's wrong with the following code? Why doesn't it make blue points? How would you fix it? +2pts
 ```{r, eval = FALSE}
@@ -414,32 +367,7 @@ ggplot(mpg, aes(x = displ, y = hwy), color = "blue") +
   geom_point()
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.2.1.6:**
-
-This code produces a warning: 
-```
-Warning message:
-In fortify(data, ...) : Arguments in `...` must be used.
-x Problematic argument:
-* color = "blue"
-```
-
-The problem is that `color = "blue"` is in the **wrong place**. The `ggplot()` function only accepts `data` and `mapping = aes()` arguments. You cannot put styling constants (like `color`, `size`, `alpha`) directly in `ggplot()`.
-
-Constants must go in the `geom_*()` layer, outside `aes()`:
-```{r}
-# Correct: constant in geom layer
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point(color = "blue")
-```
-
-**Where things can go:**
-- **In `ggplot()`**: Only `data` and `aes()` mappings
-- **In `geom_*()` outside `aes()`**: Constants like `color = "blue"`, `size = 3`
-- **In `aes()` (anywhere)**: Variables from your data like `color = class`
-:::
 
 ## Geometric objects
 
@@ -540,34 +468,9 @@ To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
 
 1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap?? ('jitter plot') +4pts or +5pts (bonus point for line charts using TWO geometries)
 
-::: {.fold .s .o}
-
-**Ans-1.3.1.1:**
-
-For a line chart you can use `geom_path()` or `geom_line()`. 
-                    
-For a boxplot you can use `geom_boxplot()`.
-
-For a histogram, `geom_histogram()`.
-
-For a jitter plot, `geom_jitter()` 
-
-:::
-
 2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
 
-::: {.fold .s .o}
 
-**Ans-1.3.1.2:**
-```{r}
-ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot(outlier.shape = NA) +  
-  # Don't show outliers twice
-  geom_jitter(width = 0.2, alpha = 0.5)
-```
-
-Note: `outlier.shape = NA` removes the outlier points from the boxplot so they only appear once (as jittered points) rather than twice.
-:::
 
 3. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
 
@@ -576,34 +479,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(aes(color = drv), show.legend = FALSE)
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.3.1.3:**
-
-It removes the legend for the `geom` it's specified in. In this case it removes the legend for the smooth lines that are colored based on `drv`.
-
-If you remove `show.legend`, it will show the legend as the default is `show.legend = TRUE`.
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_smooth(aes(color = drv))
-```
-:::
 
 4. What does the `se` argument to `geom_smooth()` do? +2pts
 
-::: {.fold .s .o}
 
-**Ans-1.3.1.4:**
-
-It displays the confidence interval (standard error) around the smooth line.
-You can remove this with `se = FALSE`.
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_smooth(se = FALSE)
-```
-:::
 
 5. Will these two graphs look different? Why/why not? +2pts
 
@@ -616,13 +496,6 @@ ggplot() +
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
 ```
-
-::: {.fold .s .o}
-
-**Ans-1.3.1.5:**
-
-No, they will look the same. In the first plot, the data and aesthetic mappings are defined globally in `ggplot()` and inherited by both geoms. In the second plot, each geom has its own local data and mappings that are identical. The result is the same plot.
-:::
 
 ## Facets
 
@@ -667,20 +540,7 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
   geom_point()
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.4.1.1:**
-
-Faceting by a continuous variable results in one facet for each unique value of the continuous variable. We can see this in the scatterplot below of `cyl` vs. `drv`, faceted by `hwy`.
-
-```{r}
-ggplot(mpg, aes(x = drv, y = cyl)) + 
-  geom_point() +
-  facet_wrap(~ hwy)
-```
-
-This creates many facets (one for each unique highway mpg value), which usually isn't useful!
-:::
 
 2. Run the following code and facet on `drv` vs `cyl` using `facet_grid()`. What do the empty cells mean? +2pts
 
@@ -689,18 +549,7 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
   geom_point()
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.4.1.2:**
-
-There are no cars with certain combinations of drive train and cylinders. For example, there are no cars with rear-wheel drive and 5 cylinders. Therefore the facet corresponding to that combination is empty. In general, empty facets mean no observations fall in that category.
-
-```{r}
-ggplot(mpg, aes(x = drv, y = cyl)) + 
-  geom_point() +
-  facet_grid(drv ~ cyl)
-```
-:::
 
 3. What plots does the following code make? What does `.` do? +2pts
 
@@ -714,24 +563,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(. ~ cyl)
 ```
 
-::: {.fold .s .o}
 
-**Ans-1.4.1.3:**
-
-In the first plot, with `facet_grid(drv ~ .)`, the period means "don't facet across columns" - so you get facets in rows only.
-
-In the second plot, with `facet_grid(. ~ cyl)`, the period means "don't facet across rows" - so you get facets in columns only.
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_grid(drv ~ .)
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_grid(. ~ cyl)
-```
-:::
 
 4. Take the first faceted plot in this section:
 
@@ -743,46 +575,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +4pts
 
-::: {.fold .s .o}
 
-**Ans-1.4.1.4:**
-
-**Advantages of faceting:**
-- Each class is shown separately, with no overplotting
-- Patterns within each class are easier to see
-- Works well with many categories (color gets hard to distinguish with 7+ categories)
-
-**Disadvantages of faceting:**
-- Harder to compare classes directly to each other when they're in separate plots
-- Takes up more space on the page
-- Can be harder to see the overall pattern across all data
-
-**Comparison:**
-```{r}
-# Faceting - easier to see within-class patterns
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_wrap(~ class, nrow = 2)
-
-# Color - easier to compare across classes
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
-  geom_point()
-```
-
-You can also combine both approaches!
-:::
 
 5. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
-
-::: {.fold .s .o}
-
-**Ans-1.4.1.5:**
-
-`nrow` sets the number of rows in the facet layout.
-`ncol` sets the number of columns in the facet layout.
-
-`facet_grid()` doesn't have `nrow` and `ncol` arguments because the number of rows and columns is determined by the number of unique values of the variables you're faceting by. For example, if you facet by `drv ~ cyl`, the number of rows is determined by the number of unique `drv` values (3), and the number of columns by the number of unique `cyl` values (4).
-:::
 
 ## Position adjustments
 
@@ -834,60 +629,15 @@ To learn more about position adjustments, see `?position_dodge`, `?position_fill
 
 1. What's the difference between `position = "stack"` and `position = "fill"` for bar charts? When would you use each? +2pts
 
-::: {.fold .s .o}
 
-**Ans-1.6.1.1:**
-
-`position = "stack"` shows actual counts - bars have different heights based on total observations in each category.
-
-`position = "fill"` shows proportions - all bars are normalized to the same height (100%), making it easy to compare percentages across groups.
-
-**Use stack when:** You want to see both totals and composition  
-**Use fill when:** You want to compare proportions across groups
-```{r}
-# Stack: different heights (shows totals)
-ggplot(mpg, aes(x = drv, fill = class)) +
-  geom_bar(position = "stack")
-
-# Fill: same heights (shows proportions)
-ggplot(mpg, aes(x = drv, fill = class)) +
-  geom_bar(position = "fill")
-```
-
-:::
 
 2. Create a dodged bar chart showing the count of cars by `class` and `drv`. +2pts
 
-::: {.fold .s .o}
 
-**Ans-1.6.1.2:**
-```{r}
-ggplot(mpg, aes(x = class, fill = drv)) +
-  geom_bar(position = "dodge")
-```
-
-:::
 
 3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
 
-::: {.fold .s .o}
 
-**Ans-1.6.1.3:**
-
-The default position for `geom_boxplot()` is `"dodge2"`.
-```{r}
-# Default position (dodge2) - boxplots are side-by-side
-ggplot(mpg, aes(x = class, y = hwy, fill = drv)) +
-  geom_boxplot()
-
-# Explicitly setting position to dodge2 (same result)
-ggplot(mpg, aes(x = class, y = hwy, fill = drv)) +
-  geom_boxplot(position = "dodge2")
-```
-
-The `dodge2` position places boxplots side-by-side within each class, making it easy to compare different drive types.
-
-:::
 
 ## Summary
 

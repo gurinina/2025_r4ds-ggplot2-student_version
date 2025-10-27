@@ -1,10 +1,36 @@
 ---
-output: html_document
+title: "ggplot2 Communication - Complete Lessons"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
 editor_options: 
   chunk_output_type: console
 ---
-# Communication chapter: Polish for PUBLICATION
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.width = 7,
+  fig.asp = 0.618
+)
+```
+
+# Communication
 Total points: 40
+
+**Instructions:** 
+
+- This is the **complete lessons version** with all working examples
+- Run all the code as you go to see how everything works
+- Exercise questions are shown but without answer spaces
+- Use the **STUDENT version** to practice writing your own code
+
+---
 
 "The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
 
@@ -78,57 +104,14 @@ g1
 ```
 
 
-::: {.fold .s .o}
 
-**Ans-2.2.1.1:**
-
-```{r Ans-2.2.1.1}
-g1 + labs(
-    title = "Compact Cars have > 10 Hwy MPG than Pickup Trucks",
-    subtitle = "Comparing the median highway mpg in each class",
-    caption = "Data from fueleconomy.gov",
-    x = "Car Class",
-    y = "Highway Miles per Gallon",
-    fill = "Car class"
-  )
-```
-:::
 
 
 2. Recreate the following plot. Add appropriate labels for the axes and legend, AND add a meaningful title describing a pattern you see. Note that both color and shape vary by drive type. +6pts
 
-::: {.fold .s .o}
 
-**Plot to recreate:**
-```{r echo=FALSE}
-ggplot(mpg, aes(x = cty, y = hwy, color = drv, shape = drv)) +
-  geom_point() +
-  labs(
-    x = "City MPG",
-    y = "Highway MPG",
-    color = "Type of\ndrive train",
-    shape = "Type of\ndrive train"
-  )
-```
 
-:::
 
-::: {.fold .s .o}
-
-**Ans-2.2.1.2:**
-```{r Ans-2.2.1.2}
-ggplot(mpg, aes(x = cty, y = hwy, color = drv, shape = drv)) +
-  geom_point() +
-  labs(
-    title = "City and highway fuel economy are strongly correlated",
-    x = "City MPG",
-    y = "Highway MPG",
-    color = "Type of\ndrive train",
-    shape = "Type of\ndrive train"
-  )
-```
-
-:::
 
 ## Annotations
 
@@ -264,100 +247,13 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point()
 ```
 
-::: {.fold .s .o}
 
-**Ans-2.3.1.1:**
-```{r Ans-2.3.1.1}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  annotate(
-    geom = "point",
-    x = 4,
-    y = 30,
-    color = "red",
-    size = 5,
-    shape = 17
-  )
-```
-:::
 
 2. How do labels with `geom_text()` interact with faceting? How can you add a label to a single facet? How can you put a different label in each facet? +4pts
 
-::: {.fold .s .o}
 
-**Ans-2.3.1.2:**
-
-Labels are placed in all facets by default. To add a label to a single facet, add a column to the label data frame with the value of the faceting variable. To put different labels in each facet, include the faceting variable with different values for each label.
-
-```{r Ans-2.3.1.2}
-# Label in all facets
-label <- tibble(
-  displ = Inf,
-  hwy = Inf,
-  label = "Increasing engine size is related to decreasing fuel economy."
-)
-
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  geom_text(
-    aes(label = label),
-    data = label,
-    vjust = "top",
-    hjust = "right",
-    size = 3
-  ) + 
-  facet_wrap(~ class)
-
-# Label in one facet only
-label_single <- tibble(
-  displ = Inf,
-  hwy = Inf,
-  class = "2seater",
-  label = "Increasing engine size is related to decreasing fuel economy."
-)
-
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  geom_text(
-    aes(label = label),
-    data = label_single,
-    vjust = "top",
-    hjust = "right",
-    size = 3
-  ) + 
-  facet_wrap(~ class)
-
-# Different label in each facet
-label_diff <- tibble(
-  displ = Inf,
-  hwy = Inf,
-  class = unique(mpg$class),
-  label = paste0("Label for ", class)
-)
-
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  geom_text(
-    aes(label = label),
-    data = label_diff,
-    vjust = "top",
-    hjust = "right",
-    size = 3
-  ) + 
-  facet_wrap(~ class)
-```
-:::
 
 3. What arguments to `geom_label()` control the appearance of the background box? +2pts
-
-::: {.fold .s .o}
-
-**Ans-2.3.1.3:**
-
-- `label.padding`: padding around label
-- `label.r`: amount of rounding in the corners
-- `label.size`: size of label border
-:::
 
 ## Scales
 
@@ -510,46 +406,11 @@ ggplot(df) +
   scale_fill_gradient(low = "yellow", high = "red")
 ```
 
-::: {.fold .s .o}
 
-**Ans-2.4.1.1:**
-```{r Ans-2.4.1.1}
-# It does not override the default scale because the colors for the default point shape (19, "filled circle") are set by the `color` aesthetic, not the `fill` aesthetic.
-
-ggplot(df) +
-  geom_point(aes(x = x, y = y, color = x)) +
-  scale_color_gradient(low = "yellow", high = "red")
-```
-:::
 
 2. What is the first argument to every scale? How does it compare to `labs()`? +2pts
 
-::: {.fold .s .o}
 
-**Ans-2.4.1.2:**
-
-The first argument to every scale is the label for the scale. It is equivalent to using the `labs()` function.
-
-```{r Ans-2.4.1.2}
-# Using labs()
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    x = "Engine displacement (L)",
-    y = "Highway fuel economy (mpg)",
-    color = "Car type"
-  )
-
-# Using scale functions
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  scale_x_continuous("Engine displacement (L)") +
-  scale_y_continuous("Highway fuel economy (mpg)") +
-  scale_color_discrete("Car type")
-```
-:::
 ## Themes
 
 You can customize the overall appearance of your plot with built-in themes:
@@ -598,20 +459,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   )
 ```
 
-::: {.fold .s .o}
 
-**Ans-2.5.1.1:**
-```{r Ans-2.5.1.1}
-ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
-  geom_point() +
-  labs(
-    title = "Larger engine sizes tend to have lower fuel economy",
-    caption = "Source: https://fueleconomy.gov."
-  ) + 
-  theme_classic()  # Clean look for publications
-```
-
-:::
 
 ## Layout
 
@@ -683,28 +531,11 @@ p3 <- ggplot(mpg, aes(x = cty, y = hwy)) +
 (p1 + p3) / p2
 ```
 
-::: {.fold .s .o}
 
-**Ans-2.6.1.1:**
-```{r Ans-2.6.1.1}
-# Without parentheses:
-p1 + p3 / p2
-
-# This plots p1 in the left half, and p3/p2 stacked in the right half.
-# This happens because `/` takes precedence over `+`, like in mathematics: 
-# 3 + 4/5 vs. (3 + 4)/5
-```
-:::
 
 2. Using the three plots from the previous exercise, recreate the following patchwork with p1 on top and p2 and p3 side-by-side on the bottom: +2pts
 
-::: {.fold .s .o}
 
-**Ans-2.6.1.2:**
-```{r Ans-2.6.1.2}
-p1 / (p2 + p3)
-```
-:::
 
 ## Summary
 
