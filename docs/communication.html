@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Communication: | ggplot2 Communication - Complete Lessons</title>
+  <meta name="description" content="Chapter 2 Communication: | ggplot2 Communication - Complete Lessons" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Communication: | ggplot2 Communication - Complete Lessons" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/images/koosggplot.png" />
+  
+  <meta name="github-repo" content="gurinina/2025_r4ds-ggplot2-student_version" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Communication: | ggplot2 Communication - Complete Lessons" />
+  
+  
+  <meta name="twitter:image" content="https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/images/koosggplot.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="layers.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/git.css" type="text/css" />
+<link rel="stylesheet" href="css/toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>R for data science workshop (r4ds):</a></li>
+<li class="chapter" data-level="1" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>1</b> Layers:</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="layers.html"><a href="layers.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="layers.html"><a href="layers.html#prerequisites"><i class="fa fa-check"></i><b>1.1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="layers.html"><a href="layers.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.2</b> Aesthetic mappings</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="layers.html"><a href="layers.html#where-do-aesthetics-go-in-ggplot2"><i class="fa fa-check"></i><b>1.2.1</b> Where do aesthetics go in ggplot2?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="layers.html"><a href="layers.html#geometric-objects"><i class="fa fa-check"></i><b>1.3</b> Geometric objects</a></li>
+<li class="chapter" data-level="1.4" data-path="layers.html"><a href="layers.html#facets"><i class="fa fa-check"></i><b>1.4</b> Facets</a></li>
+<li class="chapter" data-level="1.5" data-path="layers.html"><a href="layers.html#position-adjustments"><i class="fa fa-check"></i><b>1.5</b> Position adjustments</a></li>
+<li class="chapter" data-level="1.6" data-path="layers.html"><a href="layers.html#summary"><i class="fa fa-check"></i><b>1.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="layers.html"><a href="layers.html#key-concepts-learned"><i class="fa fa-check"></i><b>1.6.1</b> Key concepts learned:</a></li>
+<li class="chapter" data-level="1.6.2" data-path="layers.html"><a href="layers.html#the-grammar-of-graphics-works-like-painting"><i class="fa fa-check"></i><b>1.6.2</b> The grammar of graphics works like painting:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="communication.html"><a href="communication.html"><i class="fa fa-check"></i><b>2</b> Communication:</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="communication.html"><a href="communication.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="communication.html"><a href="communication.html#prerequisites-1"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="communication.html"><a href="communication.html#labels"><i class="fa fa-check"></i><b>2.2</b> Labels</a></li>
+<li class="chapter" data-level="2.3" data-path="communication.html"><a href="communication.html#annotations"><i class="fa fa-check"></i><b>2.3</b> Annotations</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="communication.html"><a href="communication.html#labeling-specific-points"><i class="fa fa-check"></i><b>2.3.1</b> Labeling specific points</a></li>
+<li class="chapter" data-level="2.3.2" data-path="communication.html"><a href="communication.html#using-annotate-for-single-annotations"><i class="fa fa-check"></i><b>2.3.2</b> Using annotate() for single annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="communication.html"><a href="communication.html#scales"><i class="fa fa-check"></i><b>2.4</b> Scales</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="communication.html"><a href="communication.html#default-scales"><i class="fa fa-check"></i><b>2.4.1</b> Default scales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="communication.html"><a href="communication.html#axis-ticks-and-legend-keys"><i class="fa fa-check"></i><b>2.4.2</b> Axis ticks and legend keys</a></li>
+<li class="chapter" data-level="2.4.3" data-path="communication.html"><a href="communication.html#legend-layout"><i class="fa fa-check"></i><b>2.4.3</b> Legend layout</a></li>
+<li class="chapter" data-level="2.4.4" data-path="communication.html"><a href="communication.html#replacing-a-scale"><i class="fa fa-check"></i><b>2.4.4</b> Replacing a scale</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="communication.html"><a href="communication.html#themes"><i class="fa fa-check"></i><b>2.5</b> Themes</a></li>
+<li class="chapter" data-level="2.6" data-path="communication.html"><a href="communication.html#layout"><i class="fa fa-check"></i><b>2.6</b> Layout</a></li>
+<li class="chapter" data-level="2.7" data-path="communication.html"><a href="communication.html#summary-1"><i class="fa fa-check"></i><b>2.7</b> Summary</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ggplot2 Communication - Complete Lessons</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="communication" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Communication:<a href="communication.html#communication" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Total points: 30</p>
+<p><strong>Instructions:</strong>
+- This is the <strong>complete lessons version</strong> with all working examples
+- Run all the code as you go to see how everything works
+- Exercise questions are shown but without answer spaces
+- Use the <strong>STUDENT version</strong> to practice writing your own code</p>
+<p>“The simple graph has brought more information to the data analyst’s mind than any other device.” — John Tukey</p>
+<div id="introduction-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="communication.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You’ve learned how to create exploratory plots to understand your data. Now we’ll focus on creating plots for <em>communication</em> - plots you’ll share with others who don’t know your data as well as you do.</p>
+<p>To help others quickly understand your plots, you need to make them as self-explanatory as possible. In this chapter, you’ll learn how to:</p>
+<ul>
+<li>Add informative <strong>labels</strong> (titles, axis labels, captions)</li>
+<li>Use <strong>annotations</strong> to highlight important features</li>
+<li>Customize <strong>scales</strong> (axes and legends)</li>
+<li>Apply <strong>themes</strong> to change the overall appearance</li>
+<li><strong>Combine multiple plots</strong> for comparison</li>
+</ul>
+<p>These skills are essential for creating publication-quality figures for your research!</p>
+<div id="prerequisites-1" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Prerequisites<a href="communication.html#prerequisites-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Load the necessary packages:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="communication.html#cb50-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                 <span class="co"># for ggplot2 and mpg</span></span>
+<span id="cb50-2"><a href="communication.html#cb50-2" tabindex="-1"></a><span class="fu">library</span>(ggrepel)                   <span class="co"># for smart label placement</span></span>
+<span id="cb50-3"><a href="communication.html#cb50-3" tabindex="-1"></a><span class="fu">library</span>(patchwork)                 <span class="co"># for combining plots</span></span>
+<span id="cb50-4"><a href="communication.html#cb50-4" tabindex="-1"></a><span class="fu">library</span>(scales)                    <span class="co"># for axis formatting</span></span></code></pre></div>
+</div>
+</div>
+<div id="labels" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Labels<a href="communication.html#labels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The easiest place to start when turning an exploratory graphic into a publication-ready graphic is with good x and y-axes labels. You add labels with the <code>labs()</code> function:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="communication.html#cb51-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="communication.html#cb51-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="communication.html#cb51-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="communication.html#cb51-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb51-5"><a href="communication.html#cb51-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Engine displacement (L)&quot;</span>,</span>
+<span id="cb51-6"><a href="communication.html#cb51-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Highway fuel economy (mpg)&quot;</span>,</span>
+<span id="cb51-7"><a href="communication.html#cb51-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Car type&quot;</span>,</span>
+<span id="cb51-8"><a href="communication.html#cb51-8" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>,</span>
+<span id="cb51-9"><a href="communication.html#cb51-9" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Two seaters (sports cars) are an exception because of their light weight&quot;</span>,</span>
+<span id="cb51-10"><a href="communication.html#cb51-10" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></span>
+<span id="cb51-11"><a href="communication.html#cb51-11" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Important tips for plot titles:</strong></p>
+<ul>
+<li><strong>Good title</strong>: Summarizes the main finding → “Fuel efficiency generally decreases with engine size”</li>
+<li><strong>Bad title</strong>: Just describes the plot → “A scatterplot of engine displacement vs. fuel economy”</li>
+</ul>
+<p>If you need to add more text, there are two other useful labels:</p>
+<ul>
+<li><code>subtitle</code> adds additional detail in a smaller font beneath the title</li>
+<li><code>caption</code> adds text at the bottom right of the plot, often used to describe the source of the data</li>
+</ul>
+<p>You can also use <code>labs()</code> to replace the axis and legend titles. It’s usually a good idea to replace short variable names with more detailed descriptions, and to include the units.</p>
+<div id="exercises-2.2.1" class="section level4 unnumbered hasAnchor">
+<h4>Exercises 2.2.1<a href="communication.html#exercises-2.2.1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>Add labels to make this plot publication-ready. Include a title describing an interesting pattern (not just “boxplot of…”), subtitle, caption, and improved axis/legend labels. +6pts</li>
+</ol>
+<p>Start with this plot:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="communication.html#cb52-1" tabindex="-1"></a>g1 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(</span>
+<span id="cb52-2"><a href="communication.html#cb52-2" tabindex="-1"></a>  <span class="at">data =</span> mpg,</span>
+<span id="cb52-3"><a href="communication.html#cb52-3" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> hwy, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="communication.html#cb52-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb52-5"><a href="communication.html#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="communication.html#cb52-6" tabindex="-1"></a>g1</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Recreate the following plot. Add appropriate labels for the axes and legend, AND add a meaningful title describing a pattern you see. Note that both color and shape vary by drive type. +6pts</li>
+</ol>
+</div>
+</div>
+<div id="annotations" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Annotations<a href="communication.html#annotations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In addition to labeling major components of your plot, it’s often useful to label individual observations or groups of observations. The first tool you have at your disposal is <code>geom_text()</code>. <code>geom_text()</code> is similar to <code>geom_point()</code>, but it has an additional aesthetic: <code>label</code>. This makes it possible to add textual labels to your plots.</p>
+<div id="labeling-specific-points" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Labeling specific points<a href="communication.html#labeling-specific-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You might have a tibble that provides labels. In the following plot we pull out the cars with the highest engine size in each drive type and save their information as a new data frame called <code>label_info</code>.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="communication.html#cb53-1" tabindex="-1"></a>label_info <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="communication.html#cb53-2" tabindex="-1"></a>  <span class="fu">group_by</span>(drv) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="communication.html#cb53-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(displ)) <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a href="communication.html#cb53-4" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-5"><a href="communication.html#cb53-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-6"><a href="communication.html#cb53-6" tabindex="-1"></a>    <span class="at">drive_type =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-7"><a href="communication.html#cb53-7" tabindex="-1"></a>      drv <span class="sc">==</span> <span class="st">&quot;f&quot;</span> <span class="sc">~</span> <span class="st">&quot;front-wheel drive&quot;</span>,</span>
+<span id="cb53-8"><a href="communication.html#cb53-8" tabindex="-1"></a>      drv <span class="sc">==</span> <span class="st">&quot;r&quot;</span> <span class="sc">~</span> <span class="st">&quot;rear-wheel drive&quot;</span>,</span>
+<span id="cb53-9"><a href="communication.html#cb53-9" tabindex="-1"></a>      drv <span class="sc">==</span> <span class="st">&quot;4&quot;</span> <span class="sc">~</span> <span class="st">&quot;4-wheel drive&quot;</span></span>
+<span id="cb53-10"><a href="communication.html#cb53-10" tabindex="-1"></a>    )</span>
+<span id="cb53-11"><a href="communication.html#cb53-11" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb53-12"><a href="communication.html#cb53-12" tabindex="-1"></a>  <span class="fu">select</span>(displ, hwy, drv, drive_type)</span>
+<span id="cb53-13"><a href="communication.html#cb53-13" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="communication.html#cb53-14" tabindex="-1"></a>label_info</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">displ</th>
+<th align="right">hwy</th>
+<th align="left">drv</th>
+<th align="left">drive_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6.5</td>
+<td align="right">17</td>
+<td align="left">4</td>
+<td align="left">4-wheel drive</td>
+</tr>
+<tr class="even">
+<td align="right">5.3</td>
+<td align="right">25</td>
+<td align="left">f</td>
+<td align="left">front-wheel drive</td>
+</tr>
+<tr class="odd">
+<td align="right">7.0</td>
+<td align="right">24</td>
+<td align="left">r</td>
+<td align="left">rear-wheel drive</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> <code>slice_head(n = 1)</code> selects the first row of each group (after arranging by descending displacement), giving us the car with the largest engine in each drive type.</p>
+<p>Then, we use this new data frame to directly label the three groups. Using the <code>fontface</code> and <code>size</code> arguments we can customize the look of the text labels:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="communication.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="communication.html#cb54-2" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb54-3"><a href="communication.html#cb54-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb54-4"><a href="communication.html#cb54-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb54-5"><a href="communication.html#cb54-5" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb54-6"><a href="communication.html#cb54-6" tabindex="-1"></a>    <span class="at">data =</span> label_info,</span>
+<span id="cb54-7"><a href="communication.html#cb54-7" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">label =</span> drive_type),</span>
+<span id="cb54-8"><a href="communication.html#cb54-8" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb54-9"><a href="communication.html#cb54-9" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb54-10"><a href="communication.html#cb54-10" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="st">&quot;right&quot;</span>,</span>
+<span id="cb54-11"><a href="communication.html#cb54-11" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb54-12"><a href="communication.html#cb54-12" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb54-13"><a href="communication.html#cb54-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Note:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>The use of <code>hjust</code> (horizontal justification) and <code>vjust</code> (vertical justification) to control the alignment of the label. We’ve seen this before, but it is slightly more complex here.</p></li>
+<li><p>alpha is fixed, yet we see different transparencies in the points.</p></li>
+</ol>
+<p>The annotated plot we made above is hard to read because the labels overlap with points. We can use the <code>geom_label_repel()</code> function from the <strong>ggrepel</strong> package to fix this. This useful package will automatically adjust labels so that they don’t overlap:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="communication.html#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="communication.html#cb55-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="communication.html#cb55-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="communication.html#cb55-4" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(</span>
+<span id="cb55-5"><a href="communication.html#cb55-5" tabindex="-1"></a>    <span class="at">data =</span> label_info,</span>
+<span id="cb55-6"><a href="communication.html#cb55-6" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">label =</span> drive_type),</span>
+<span id="cb55-7"><a href="communication.html#cb55-7" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb55-8"><a href="communication.html#cb55-8" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb55-9"><a href="communication.html#cb55-9" tabindex="-1"></a>    <span class="at">nudge_y =</span> <span class="dv">2</span></span>
+<span id="cb55-10"><a href="communication.html#cb55-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb55-11"><a href="communication.html#cb55-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can also use the same idea to highlight certain points on a plot with <code>geom_text_repel()</code>. Note another handy technique used here: we added a second layer of large, hollow points to further highlight the labelled points.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="communication.html#cb56-1" tabindex="-1"></a>potential_outliers <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
+<span id="cb56-2"><a href="communication.html#cb56-2" tabindex="-1"></a>  <span class="fu">filter</span>(hwy <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">|</span> (hwy <span class="sc">&gt;</span> <span class="dv">20</span> <span class="sc">&amp;</span> displ <span class="sc">&gt;</span> <span class="dv">5</span>))</span>
+<span id="cb56-3"><a href="communication.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="communication.html#cb56-4" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="communication.html#cb56-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-6"><a href="communication.html#cb56-6" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> potential_outliers, <span class="fu">aes</span>(<span class="at">label =</span> model)) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="communication.html#cb56-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> potential_outliers, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-8"><a href="communication.html#cb56-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb56-9"><a href="communication.html#cb56-9" tabindex="-1"></a>    <span class="at">data =</span> potential_outliers,</span>
+<span id="cb56-10"><a href="communication.html#cb56-10" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="st">&quot;circle open&quot;</span></span>
+<span id="cb56-11"><a href="communication.html#cb56-11" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="using-annotate-for-single-annotations" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Using annotate() for single annotations<a href="communication.html#using-annotate-for-single-annotations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another handy function for adding annotations to plots is <code>annotate()</code>. While <code>geom_text()</code> is useful for labeling many points from your data, <code>annotate()</code> is useful for adding one or a few annotation elements to a plot.</p>
+<p>To demonstrate using <code>annotate()</code>, let’s create some text to add to our plot:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="communication.html#cb57-1" tabindex="-1"></a>trend_text <span class="ot">&lt;-</span> <span class="st">&quot;Larger engine sizes tend to have lower fuel economy.&quot;</span></span></code></pre></div>
+<p>Then, we add two layers of annotation: one with a label geom and the other with a segment geom (an arrow):</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="communication.html#cb58-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="communication.html#cb58-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb58-3"><a href="communication.html#cb58-3" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb58-4"><a href="communication.html#cb58-4" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;label&quot;</span>,</span>
+<span id="cb58-5"><a href="communication.html#cb58-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="fl">3.5</span>,</span>
+<span id="cb58-6"><a href="communication.html#cb58-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="dv">38</span>,</span>
+<span id="cb58-7"><a href="communication.html#cb58-7" tabindex="-1"></a>    <span class="at">label =</span> trend_text,</span>
+<span id="cb58-8"><a href="communication.html#cb58-8" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb58-9"><a href="communication.html#cb58-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb58-10"><a href="communication.html#cb58-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb58-11"><a href="communication.html#cb58-11" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb58-12"><a href="communication.html#cb58-12" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;segment&quot;</span>,</span>
+<span id="cb58-13"><a href="communication.html#cb58-13" tabindex="-1"></a>    <span class="at">x =</span> <span class="dv">3</span>,</span>
+<span id="cb58-14"><a href="communication.html#cb58-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="dv">35</span>,</span>
+<span id="cb58-15"><a href="communication.html#cb58-15" tabindex="-1"></a>    <span class="at">xend =</span> <span class="dv">5</span>,</span>
+<span id="cb58-16"><a href="communication.html#cb58-16" tabindex="-1"></a>    <span class="at">yend =</span> <span class="dv">25</span>,</span>
+<span id="cb58-17"><a href="communication.html#cb58-17" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb58-18"><a href="communication.html#cb58-18" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;closed&quot;</span>)</span>
+<span id="cb58-19"><a href="communication.html#cb58-19" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Other useful annotation geoms:</strong></p>
+<ul>
+<li>Use <code>geom_hline()</code> and <code>geom_vline()</code> to add reference lines</li>
+<li>Use <code>geom_rect()</code> to draw a rectangle around points of interest</li>
+<li>Use <code>geom_segment()</code> with the <code>arrow</code> argument to draw attention to a point</li>
+</ul>
+<p>Annotation is a powerful tool for communicating main takeaways and interesting features of your visualizations!</p>
+<div id="exercises-2.3.1" class="section level4 unnumbered hasAnchor">
+<h4>Exercises 2.3.1<a href="communication.html#exercises-2.3.1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>Use <code>annotate()</code> to add a point geom in the middle of the following plot without having to create a tibble. Customize the shape, size, or color of the point. +2pts</li>
+</ol>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="communication.html#cb59-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="communication.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>How do labels with <code>geom_text()</code> interact with faceting? How can you add a label to a single facet? How can you put a different label in each facet? +4pts</p></li>
+<li><p>What arguments to <code>geom_label()</code> control the appearance of the background box? +2pts</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="scales" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Scales<a href="communication.html#scales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The third way you can make your plot better for communication is to adjust the scales. Scales control how the aesthetic mappings manifest visually.</p>
+<div id="default-scales" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Default scales<a href="communication.html#default-scales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Normally, <code>ggplot2</code> automatically adds scales for you. For example, when you type:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="communication.html#cb60-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="communication.html#cb60-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class))</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><code>ggplot2</code> automatically adds default scales behind the scenes:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="communication.html#cb61-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="communication.html#cb61-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="communication.html#cb61-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>() <span class="sc">+</span></span>
+<span id="cb61-4"><a href="communication.html#cb61-4" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>() <span class="sc">+</span></span>
+<span id="cb61-5"><a href="communication.html#cb61-5" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Note:</strong> The naming scheme for scales: <code>scale_</code> followed by the name of the aesthetic, then <code>_</code>, then the name of the scale. The default scales are named according to the type of variable they align with: continuous, discrete, datetime, or date.</p>
+<p>There are lots of non-default scales which you’ll learn about below. The default scales have been carefully chosen to do a good job for a wide range of inputs. Nevertheless, you might want to override the defaults for two reasons:</p>
+<ul>
+<li><p>You might want to tweak some of the parameters of the default scale (e.g., change the breaks on the axes, or the key labels on the legend)</p></li>
+<li><p>You might want to replace the scale altogether and use a completely different algorithm (e.g., use a log scale)</p></li>
+</ul>
+</div>
+<div id="axis-ticks-and-legend-keys" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Axis ticks and legend keys<a href="communication.html#axis-ticks-and-legend-keys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Collectively, axes and legends are called <strong>guides</strong>. Axes are used for x and y aesthetics; legends are used for everything else.</p>
+<p>There are two primary arguments that affect the appearance of the ticks on the axes and the keys on the legend: <code>breaks</code> and <code>labels</code>. <strong>Breaks</strong> controls the position of the ticks, or the values associated with the keys. <strong>Labels</strong> controls the text label associated with each tick/key.</p>
+<p>The most common use of <code>breaks</code> is to override the default choice:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="communication.html#cb62-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb62-2"><a href="communication.html#cb62-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-3"><a href="communication.html#cb62-3" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can use <code>labels</code> in the same way (a character vector the same length as <code>breaks</code>), but you can also set it to <code>NULL</code> to suppress the labels altogether.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="communication.html#cb63-1" tabindex="-1"></a><span class="co"># Remove axis labels</span></span>
+<span id="cb63-2"><a href="communication.html#cb63-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb63-3"><a href="communication.html#cb63-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb63-4"><a href="communication.html#cb63-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb63-5"><a href="communication.html#cb63-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can also use <code>breaks</code> and <code>labels</code> to control the appearance of legends. For example, here we remove the legend labels for the color aesthetic:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="communication.html#cb64-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb64-2"><a href="communication.html#cb64-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-3"><a href="communication.html#cb64-3" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">labels =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="legend-layout" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Legend layout<a href="communication.html#legend-layout" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You will most often use <code>breaks</code> and <code>labels</code> to tweak the axes. While they both also work for legends, there are a few other techniques you are more likely to use.</p>
+<p>To control the overall position of the legend, you need to use a <code>theme()</code> setting. We’ll come back to themes at the end of the chapter, but in brief, they control the non-data parts of the plot. The theme setting <code>legend.position</code> controls where the legend is drawn:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="communication.html#cb65-1" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="communication.html#cb65-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class))</span>
+<span id="cb65-3"><a href="communication.html#cb65-3" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="communication.html#cb65-4" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)  <span class="co"># the default</span></span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="communication.html#cb66-1" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-63-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="communication.html#cb67-1" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-63-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="communication.html#cb68-1" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-63-4.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="communication.html#cb69-1" tabindex="-1"></a>base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)  <span class="co"># remove legend</span></span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-63-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="replacing-a-scale" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Replacing a scale<a href="communication.html#replacing-a-scale" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Instead of just tweaking the details a little, you can instead replace the scale altogether. There are two types of scales you’re mostly likely to want to switch out: continuous position scales and color scales.</p>
+<p>It’s very useful to plot transformations of your data. For example, it’s easier to see the precise relationship between <code>carat</code> and <code>price</code> if we log transform them:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="communication.html#cb70-1" tabindex="-1"></a><span class="co"># Left: original scale</span></span>
+<span id="cb70-2"><a href="communication.html#cb70-2" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="communication.html#cb70-3" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="communication.html#cb71-1" tabindex="-1"></a><span class="co"># Right: log-transformed scale</span></span>
+<span id="cb71-2"><a href="communication.html#cb71-2" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb71-3"><a href="communication.html#cb71-3" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>() <span class="sc">+</span></span>
+<span id="cb71-4"><a href="communication.html#cb71-4" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb71-5"><a href="communication.html#cb71-5" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Another scale that is frequently customized is color. The default categorical scale picks colors that are evenly spaced around the color wheel. A popular alternative is the ColorBrewer scales which have been hand-tuned to work better for people with common types of color blindness. The two plots below don’t look that different, but there is enough difference in the shades of red and green that they can still be distinguished even by people with red-green color blindness.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="communication.html#cb72-1" tabindex="-1"></a><span class="co"># Default colors</span></span>
+<span id="cb72-2"><a href="communication.html#cb72-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb72-3"><a href="communication.html#cb72-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv))</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="communication.html#cb73-1" tabindex="-1"></a><span class="co"># ColorBrewer colors</span></span>
+<span id="cb73-2"><a href="communication.html#cb73-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb73-3"><a href="communication.html#cb73-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="communication.html#cb73-4" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Don’t forget simpler techniques. If there are just a few colors, you can add a redundant shape mapping. This will also help ensure your plot is interpretable in black and white.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="communication.html#cb74-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb74-2"><a href="communication.html#cb74-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv, <span class="at">shape =</span> drv)) <span class="sc">+</span></span>
+<span id="cb74-3"><a href="communication.html#cb74-3" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The ColorBrewer scales are documented at <a href="https://colorbrewer2.org/" class="uri">https://colorbrewer2.org/</a> and made available in R via the <strong>RColorBrewer</strong> package, by Erich Neuwirth. You can see all the available palettes with <code>RColorBrewer::display.brewer.all()</code>.</p>
+<p>When you have a predefined mapping between values and colors, use <code>scale_color_manual()</code>. For example, if we map presidential party to color (see <code>?presidential</code>), we want to use the standard mapping of red for Republicans and blue for Democrats. One approach is to use <code>scale_color_manual()</code>:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="communication.html#cb75-1" tabindex="-1"></a>presidential <span class="sc">|&gt;</span></span>
+<span id="cb75-2"><a href="communication.html#cb75-2" tabindex="-1"></a>  <span class="co"># to assign an ID to each president</span></span>
+<span id="cb75-3"><a href="communication.html#cb75-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">33</span> <span class="sc">+</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb75-4"><a href="communication.html#cb75-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> start, <span class="at">y =</span> id, <span class="at">color =</span> party)) <span class="sc">+</span></span>
+<span id="cb75-5"><a href="communication.html#cb75-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb75-6"><a href="communication.html#cb75-6" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> end, <span class="at">yend =</span> id)) <span class="sc">+</span></span>
+<span id="cb75-7"><a href="communication.html#cb75-7" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Republican =</span> <span class="st">&quot;#E81B23&quot;</span>, <span class="at">Democratic =</span> <span class="st">&quot;#00AEF3&quot;</span>))</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For continuous color, you can use the built-in <code>scale_color_gradient()</code> or <code>scale_fill_gradient()</code> that you have seen before. If you have a diverging scale, you can use <code>scale_color_gradient2()</code>. That allows you to give a different color for the midpoint (usually 0).</p>
+<div id="exercises-2.4.1" class="section level4 unnumbered hasAnchor">
+<h4>Exercises 2.4.1<a href="communication.html#exercises-2.4.1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>Why doesn’t the following code override the default scale? Fix the plot so that it colors the points with a gradient. +2pts</li>
+</ol>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="communication.html#cb76-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>))</span>
+<span id="cb76-2"><a href="communication.html#cb76-2" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="communication.html#cb76-3" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
+<span id="cb76-4"><a href="communication.html#cb76-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> x)) <span class="sc">+</span></span>
+<span id="cb76-5"><a href="communication.html#cb76-5" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">high =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>What is the first argument to every scale? How does it compare to <code>labs()</code>? +2pts</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="themes" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Themes<a href="communication.html#themes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You can customize the overall appearance of your plot with built-in themes:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="communication.html#cb77-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb77-2"><a href="communication.html#cb77-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb77-3"><a href="communication.html#cb77-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb77-4"><a href="communication.html#cb77-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><code>ggplot2</code> includes eight built-in themes, with <code>theme_gray()</code> as the default:</p>
+<ul>
+<li><code>theme_gray()</code> - The default (gray background, white gridlines)</li>
+<li><code>theme_bw()</code> - White background with gridlines<br />
+</li>
+<li><code>theme_classic()</code> - No gridlines (classic look for publications)</li>
+<li><code>theme_minimal()</code> - Minimal theme</li>
+<li><code>theme_light()</code> - Light background</li>
+<li><code>theme_dark()</code> - Dark background</li>
+<li><code>theme_linedraw()</code> - Black lines</li>
+<li><code>theme_void()</code> - Empty theme
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-themes"></span>
+<img src="images/visualization-themes.png" alt="The eight themes built-in to ggplot2." width="1600" />
+<p class="caption">
+Figure 2.1: The eight themes built-in to ggplot2.
+</p>
+</div></li>
+</ul>
+<p>For publication figures, <code>theme_bw()</code>, <code>theme_classic()</code>, and <code>theme_minimal()</code> are popular choices.</p>
+<p>You can also customize individual theme elements using <code>theme()</code>. For example, to move the legend position:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="communication.html#cb78-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb78-2"><a href="communication.html#cb78-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb78-3"><a href="communication.html#cb78-3" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb78-4"><a href="communication.html#cb78-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Common theme customizations include <code>legend.position</code>, <code>plot.title</code>, and <code>axis.text</code>. For a complete list, see <code>?theme</code>.</p>
+<div id="exercises-2.5.1" class="section level4 unnumbered hasAnchor">
+<h4>Exercises 2.5.1<a href="communication.html#exercises-2.5.1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>Apply a different theme to the following plot. Try <code>theme_bw()</code>, <code>theme_classic()</code>, or <code>theme_minimal()</code>. Which do you think looks best for a publication? +2pts</li>
+</ol>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="communication.html#cb79-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb79-2"><a href="communication.html#cb79-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb79-3"><a href="communication.html#cb79-3" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb79-4"><a href="communication.html#cb79-4" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Larger engine sizes tend to have lower fuel economy&quot;</span>,</span>
+<span id="cb79-5"><a href="communication.html#cb79-5" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: https://fueleconomy.gov.&quot;</span></span>
+<span id="cb79-6"><a href="communication.html#cb79-6" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="layout" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Layout<a href="communication.html#layout" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So far we talked about how to create and modify a single plot. What if you have multiple plots you want to lay out in a certain way? The <strong>patchwork</strong> package allows you to combine separate plots into the same graphic.</p>
+<p>To place two plots next to each other, you can simply add them to each other. Note that you first need to create the plots and save them as objects:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="communication.html#cb80-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb80-2"><a href="communication.html#cb80-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb80-3"><a href="communication.html#cb80-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Plot 1&quot;</span>)</span>
+<span id="cb80-4"><a href="communication.html#cb80-4" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="communication.html#cb80-5" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb80-6"><a href="communication.html#cb80-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb80-7"><a href="communication.html#cb80-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Plot 2&quot;</span>)</span>
+<span id="cb80-8"><a href="communication.html#cb80-8" tabindex="-1"></a></span>
+<span id="cb80-9"><a href="communication.html#cb80-9" tabindex="-1"></a><span class="co"># Place side-by-side with +</span></span>
+<span id="cb80-10"><a href="communication.html#cb80-10" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can also stack plots vertically using <code>/</code>:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="communication.html#cb81-1" tabindex="-1"></a><span class="co"># Stack vertically with /</span></span>
+<span id="cb81-2"><a href="communication.html#cb81-2" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can create more complex layouts using both <code>+</code> and <code>/</code>. Use parentheses to control the order of operations:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="communication.html#cb82-1" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb82-2"><a href="communication.html#cb82-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb82-3"><a href="communication.html#cb82-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Plot 3&quot;</span>)</span>
+<span id="cb82-4"><a href="communication.html#cb82-4" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="communication.html#cb82-5" tabindex="-1"></a><span class="co"># p1 and p3 side-by-side, then p2 below</span></span>
+<span id="cb82-6"><a href="communication.html#cb82-6" tabindex="-1"></a>(p1 <span class="sc">+</span> p3) <span class="sc">/</span> p2</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Additionally, patchwork allows you to add a common title, subtitle, and caption to your combined plots using <code>plot_annotation()</code>:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="communication.html#cb83-1" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">+</span></span>
+<span id="cb83-2"><a href="communication.html#cb83-2" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb83-3"><a href="communication.html#cb83-3" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Fuel economy analysis&quot;</span>,</span>
+<span id="cb83-4"><a href="communication.html#cb83-4" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Exploring the mpg dataset&quot;</span>,</span>
+<span id="cb83-5"><a href="communication.html#cb83-5" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></span>
+<span id="cb83-6"><a href="communication.html#cb83-6" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If you’d like to learn more about patchwork, see the package website: <a href="https://patchwork.data-imaginist.com" class="uri">https://patchwork.data-imaginist.com</a>.</p>
+<div id="exercises-2.6.1" class="section level4 unnumbered hasAnchor">
+<h4>Exercises 2.6.1<a href="communication.html#exercises-2.6.1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>What happens if you omit the parentheses in the following plot layout? Try it. Can you explain why this happens? +2pts</li>
+</ol>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="communication.html#cb84-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb84-2"><a href="communication.html#cb84-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb84-3"><a href="communication.html#cb84-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Plot 1&quot;</span>)</span>
+<span id="cb84-4"><a href="communication.html#cb84-4" tabindex="-1"></a></span>
+<span id="cb84-5"><a href="communication.html#cb84-5" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb84-6"><a href="communication.html#cb84-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb84-7"><a href="communication.html#cb84-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Plot 2&quot;</span>)</span>
+<span id="cb84-8"><a href="communication.html#cb84-8" tabindex="-1"></a></span>
+<span id="cb84-9"><a href="communication.html#cb84-9" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb84-10"><a href="communication.html#cb84-10" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb84-11"><a href="communication.html#cb84-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Plot 3&quot;</span>)</span>
+<span id="cb84-12"><a href="communication.html#cb84-12" tabindex="-1"></a></span>
+<span id="cb84-13"><a href="communication.html#cb84-13" tabindex="-1"></a>(p1 <span class="sc">+</span> p3) <span class="sc">/</span> p2</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the three plots from the previous exercise, recreate the following patchwork with p1 on top and p2 and p3 side-by-side on the bottom: +2pts</li>
+</ol>
+</div>
+</div>
+<div id="summary-1" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Summary<a href="communication.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this chapter you’ve learned about:</p>
+<ul>
+<li><p><strong>Labels</strong>: Adding informative titles, subtitles, captions, and axis labels with <code>labs()</code></p></li>
+<li><p><strong>Annotations</strong>: Using <code>geom_text()</code>, <code>geom_label_repel()</code>, and <code>annotate()</code> to highlight specific features</p></li>
+<li><p><strong>Scales</strong>: Customizing axes and legends with <code>scale_*()</code> functions</p></li>
+<li><p><strong>Themes</strong>: Changing the overall appearance with built-in themes and <code>theme()</code> customization</p></li>
+<li><p><strong>Layout</strong>: Combining multiple plots with the <strong>patchwork</strong> package using <code>+</code> and <code>/</code></p></li>
+</ul>
+<p>These skills are essential for creating publication-quality figures for your research!</p>
+<p>While you’ve learned how to make many different types of plots and customize them, we’ve barely scratched the surface of what you can do with <code>ggplot2</code>. If you want to get a comprehensive understanding, we recommend:</p>
+<ul>
+<li><a href="https://ggplot2-book.org"><em>ggplot2: Elegant Graphics for Data Analysis</em></a> by Hadley Wickham</li>
+<li><a href="https://r-graphics.org"><em>R Graphics Cookbook</em></a> by Winston Chang</li>
+<li><a href="https://clauswilke.com/dataviz/"><em>Fundamentals of Data Visualization</em></a> by Claus Wilke</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="layers.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["2025_r4ds-ggplot2-student_version.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "fig_height": 5.3,
+  "fig_width": 8.5
+});
+});
+</script>
+
+</body>
+
+</html>

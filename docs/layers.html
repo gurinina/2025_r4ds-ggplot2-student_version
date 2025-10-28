@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Layers: | ggplot2 Communication - Complete Lessons</title>
+  <meta name="description" content="Chapter 1 Layers: | ggplot2 Communication - Complete Lessons" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Layers: | ggplot2 Communication - Complete Lessons" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/images/koosggplot.png" />
+  
+  <meta name="github-repo" content="gurinina/2025_r4ds-ggplot2-student_version" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Layers: | ggplot2 Communication - Complete Lessons" />
+  
+  
+  <meta name="twitter:image" content="https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/images/koosggplot.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="communication.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/git.css" type="text/css" />
+<link rel="stylesheet" href="css/toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>R for data science workshop (r4ds):</a></li>
+<li class="chapter" data-level="1" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>1</b> Layers:</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="layers.html"><a href="layers.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="layers.html"><a href="layers.html#prerequisites"><i class="fa fa-check"></i><b>1.1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="layers.html"><a href="layers.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.2</b> Aesthetic mappings</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="layers.html"><a href="layers.html#where-do-aesthetics-go-in-ggplot2"><i class="fa fa-check"></i><b>1.2.1</b> Where do aesthetics go in ggplot2?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="layers.html"><a href="layers.html#geometric-objects"><i class="fa fa-check"></i><b>1.3</b> Geometric objects</a></li>
+<li class="chapter" data-level="1.4" data-path="layers.html"><a href="layers.html#facets"><i class="fa fa-check"></i><b>1.4</b> Facets</a></li>
+<li class="chapter" data-level="1.5" data-path="layers.html"><a href="layers.html#position-adjustments"><i class="fa fa-check"></i><b>1.5</b> Position adjustments</a></li>
+<li class="chapter" data-level="1.6" data-path="layers.html"><a href="layers.html#summary"><i class="fa fa-check"></i><b>1.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="layers.html"><a href="layers.html#key-concepts-learned"><i class="fa fa-check"></i><b>1.6.1</b> Key concepts learned:</a></li>
+<li class="chapter" data-level="1.6.2" data-path="layers.html"><a href="layers.html#the-grammar-of-graphics-works-like-painting"><i class="fa fa-check"></i><b>1.6.2</b> The grammar of graphics works like painting:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="communication.html"><a href="communication.html"><i class="fa fa-check"></i><b>2</b> Communication:</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="communication.html"><a href="communication.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="communication.html"><a href="communication.html#prerequisites-1"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="communication.html"><a href="communication.html#labels"><i class="fa fa-check"></i><b>2.2</b> Labels</a></li>
+<li class="chapter" data-level="2.3" data-path="communication.html"><a href="communication.html#annotations"><i class="fa fa-check"></i><b>2.3</b> Annotations</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="communication.html"><a href="communication.html#labeling-specific-points"><i class="fa fa-check"></i><b>2.3.1</b> Labeling specific points</a></li>
+<li class="chapter" data-level="2.3.2" data-path="communication.html"><a href="communication.html#using-annotate-for-single-annotations"><i class="fa fa-check"></i><b>2.3.2</b> Using annotate() for single annotations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="communication.html"><a href="communication.html#scales"><i class="fa fa-check"></i><b>2.4</b> Scales</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="communication.html"><a href="communication.html#default-scales"><i class="fa fa-check"></i><b>2.4.1</b> Default scales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="communication.html"><a href="communication.html#axis-ticks-and-legend-keys"><i class="fa fa-check"></i><b>2.4.2</b> Axis ticks and legend keys</a></li>
+<li class="chapter" data-level="2.4.3" data-path="communication.html"><a href="communication.html#legend-layout"><i class="fa fa-check"></i><b>2.4.3</b> Legend layout</a></li>
+<li class="chapter" data-level="2.4.4" data-path="communication.html"><a href="communication.html#replacing-a-scale"><i class="fa fa-check"></i><b>2.4.4</b> Replacing a scale</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="communication.html"><a href="communication.html#themes"><i class="fa fa-check"></i><b>2.5</b> Themes</a></li>
+<li class="chapter" data-level="2.6" data-path="communication.html"><a href="communication.html#layout"><i class="fa fa-check"></i><b>2.6</b> Layout</a></li>
+<li class="chapter" data-level="2.7" data-path="communication.html"><a href="communication.html#summary-1"><i class="fa fa-check"></i><b>2.7</b> Summary</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ggplot2 Communication - Complete Lessons</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="layers" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Layers:<a href="layers.html#layers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Total points: 43</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li>This is the <strong>complete lessons version</strong> with all working examples</li>
+<li>Run all the code as you go to see how everything works</li>
+<li>Exercise questions are shown but without answer spaces</li>
+<li>Use the <strong>STUDENT version</strong> to practice writing your own code</li>
+</ul>
+<div id="introduction" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Introduction<a href="layers.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You’ve already learned the basics of ggplot2: how to create scatterplots and boxplots, how to map aesthetics like color and shape, and how to customize your plots with themes and labels.</p>
+<p>In this chapter, we’ll dive deeper into the <strong>grammar of graphics</strong> - the idea that you can build every graph from the same components: a dataset, a coordinate system, and geoms (geometric objects that represent data points). We’ll explore:</p>
+<ul>
+<li>A deeper understanding of <strong>aesthetic mappings</strong> (inside vs outside aes)</li>
+<li>More <strong>geometric objects</strong> (geoms) for different plot types</li>
+<li><strong>Faceting</strong> - creating multiple plots split by categories</li>
+<li><strong>Position adjustments</strong> - how geoms are positioned relative to each other</li>
+</ul>
+<p>We won’t cover every single function and option, but we’ll walk you through the most important and commonly used functionality in ggplot2.</p>
+<div id="prerequisites" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Prerequisites<a href="layers.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Load the necessary packages into your session:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="layers.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                <span class="co"># for ggplot2 and mpg</span></span>
+<span id="cb1-2"><a href="layers.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)                <span class="co"># for combining plots</span></span>
+<span id="cb1-3"><a href="layers.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(scales)                   <span class="co"># for axis formatting</span></span></code></pre></div>
+</div>
+</div>
+<div id="aesthetic-mappings" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Aesthetic mappings<a href="layers.html#aesthetic-mappings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>mpg</code> data frame is bundled with the ggplot2 package and contains
+234 observations on 38 car
+models from <a href="https://fueleconomy.gov/">fueleconomy.gov</a>.</p>
+<p>Among the variables in <code>mpg</code> are:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>displ</code>: A car’s engine size (displacement), in liters. A numerical variable.</p></li>
+<li><p><code>hwy</code>: A car’s fuel efficiency on the highway, in miles per gallon
+(mpg). A car with a low fuel efficiency consumes more fuel than a
+car with a high fuel efficiency when they travel the same distance.
+A numerical variable.</p></li>
+<li><p><code>class</code>: Type of car. A categorical variable.</p></li>
+</ol>
+<p>Let’s start by visualizing the relationship between <code>displ</code> and <code>hwy</code>
+for various <code>classes</code> of cars. We can do this with a scatterplot where
+the numerical variables are mapped to the <code>x</code> and <code>y</code> aesthetics and the
+categorical variable is mapped to an aesthetic like <code>color</code> or <code>shape</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="layers.html#cb2-1" tabindex="-1"></a><span class="co"># Mapping class to color works well</span></span>
+<span id="cb2-2"><a href="layers.html#cb2-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="layers.html#cb2-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Notice how each class gets a different color automatically. Now let’s try using shape instead:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="layers.html#cb3-1" tabindex="-1"></a><span class="co"># Mapping class to shape produces warnings</span></span>
+<span id="cb3-2"><a href="layers.html#cb3-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> class)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="layers.html#cb3-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>When <code>class</code> is mapped to <code>shape</code>, we get two warnings:</p>
+<blockquote>
+<p>1: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to discriminate; we have 7.
+Consider specifying shapes manually if you must have them.</p>
+<p>2: Removed 62 rows containing missing values (<code>geom_point()</code>).</p>
+</blockquote>
+<p>Since <code>ggplot2</code> will only use six shapes at a time, by default, additional groups will go unplotted when you use the shape aesthetic.
+The second warning is related – there are 62 SUVs in the dataset and they’re not plotted.</p>
+<p>We have to remember that ggplot2 does not replace but layers. For example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="layers.html#cb4-1" tabindex="-1"></a><span class="co"># Create a saved plot</span></span>
+<span id="cb4-2"><a href="layers.html#cb4-2" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="layers.html#cb4-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb4-4"><a href="layers.html#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="layers.html#cb4-5" tabindex="-1"></a>p1  <span class="co"># p1</span></span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="layers.html#cb5-1" tabindex="-1"></a><span class="co"># Save a plot</span></span>
+<span id="cb5-2"><a href="layers.html#cb5-2" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="layers.html#cb5-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb5-4"><a href="layers.html#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="layers.html#cb5-5" tabindex="-1"></a>p1  <span class="co"># Show original</span></span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="layers.html#cb6-1" tabindex="-1"></a><span class="co"># Step 1: Try to make points bigger</span></span>
+<span id="cb6-2"><a href="layers.html#cb6-2" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="layers.html#cb7-1" tabindex="-1"></a><span class="co"># &quot;Looks like it worked!&quot; (because bigger covers smaller)</span></span>
+<span id="cb7-2"><a href="layers.html#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="layers.html#cb7-3" tabindex="-1"></a><span class="co"># Step 2: Now try to make them smaller  </span></span>
+<span id="cb7-4"><a href="layers.html#cb7-4" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="layers.html#cb8-1" tabindex="-1"></a><span class="co"># &quot;Wait... now I see BOTH layers! Small points on top of the original size!&quot;</span></span></code></pre></div>
+<p>What if I wanted to make all the points bigger? If I add another geom_point(size = 10), it looks like it worked!</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="layers.html#cb9-1" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>What if I wanted too make all the points smaller?</p>
+<p><strong>The grammar of graphics works like painting - each <code>+</code> adds a new layer of paint on top.</strong> You can paint over something, but the old layer is still there underneath. When the new layer is bigger, it hides the original. When it’s smaller, you see both!</p>
+<p><strong>Layers stack, they don’t replace!</strong></p>
+<p>To actually change <code>p1</code>, you need to recreate it from scratch:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="layers.html#cb10-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>However, you CAN modify <strong>non-data elements</strong> - these are like changing the frame around your painting, not the painting itself:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1" tabindex="-1"></a><span class="co"># Change the labels</span></span>
+<span id="cb11-2"><a href="layers.html#cb11-2" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fuel Efficiency by Car Class&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="layers.html#cb12-1" tabindex="-1"></a><span class="co"># Change the theme  </span></span>
+<span id="cb12-2"><a href="layers.html#cb12-2" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>These don’t add new data layers - they modify how the existing plot is displayed.</p>
+<p><strong>The rule:</strong>
+- <strong>Data layers</strong> (geom_point, geom_line, etc.) → Stack like layers of paint
+- <strong>Display elements</strong> (labs, themes) → Modify the frame and presentation</p>
+<p>Sometimes it’s helpful to compare plots side-by-side. The <code>patchwork</code> package makes this easy:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="layers.html#cb13-1" tabindex="-1"></a><span class="co"># Save plots to variables</span></span>
+<span id="cb13-2"><a href="layers.html#cb13-2" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="layers.html#cb13-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb13-4"><a href="layers.html#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="layers.html#cb13-5" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> class)) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="layers.html#cb13-6" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb13-7"><a href="layers.html#cb13-7" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="layers.html#cb13-8" tabindex="-1"></a><span class="co"># Combine side-by-side with +</span></span>
+<span id="cb13-9"><a href="layers.html#cb13-9" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can also stack plots vertically using <code>/</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="layers.html#cb14-1" tabindex="-1"></a><span class="co"># Stack plots vertically</span></span>
+<span id="cb14-2"><a href="layers.html#cb14-2" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is particularly useful when comparing different visualizations of the same data, as you’ll often need to do in your research when comparing treatment groups or experimental conditions.</p>
+<p><strong>What about other aesthetics?</strong> Similarly, we can map <code>class</code> to <code>size</code> or <code>alpha</code> aesthetics as well, which control the size and the transparency of the points, respectively.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1" tabindex="-1"></a><span class="co"># class mapped to size</span></span>
+<span id="cb15-2"><a href="layers.html#cb15-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">size =</span> class)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="layers.html#cb15-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1" tabindex="-1"></a><span class="co"># class mapped to alpha</span></span>
+<span id="cb16-2"><a href="layers.html#cb16-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">alpha =</span> class)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="layers.html#cb16-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Both of these produce warnings as well:</p>
+<blockquote>
+<p>Using size for a discrete variable is not advised.
+Using alpha for a discrete variable is not advised.</p>
+</blockquote>
+<p>Mapping an unordered discrete (categorical) variable (<code>class</code>) to an ordered aesthetic (<code>size</code> or <code>alpha</code>) is generally not a good idea because it implies a ranking that does not in fact exist.</p>
+<p>Once you map an aesthetic, <code>ggplot2</code> automatically:
+- Chooses appropriate values (colors, shapes, sizes)
+- Creates a legend showing what each value means
+- For x and y aesthetics, creates axis labels instead of legends</p>
+<p>You can also set the visual properties of your <code>geom</code> manually as an argument of your <code>geom</code> function (<em>outside</em> of <code>aes()</code>) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="layers.html#cb17-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) </span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>What you CAN put in ggplot():
+✅ INSIDE aes() - mappings from your data</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="layers.html#cb18-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+# ✅ This works! Color varies by the ‘class’ variable</p>
+<p>What you CANNOT put in ggplot():
+❌ OUTSIDE aes() - constants</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="layers.html#cb19-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>❌ This fails! Constants can’t go in ggplot()</p>
+<p>You can’t put anything outside the <code>aes</code> except for data in the ggplot argument because The Correct Rule:</p>
+<p>In ggplot(aes()):</p>
+<p>✅ Mappings from data (variables): aes(color = class)
+✅ Any aesthetic that varies by data can go here
+✅ Gets inherited by all layers</p>
+<p>In ggplot() but OUTSIDE aes():</p>
+<p>❌ Constants like color = “blue” DON’T work here
+✅ Only data and mapping arguments</p>
+<p>In geom_*() OUTSIDE aes():</p>
+<p>✅ Constants: geom_point(color = “blue”)</p>
+<p>Summary:</p>
+<p>Variables → inside aes() (can be in ggplot() or geom_<em>())
+Constants → outside aes(), but ONLY in geom_</em>(), NOT in ggplot()</p>
+<p>Here, the <strong>color</strong> doesn’t convey information about a variable, but only changes the appearance of the plot.</p>
+<p>You’ll need to pick a value that makes sense for that aesthetic:</p>
+<ul>
+<li>The name of a color as a character string, e.g., <code>color = "blue"</code></li>
+<li>The size of a point in mm, e.g., <code>size = 1</code></li>
+<li>The shape of a point as a number, e.g, <code>shape = 1</code>, as shown in Figure <a href="layers.html#fig:fig-shapes">1.1</a></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-shapes"></span>
+<img src="2025_r4ds-ggplot2-student_version_files/figure-html/fig-shapes-1.png" alt="Mapping between shapes and their numeric codes." width="672" />
+<p class="caption">
+Figure 1.1: Mapping between shapes and their numeric codes.
+</p>
+</div>
+<p>So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point <code>geom</code>. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="uri">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</a>.</p>
+<p>The specific aesthetics you can use for a plot depend on the <code>geom</code> you use to represent the data.</p>
+<div id="where-do-aesthetics-go-in-ggplot2" class="section level3 hasAnchor infobox tip" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Where do aesthetics go in ggplot2?<a href="layers.html#where-do-aesthetics-go-in-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>The key question:</strong> Is this value from your data, or is it a constant?</p>
+<p><strong>From your data</strong> (a column name) → INSIDE <code>aes()</code></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1" tabindex="-1"></a><span class="co"># color varies by class (class is a column in mpg)</span></span>
+<span id="cb20-2"><a href="layers.html#cb20-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="layers.html#cb20-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>A constant</strong> (same for all points) → OUTSIDE <code>aes()</code></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1" tabindex="-1"></a><span class="co"># all points are pink</span></span>
+<span id="cb21-2"><a href="layers.html#cb21-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="layers.html#cb21-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;pink&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Memory trick:</strong> Can you do <code>mpg$class</code>? YES → inside <code>aes()</code><br />
+Can you do <code>mpg$pink</code>? NO → outside <code>aes()</code></p>
+</div>
+<p>The Universal Rule for ALL aesthetics:
+WhereVariable (from data)Constant (fixed value)ggplot(aes(…))✅ aes(size = cyl)❌ Can’t do thisgeom_<em>(aes(…))✅ aes(size = cyl)❌ Can’t do thisgeom_</em>(…) outside aes❌ Can’t do this✅ size = 3
+So size, color, shape, alpha, fill - all follow the same pattern.</p>
+<p>In the next section we dive deeper into <code>geoms</code>.</p>
+<div id="exercises" class="section level4 unnumbered hasAnchor">
+<h4>1.2.1 Exercises<a href="layers.html#exercises" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p>Create a scatterplot of <code>hwy</code> vs. <code>displ</code> where the points are pink filled in triangles. +2pts</p></li>
+<li><p>What does the <code>stroke</code> aesthetic do? What shapes does it work with? (Hint: use <code>?geom_point</code>). Add stroke to the above plot. +2pts</p></li>
+<li><p>Why did the following code not result in a plot with blue points? +2pts</p></li>
+</ol>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="layers.html#cb22-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>What’s wrong with the following code? How would you fix it? +2pts</li>
+</ol>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="layers.html#cb23-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> class, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>What happens if you map an aesthetic to something other than a variable name, like <code>aes(color = displ &lt; 5)</code>? Try it by adding color to the following plot: +2pts</li>
+</ol>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>What’s wrong with the following code? Why doesn’t it make blue points? How would you fix it? +2pts</li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href="layers.html#cb25-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="geometric-objects" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Geometric objects<a href="layers.html#geometric-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You’ve already learned about <code>geom_point()</code> and <code>geom_boxplot()</code> in your previous lessons. A <code>geom</code> is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (<code>geom_bar()</code>), line charts use line geoms (<code>geom_line()</code>), histograms use histograms geoms (<code>geom_histogram()</code>), and density plots use density geoms (<code>geom_density()</code>).</p>
+<p>How are these two plots similar?</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1" tabindex="-1"></a><span class="co"># Scatterplot</span></span>
+<span id="cb26-2"><a href="layers.html#cb26-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span>  </span>
+<span id="cb26-3"><a href="layers.html#cb26-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1" tabindex="-1"></a><span class="co"># Smooth line</span></span>
+<span id="cb27-2"><a href="layers.html#cb27-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb27-3"><a href="layers.html#cb27-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Both plots contain the same x variable, the same y variable, and both describe the same data. But the plots are not identical. Each plot uses a different geometric object, <code>geom</code>, to represent the data. The first plot uses the point <code>geom</code>, and the second uses the smooth <code>geom</code>, a smooth line fitted to the data.</p>
+<p>To change the <code>geom</code> in your plot, change the <code>geom</code> function that you add to <code>ggplot()</code>.</p>
+<p>Every <code>geom</code> function in ggplot2 takes a <code>mapping</code> argument, either defined locally in the <code>geom</code> layer or globally in the <code>ggplot()</code> layer.</p>
+<p>However, not every aesthetic works with every <code>geom</code>. You could set the shape of a point, but you couldn’t set the “shape” of a line. If you try, ggplot2 will silently ignore that aesthetic mapping. On the other hand, you <em>could</em> set the <code>linetype</code> of a line.</p>
+<p><code>geom_smooth()</code> will draw a different line, with a different <code>linetype</code>, for each unique value of the variable that you map to <code>linetype</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1" tabindex="-1"></a><span class="co"># Shape doesn&#39;t work with geom_smooth - no legend appears</span></span>
+<span id="cb28-2"><a href="layers.html#cb28-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv)) <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="layers.html#cb28-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1" tabindex="-1"></a><span class="co"># Linetype DOES work with geom_smooth</span></span>
+<span id="cb29-2"><a href="layers.html#cb29-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">linetype =</span> drv)) <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="layers.html#cb29-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here, <code>geom_smooth()</code> separates the cars into three lines based on their <code>drv</code> value, which describes a car’s drive train. Here, <code>4</code> stands for four-wheel drive, <code>f</code> for front-wheel drive, and <code>r</code> for rear-wheel drive.</p>
+<p><strong>Notice there is no legend for the first plot because geom_smooth does not have a shape aesthetic.</strong></p>
+<p>If this sounds strange, we can make it clearer by overlaying the lines on top of the raw data and then coloring everything according to <code>drv</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="layers.html#cb30-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb30-3"><a href="layers.html#cb30-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> drv))</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Notice that this plot contains <strong>two geoms in the same graph</strong>. This is a powerful feature of ggplot2 - you can layer multiple geoms to show different aspects of your data.</p>
+<p>You can use the same idea to specify different <code>data</code> for each layer.
+Here, we use red points to highlight two-seater cars.
+The local data argument in <code>geom_point()</code> overrides the global data argument in <code>ggplot()</code> for that layer only.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="layers.html#cb31-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-3"><a href="layers.html#cb31-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb31-4"><a href="layers.html#cb31-4" tabindex="-1"></a>   <span class="at">data  =</span> mpg <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">&#39;2seater&#39;</span>),</span>
+<span id="cb31-5"><a href="layers.html#cb31-5" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb31-6"><a href="layers.html#cb31-6" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb31-7"><a href="layers.html#cb31-7" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><code>geoms</code> are the fundamental building blocks of <code>ggplot2</code>. You can completely transform the look of your plot by changing its geom, and different <code>geoms</code> can reveal different features of your data.</p>
+<p>For example, these three plots show the same data (highway mileage) but reveal different patterns:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1" tabindex="-1"></a><span class="co"># Histogram shows distribution</span></span>
+<span id="cb32-2"><a href="layers.html#cb32-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb32-3"><a href="layers.html#cb32-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1" tabindex="-1"></a><span class="co"># Density plot shows smooth distribution</span></span>
+<span id="cb33-2"><a href="layers.html#cb33-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb33-3"><a href="layers.html#cb33-3" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1" tabindex="-1"></a><span class="co"># Boxplot shows summary statistics and outliers</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="layers.html#cb34-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The histogram and density plot reveal that the distribution of highway mileage is bimodal and right skewed, while the boxplot reveals two potential outliers.</p>
+<p><code>ggplot2</code> provides more than 40 <code>geoms</code> but these don’t cover all possible plots one could make. The best place to get a comprehensive overview of all of the <code>geoms</code> <code>ggplot2</code> offers is the [reference page:](<a href="https://ggplot2.tidyverse.org/reference" class="uri">https://ggplot2.tidyverse.org/reference</a>.
+To learn more about any single <code>geom</code>, use the help (e.g., <code>?geom_smooth</code>).</p>
+<div id="exercises-1" class="section level4 unnumbered hasAnchor">
+<h4>1.3.1 Exercises<a href="layers.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p>What <code>geom</code> would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap?? (‘jitter plot’) +4pts or +5pts (bonus point for line charts using TWO geometries)</p></li>
+<li><p>Create a plot showing highway fuel economy (<code>hwy</code>) by car class (<code>class</code>) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts</p></li>
+<li><p>What does <code>show.legend = FALSE</code> do in the code below? What happens if you remove it? +2pts</p></li>
+</ol>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="layers.html#cb35-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>What does the <code>se</code> argument to <code>geom_smooth()</code> do? +2pts</p></li>
+<li><p>Will these two graphs look different? Why/why not? +2pts</p></li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="layers.html#cb36-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="layers.html#cb36-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb37-2"><a href="layers.html#cb37-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> mpg, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="layers.html#cb37-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> mpg, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="facets" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Facets<a href="layers.html#facets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Facets are a powerful way to split your plot into multiple subplots based on the values of one or more categorical variables. This is especially useful when you want to see patterns within different groups.</p>
+<p>To facet your plot by a single variable, use <code>facet_wrap()</code>. The first argument of <code>facet_wrap()</code> is a formula (created with <code>~</code> followed by a variable name). The variable passed to <code>facet_wrap()</code> should be categorical.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="layers.html#cb38-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a href="layers.html#cb38-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To facet your plot with the combination of two variables, switch from
+<code>facet_wrap()</code> to <code>facet_grid()</code>. The first argument of <code>facet_grid()</code>
+is also a formula, but now it’s a double sided formula: <code>rows ~ cols</code>.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="layers.html#cb39-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb39-3"><a href="layers.html#cb39-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The first variable in <code>facet_grid()</code> determines the faceting by row, the second by column.</p>
+<p>By default each of the facets share the same scale and range for x and y axes. This is useful when you want to compare data across facets, but it can be limiting when you want to visualize the relationship within each facet better.</p>
+<p>Setting the <code>scales</code> argument in a faceting function to <code>"free"</code> will allow for different axis scales across both rows and columns, <code>"free_x"</code> will allow for different scales across columns, and <code>"free_y"</code> will allow for different scales across rows.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="layers.html#cb40-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="layers.html#cb40-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="exercises-2" class="section level4 unnumbered hasAnchor">
+<h4>1.4.1 Exercises<a href="layers.html#exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>What happens if you facet on a continuous variable? Try faceting the plot below on <code>hwy</code>. +2pts</li>
+</ol>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">y =</span> cyl)) <span class="sc">+</span> </span>
+<span id="cb41-2"><a href="layers.html#cb41-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Run the following code and facet on <code>drv</code> vs <code>cyl</code> using <code>facet_grid()</code>. What do the empty cells mean? +2pts</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">y =</span> cyl)) <span class="sc">+</span> </span>
+<span id="cb42-2"><a href="layers.html#cb42-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>What plots does the following code make? What does <code>.</code> do? +2pts</li>
+</ol>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="layers.html#cb43-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb43-3"><a href="layers.html#cb43-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> .)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="layers.html#cb44-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb44-3"><a href="layers.html#cb44-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> cyl)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-41-2.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Take the first faceted plot in this section:</li>
+</ol>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="layers.html#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="layers.html#cb45-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="layers.html#cb45-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +4pts</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Read <code>?facet_wrap</code>. What does <code>nrow</code> do? What does <code>ncol</code> do? Why doesn’t <code>facet_grid()</code> have <code>nrow</code> and <code>ncol</code> arguments? +2pts</li>
+</ol>
+</div>
+</div>
+<div id="position-adjustments" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Position adjustments<a href="layers.html#position-adjustments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Position adjustments control how geoms are arranged when they might overlap. This is particularly important for bar charts.</p>
+<p>You can color bar charts using either the <code>color</code> aesthetic (outline) or the <code>fill</code> aesthetic (inside):</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="layers.html#cb46-1" tabindex="-1"></a><span class="co"># Fill colors the inside of the bars</span></span>
+<span id="cb46-2"><a href="layers.html#cb46-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">fill =</span> drv)) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="layers.html#cb46-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>When you map <code>fill</code> to another variable, the bars are automatically <strong>stacked</strong>. Each colored rectangle represents a combination of the two variables:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="layers.html#cb47-1" tabindex="-1"></a><span class="co"># Stacked bars (default)</span></span>
+<span id="cb47-2"><a href="layers.html#cb47-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">fill =</span> class)) <span class="sc">+</span> </span>
+<span id="cb47-3"><a href="layers.html#cb47-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The stacking is controlled by the <code>position</code> argument. You can use different positions to change how the bars are displayed:</p>
+<div id="position-fill---show-proportions" class="section level4 hasAnchor" number="1.5.0.1">
+<h4><span class="header-section-number">1.5.0.1</span> <code>position = "fill"</code> - Show proportions<a href="layers.html#position-fill---show-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Makes each set of stacked bars the same height, making it easier to compare proportions across groups:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="layers.html#cb48-1" tabindex="-1"></a><span class="co"># All bars go to 100%</span></span>
+<span id="cb48-2"><a href="layers.html#cb48-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="layers.html#cb48-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="position-dodge---side-by-side-comparison" class="section level4 hasAnchor" number="1.5.0.2">
+<h4><span class="header-section-number">1.5.0.2</span> <code>position = "dodge"</code> - Side-by-side comparison<a href="layers.html#position-dodge---side-by-side-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Places bars directly beside one another, making it easier to compare individual counts:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="layers.html#cb49-1" tabindex="-1"></a><span class="co"># Side-by-side bars</span></span>
+<span id="cb49-2"><a href="layers.html#cb49-2" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="layers.html#cb49-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="2025_r4ds-ggplot2-student_version_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Position adjustments summary:</strong>
+- <code>position = "stack"</code> (default): Shows total counts with composition breakdown
+- <code>position = "fill"</code>: Shows proportions (all bars reach 100%)
+- <code>position = "dodge"</code>: Shows side-by-side for easy comparison
+- <code>position = "jitter"</code>: Adds random noise (you learned this with <code>geom_jitter()</code> earlier!)</p>
+<p>To learn more about position adjustments, see <code>?position_dodge</code>, <code>?position_fill</code>, <code>?position_jitter</code>, and <code>?position_stack</code>.</p>
+</div>
+<div id="exercises-3" class="section level4 unnumbered hasAnchor">
+<h4>1.6.1 Exercises<a href="layers.html#exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p>What’s the difference between <code>position = "stack"</code> and <code>position = "fill"</code> for bar charts? When would you use each? +2pts</p></li>
+<li><p>Create a dodged bar chart showing the count of cars by <code>class</code> and <code>drv</code>. +2pts</p></li>
+<li><p>What’s the default position adjustment for <code>geom_boxplot()</code>? Create a visualization of the <code>mpg</code> dataset that demonstrates it. +2pts</p></li>
+</ol>
+</div>
+</div>
+<div id="summary" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Summary<a href="layers.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, and position adjustments for controlling how geoms are displayed when they might overlap.</p>
+<div id="key-concepts-learned" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Key concepts learned:<a href="layers.html#key-concepts-learned" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>Aesthetics</strong>: Map variables from your data to visual properties
+<ul>
+<li>Inside <code>aes()</code> for variables: <code>aes(color = class)</code></li>
+<li>Outside <code>aes()</code> for constants: <code>color = "blue"</code></li>
+<li><strong>Memory trick:</strong> Can you do <code>mpg$class</code>? YES → inside <code>aes()</code></li>
+</ul></li>
+<li><strong>Geoms</strong>: The geometric objects that represent your data
+<ul>
+<li><code>geom_point()</code>, <code>geom_line()</code>, <code>geom_bar()</code>, <code>geom_boxplot()</code>, <code>geom_jitter()</code>, etc.</li>
+<li>Can layer multiple geoms in one plot</li>
+<li><strong>Layers stack, they don’t replace!</strong></li>
+</ul></li>
+<li><strong>Facets</strong>: Split your plot into subplots
+<ul>
+<li><code>facet_wrap(~ variable)</code> for one variable</li>
+<li><code>facet_grid(rows ~ cols)</code> for two variables</li>
+<li>Use <code>.</code> as placeholder: <code>facet_grid(. ~ cols)</code> or <code>facet_grid(rows ~ .)</code></li>
+</ul></li>
+<li><strong>Position adjustments</strong>: Fine-tune positioning for overlapping geoms
+<ul>
+<li><code>position = "stack"</code> - default for bars (shows totals with composition)</li>
+<li><code>position = "fill"</code> - proportional stacking (all bars reach 100%)</li>
+<li><code>position = "dodge"</code> - side-by-side bars</li>
+<li><code>position = "jitter"</code> - adds random noise to avoid overplotting</li>
+</ul></li>
+</ol>
+</div>
+<div id="the-grammar-of-graphics-works-like-painting" class="section level3 hasAnchor" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> The grammar of graphics works like painting:<a href="layers.html#the-grammar-of-graphics-works-like-painting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Each <code>+</code> adds a new layer of paint on top. You can paint over something, but the old layer is still there underneath. <strong>Data layers stack, but display elements (themes, labels, scales) can be modified.</strong></p>
+<p>Two very useful resources for getting an overview of the complete <code>ggplot2</code> functionality are the <code>ggplot2</code> cheatsheet (which you can find at <a href="https://posit.co/resources/cheatsheets" class="uri">https://posit.co/resources/cheatsheets</a>) and the <code>ggplot2</code> package documentation at <a href="https://ggplot2.tidyverse.org/reference" class="uri">https://ggplot2.tidyverse.org/reference</a>.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="communication.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["2025_r4ds-ggplot2-student_version.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "fig_height": 5.3,
+  "fig_width": 8.5
+});
+});
+</script>
+
+</body>
+
+</html>
