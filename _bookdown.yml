@@ -1,4 +1,5 @@
 book_filename: "2025_r4ds-ggplot2-student_version"
+output_dir: "docs"              # ADD IT HERE (at the top level)
 new_session: no
 rmd_files:
   - index.Rmd

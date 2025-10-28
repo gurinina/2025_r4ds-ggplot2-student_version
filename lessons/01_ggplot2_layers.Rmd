@@ -34,7 +34,6 @@ Total points: 43
 
 You've already learned the basics of ggplot2: how to create scatterplots and boxplots, how to map aesthetics like color and shape, and how to customize your plots with themes and labels. 
 
-
 In this chapter, we'll dive deeper into the **grammar of graphics** - the idea that you can build every graph from the same components: a dataset, a coordinate system, and geoms (geometric objects that represent data points). We'll explore:
 
 - A deeper understanding of **aesthetic mappings** (inside vs outside aes)
@@ -636,7 +635,6 @@ To learn more about position adjustments, see `?position_dodge`, `?position_fill
 
 
 3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
-
 
 
 ## Summary
