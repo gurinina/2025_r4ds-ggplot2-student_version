@@ -1,5 +1,5 @@
 ---
-title: "ggplot2 Layers - Complete Lessons"
+title: "ggplot2 Layers - Complete lessons"
 output: 
   html_document:
     toc: true
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Layers: Layers_STACK
+# Layers:
 Total points: 43
 
 **Instructions:** 

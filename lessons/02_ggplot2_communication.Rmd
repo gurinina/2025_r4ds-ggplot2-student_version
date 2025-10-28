@@ -19,18 +19,14 @@ knitr::opts_chunk$set(
   fig.asp = 0.618
 )
 ```
-
-# Communication
+# Communication:
 Total points: 30
 
 **Instructions:** 
-
 - This is the **complete lessons version** with all working examples
 - Run all the code as you go to see how everything works
 - Exercise questions are shown but without answer spaces
 - Use the **STUDENT version** to practice writing your own code
-
----
 
 "The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
 

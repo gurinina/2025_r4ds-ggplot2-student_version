@@ -8,7 +8,7 @@ output:
     config:
       toc:
         collapse: section                # Collapsible Table of Contents
-      download: ["pdf", "epub"]          # Enable download links for PDF and EPUB
+      download: ["epub"]          # Enable download links for PDF and EPUB
 link-citations: yes                      # Enable citation links
 github-repo: "gurinina/2025_r4ds-ggplot2-student_version" # GitHub repo for linking
 url: 'https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/' # Published book URL

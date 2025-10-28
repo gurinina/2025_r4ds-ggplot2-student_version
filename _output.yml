@@ -23,13 +23,10 @@ bookdown::pdf_book:
   number_sections: true
   lof: false    # Disable List of Figures
   lot: false    # Disable List of Tables
-
+  
 bookdown::epub_book:
   fig_caption: false
   epub_version: "epub3"
-  toc: true
-  chapter_level: 2
-  stylesheet: css/epub.css
     
     
     
