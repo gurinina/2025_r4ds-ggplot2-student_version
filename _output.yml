@@ -1,9 +1,6 @@
 bookdown::gitbook:
   fig_caption: false
   css: [css/git.css, css/toc.css]
-  includes:
-    in_header: includes/header.html
-    after_body: scripts/collapse-output.html
   highlight: tango
   df_print: kable
   mathjax: default
