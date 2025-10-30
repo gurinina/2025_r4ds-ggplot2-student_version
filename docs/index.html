@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ggplot2 Communication - Complete Lessons</title>
-  <meta name="description" content="ggplot2 Communication - Complete Lessons" />
+  <title>PHAR 520: Applied Omics Science for Drug Discovery and Development</title>
+  <meta name="description" content="PHAR 520: Applied Omics Science for Drug Discovery and Development" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ggplot2 Communication - Complete Lessons" />
+  <meta property="og:title" content="PHAR 520: Applied Omics Science for Drug Discovery and Development" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/images/koosggplot.png" />
   
   <meta name="github-repo" content="gurinina/2025_r4ds-ggplot2-student_version" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ggplot2 Communication - Complete Lessons" />
+  <meta name="twitter:title" content="PHAR 520: Applied Omics Science for Drug Discovery and Development" />
   
   
   <meta name="twitter:image" content="https://bookdown.org/ggiaever/2025_r4ds-ggplot2-student_version/images/koosggplot.png" />
@@ -144,10 +144,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="layers.html"><a href="layers.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.2</b> Aesthetic mappings</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="layers.html"><a href="layers.html#where-do-aesthetics-go-in-ggplot2"><i class="fa fa-check"></i><b>1.2.1</b> Where do aesthetics go in ggplot2?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="layers.html"><a href="layers.html#step1-make-the-points-bigger"><i class="fa fa-check"></i><b>1.2.1</b> Step1: make the points bigger</a></li>
+<li class="chapter" data-level="1.2.2" data-path="layers.html"><a href="layers.html#step-2-now-try-to-make-them-smaller"><i class="fa fa-check"></i><b>1.2.2</b> Step 2: Now try to make them smaller</a></li>
+<li class="chapter" data-level="1.2.3" data-path="layers.html"><a href="layers.html#setting-visual-properties"><i class="fa fa-check"></i><b>1.2.3</b> Setting Visual Properties</a></li>
+<li class="chapter" data-level="1.2.4" data-path="layers.html"><a href="layers.html#where-do-aesthetics-go-in-ggplot2"><i class="fa fa-check"></i><b>1.2.4</b> Where do aesthetics go in ggplot2?</a></li>
+<li class="chapter" data-level="1.2.5" data-path="layers.html"><a href="layers.html#the-universal-rule-for-all-aesthetics"><i class="fa fa-check"></i><b>1.2.5</b> The Universal Rule for ALL Aesthetics</a></li>
+<li class="chapter" data-level="1.2.6" data-path="layers.html"><a href="layers.html#setting-constant-values"><i class="fa fa-check"></i><b>1.2.6</b> Setting Constant Values</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="layers.html"><a href="layers.html#geometric-objects"><i class="fa fa-check"></i><b>1.3</b> Geometric objects</a></li>
-<li class="chapter" data-level="1.4" data-path="layers.html"><a href="layers.html#facets"><i class="fa fa-check"></i><b>1.4</b> Facets</a></li>
+<li class="chapter" data-level="1.4" data-path="layers.html"><a href="layers.html#facets"><i class="fa fa-check"></i><b>1.4</b> Facets</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="layers.html"><a href="layers.html#faceting-by-one-variable"><i class="fa fa-check"></i><b>1.4.1</b> Faceting by One Variable</a></li>
+<li class="chapter" data-level="1.4.2" data-path="layers.html"><a href="layers.html#faceting-by-two-variables"><i class="fa fa-check"></i><b>1.4.2</b> Faceting by Two Variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="layers.html"><a href="layers.html#adjusting-scales"><i class="fa fa-check"></i><b>1.4.3</b> Adjusting Scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.5" data-path="layers.html"><a href="layers.html#position-adjustments"><i class="fa fa-check"></i><b>1.5</b> Position adjustments</a></li>
 <li class="chapter" data-level="1.6" data-path="layers.html"><a href="layers.html#summary"><i class="fa fa-check"></i><b>1.6</b> Summary</a>
 <ul>
@@ -155,7 +165,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2" data-path="layers.html"><a href="layers.html#the-grammar-of-graphics-works-like-painting"><i class="fa fa-check"></i><b>1.6.2</b> The grammar of graphics works like painting:</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="communication.html"><a href="communication.html"><i class="fa fa-check"></i><b>2</b> Communication:</a>
+<li class="chapter" data-level="2" data-path="communication.html"><a href="communication.html"><i class="fa fa-check"></i><b>2</b> Communication</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="communication.html"><a href="communication.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
 <ul>
@@ -187,7 +197,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ggplot2 Communication - Complete Lessons</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PHAR 520: Applied Omics Science for Drug Discovery and Development</a>
           </h1>
         </div>
 
@@ -196,7 +206,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">ggplot2 Communication - Complete Lessons</h1>
+<h1 class="title">PHAR 520: Applied Omics Science for Drug Discovery and Development</h1>
 <h2 class="subtitle"><em>ModuleIII: 2025_r4ds-ggplot2</em></h2>
 </div>
 <div id="r-for-data-science-workshop-r4ds" class="section level1 unnumbered hasAnchor">

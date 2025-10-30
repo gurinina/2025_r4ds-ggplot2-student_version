@@ -4,9 +4,17 @@ layers
 introduction
 prerequisites
 aesthetic-mappings
+step1-make-the-points-bigger
+step-2-now-try-to-make-them-smaller
+setting-visual-properties
 where-do-aesthetics-go-in-ggplot2
+the-universal-rule-for-all-aesthetics
+setting-constant-values
 geometric-objects
 facets
+faceting-by-one-variable
+faceting-by-two-variables
+adjusting-scales
 position-adjustments
 position-fill---show-proportions
 position-dodge---side-by-side-comparison

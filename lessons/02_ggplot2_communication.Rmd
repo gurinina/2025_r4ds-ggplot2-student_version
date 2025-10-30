@@ -1,34 +1,17 @@
----
-title: "ggplot2 Communication - Complete Lessons"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: cosmo
-editor_options: 
-  chunk_output_type: console
----
-
-```{r include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  tidy = FALSE,
-  fig.width = 7,
-  fig.asp = 0.618
-)
-```
 # Communication:
+
+
 Total points: 30
+
+"The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
+
+
 
 **Instructions:** 
 - This is the **complete lessons version** with all working examples
 - Run all the code as you go to see how everything works
 - Exercise questions are shown but without answer spaces
 - Use the **STUDENT version** to practice writing your own code
-
-"The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
 
 ## Introduction
 
@@ -121,7 +104,7 @@ label_info <- mpg |>
       drv == "4" ~ "4-wheel drive"
     )
   ) |> 
-  select(displ, hwy, drv, drive_type)
+  dplyr::select(displ, hwy, drv, drive_type)
 
 label_info
 ```
@@ -419,6 +402,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 - `theme_dark()` - Dark background
 - `theme_linedraw()` - Black lines
 - `theme_void()` - Empty theme
+
 ```{r fig-themes, echo = FALSE, fig.cap = 'The eight themes built-in to ggplot2.'}
 knitr::include_graphics("images/visualization-themes.png")
 ```
