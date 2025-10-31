@@ -1,13 +1,6 @@
-# Layers:
+# Layers: STACK
 
 Total points: 43
-
-**Instructions:** 
-
-- This is the **complete lessons version** with all working examples
-- Run all the code as you go to see how everything works
-- Exercise questions are shown but without answer spaces
-- Use the **STUDENT version** to practice writing your own code
 
 ## Introduction
 
@@ -35,6 +28,7 @@ library(tidyverse)                # for ggplot2 and mpg
 library(patchwork)                # for combining plots
 library(scales)                   # for axis formatting
 ```
+
 ## Aesthetic mappings
 
 The `mpg` data frame is bundled with the ggplot2 package and contains
@@ -123,7 +117,9 @@ p1 + theme_classic()
 These don't add new data layers - they modify how the existing plot is displayed.
 
 **The rule:**
+
 - **Data layers** (geom_point, geom_line, etc.) → Stack like layers of paint
+
 - **Display elements** (labs, themes) → Modify the frame and presentation
 
 Sometimes it's helpful to compare plots side-by-side. The `patchwork` package makes this easy:
@@ -169,8 +165,11 @@ Mapping an unordered discrete (categorical) variable (`class`) to an ordered aes
 ### Setting Visual Properties
 
 Once you map an aesthetic, `ggplot2` automatically:
+
 - Chooses appropriate values (colors, shapes, sizes)
+
 - Creates a legend showing what each value means
+
 - For x and y aesthetics, creates axis labels instead of legends
 
 You can also set the visual properties of your `geom` manually as an argument of your `geom` function (*outside* of `aes()`) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:
@@ -217,21 +216,23 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 **Where can variables and constants go?**
 
-| Location | Variable (from data)<br>Example: `color = class` | Constant (fixed value)<br>Example: `color = "blue"` |
+| Location | Variable (from data)<br/>Example: `color = class` | Constant (fixed value)<br/>Example: `color = "blue"` |
 |----------|---------------------|------------------------|
-| `ggplot(aes(...))` | ✅ YES<br>`aes(color = class)` | ❌ NO |
-| `geom_*(aes(...))` | ✅ YES<br>`aes(color = class)` | ❌ NO |
-| `geom_*(...)` outside aes | ❌ NO | ✅ YES<br>`color = "blue"` |
+| `ggplot(aes(...))` | ✅ YES<br/>`aes(color = class)` | ❌ NO |
+| `geom_*(aes(...))` | ✅ YES<br/>`aes(color = class)` | ❌ NO |
+| `geom_*(...)` outside aes | ❌ NO | ✅ YES<br/>`color = "blue"` |
 
-This pattern applies to all aesthetics: size, color, shape, alpha, fill, etc.
 
 ### Setting Constant Values
 
 You'll need to pick appropriate values for each aesthetic:
 
 -   The name of a color as a character string, e.g., `color = "blue"`
+
 -   The size of a point in mm, e.g., `size = 1`
+
 -   The shape of a point as a number, e.g, `shape = 1`, as shown in Figure \@ref(fig:fig-shapes)
+
 ```{r fig-shapes, echo=FALSE, fig.asp=0.364, fig.align='center', fig.cap='Mapping between shapes and their numeric codes.'}
 shapes <- tibble(
   shape = c(0, 1, 2, 5, 3, 4, 6:19, 20, 21, 22, 23, 24),
@@ -261,18 +262,14 @@ In the next section we dive deeper into `geoms`.
 1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
 
 
-
 2. What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point`). Add stroke to the above plot. +2pts
 
 
+**Ans-1.2.1.3:**
 
-3. Why did the following code not result in a plot with blue points? +2pts
-```{r, eval = FALSE}
-ggplot(mpg) + 
-  geom_point(aes(x = displ, y = hwy, color = "blue"))
-```
+The points are NOT blue because `color = "blue"` is inside `aes()`.
 
-
+When you put a value inside `aes()`, ggplot2 thinks it's a column name from your data. Since there's no column called "blue", ggplot2 creates a fake categorical variable with one value (the string "blue") and assigns it the first default color (salmon/coral).
 
 4. What's wrong with the following code? How would you fix it? +2pts
 ```{r, eval = FALSE}
@@ -281,12 +278,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 
-
 5. What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? Try it by adding color to the following plot: +2pts
 ```{r, eval = FALSE}
 ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
-
 
 
 6. What's wrong with the following code? Why doesn't it make blue points? How would you fix it? +2pts
@@ -296,10 +291,17 @@ ggplot(mpg, aes(x = displ, y = hwy), color = "blue") +
 ```
 
 
-
 ## Geometric objects
 
-You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (`geom_bar()`), line charts use line geoms (`geom_line()`), histograms use histograms geoms (`geom_histogram()`), and density plots use density geoms (`geom_density()`). 
+You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, 
+
+- bar charts use bar geoms (`geom_bar()`)
+
+- line charts use line geoms (`geom_line()`)
+
+- histograms use histograms geoms (`geom_histogram()`)
+
+- density plots use density geoms (`geom_density()`). 
 
 How are these two plots similar?
 
@@ -339,9 +341,11 @@ ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) +
 
 Here, `geom_smooth()` separates the cars into three lines based on their `drv` value, which describes a car's drive train. Here, `4` stands for four-wheel drive, `f` for front-wheel drive, and `r` for rear-wheel drive.
 
+**As long as the aesthetic in the `ggplot` argument is compatible with the `geoms` used you are ok.**
+
 **Notice there is no legend for the first plot because geom_smooth does not have a shape aesthetic.**
 
-If this sounds strange, we can make it clearer by overlaying the lines on top of the raw data and then coloring everything according to `drv`.
+We can make this clearer by overlaying the lines on top of the raw data and then coloring everything according to `drv`.
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
@@ -388,24 +392,57 @@ ggplot(mpg, aes(x = hwy)) +
 ```
 
 The histogram and density plot reveal that the distribution of highway mileage is bimodal and right skewed, while the boxplot reveals two potential outliers.
-c
+
+`ggplot2` provides more than 40 `geoms` but these don't cover all possible plots one could make. The best place to get a comprehensive overview of all of the `geoms` `ggplot2` offers is the [reference page:](https://ggplot2.tidyverse.org/reference).
 To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
+
+### Dealing with Overplotting
+
+When you have many data points, they can overlap and hide each other. `geom_jitter()` adds a small amount of random noise to each point to spread them out:
+```{r}
+# Compare these two plots
+# Points overlap - hard to see how many there are
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_point()
+
+# Jittered points - easier to see individual observations
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_jitter(width = 0.2)
+```
+
+The `width` argument controls how much horizontal jitter to add. Try different values to see what works best!
+
+`geom_jitter` is most often used with `geom_boxplot` which allows you to see all the points, not just the outliers.
+
+
+```{r}
+ # Jittered points - easier to see individual observations
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot(outlier.shape = NA) +  # Don't show outliers (we have jittered points)
+  geom_jitter(aes(color = class), width = 0.2)
+
+
+# Notice if you change the order of `geom_point` with `geom_jitter` the boxplot argument dominates (layers STACK)
+ggplot(mpg, aes(x = class, y = hwy,color=class)) +
+  geom_jitter(width = 0.2)+geom_boxplot(aes(color=class))
+
+
+```
+
 
 #### 1.3.1 Exercises {.unnumbered}
 
-1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap? ('jitter plot') +4pts or +5pts (bonus point for line charts using TWO geometries)
+1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap? ('jitter plot') +4pts or +5pts (bonus point for line charts using TWO `geoms`, how do they differ?) +4pts, +6pts with bonus
+
 
 2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
 
 
-
 3. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
-
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(aes(color = drv), show.legend = FALSE)
 ```
-
 
 
 4. What does the `se` argument to `geom_smooth()` do? +2pts
@@ -445,9 +482,10 @@ This makes it much easier to see the relationship between engine size and fuel e
 
 To facet your plot with the combination of two variables, use `facet_grid()`. The first argument of `facet_grid()` is also a formula, but now it's a double sided formula: `rows ~ cols`.
 ```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_grid(drv ~ cyl)
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+geom_point() +
+facet_grid(drv ~ cyl)
+
 ```
 
 The first variable (`drv`) determines the faceting by row, the second (`cyl`) by column. This lets you see how both drive type and number of cylinders affect the relationship between engine size and highway mileage.
@@ -458,9 +496,12 @@ By default each of the facets share the same scale and range for x and y axes. T
 
 Setting the `scales` argument in a faceting function to `"free"` will allow for different axis scales across both rows and columns, `"free_x"` will allow for different scales across columns, and `"free_y"` will allow for different scales across rows.
 ```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_grid(drv ~ cyl, scales = "free_y")
+
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+geom_point() +
+facet_grid(drv ~ cyl,scales="free_y")
+
+
 ```
 
 Notice how the y-axis now adjusts for each row, making it easier to see the variation in highway mileage within each drive type.
@@ -484,7 +525,6 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
 ```
 
 
-
 3. What plots does the following code make? What does `.` do? +2pts
 
 ```{r}
@@ -498,20 +538,27 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 
+4. What's redundant about this plot? Why does `cyl` produce a gradient color scale instead of distinct colors? How could you improve the plot? +3pts
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = cyl)) +
+  geom_point() +
+  facet_grid(. ~ cyl)
+```
 
-4. Take the first faceted plot in this section:
+
+5. Take the first faceted plot in this section:
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ class, nrow = 2)
+  facet_wrap(~ class)
 ```
 
 What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +4pts
 
 
+6. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
 
-5. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
 
 ## Position adjustments
 
@@ -559,7 +606,6 @@ ggplot(mpg, aes(x = drv, fill = class)) +
 
 To learn more about position adjustments, see `?position_dodge`, `?position_fill`, `?position_jitter`, and `?position_stack`.
 
-
 #### 1.6.1 Exercises {.unnumbered}
 
 1. What's the difference between `position = "stack"` and `position = "fill"` for bar charts? When would you use each? +2pts
@@ -573,6 +619,7 @@ To learn more about position adjustments, see `?position_dodge`, `?position_fill
 3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
 
 
+
 ## Summary
 
 In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, and position adjustments for controlling how geoms are displayed when they might overlap.
@@ -580,27 +627,42 @@ In this chapter you learned about the layered grammar of graphics starting with 
 ### Key concepts learned:
 
 1. **Aesthetics**: Map variables from your data to visual properties
+
    - Inside `aes()` for variables: `aes(color = class)`
+   
    - Outside `aes()` for constants: `color = "blue"`
+   
    - **Memory trick:** Can you do `mpg$class`? YES → inside `aes()`
 
 2. **Geoms**: The geometric objects that represent your data
+
    - `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`, `geom_jitter()`, etc.
+   
    - Can layer multiple geoms in one plot
+   
    - **Layers stack, they don't replace!**
 
 3. **Facets**: Split your plot into subplots
+
    - `facet_wrap(~ variable)` for one variable
+   
    - `facet_grid(rows ~ cols)` for two variables
+   
    - Use `.` as placeholder: `facet_grid(. ~ cols)` or `facet_grid(rows ~ .)`
 
 4. **Position adjustments**: Fine-tune positioning for overlapping geoms
+
    - `position = "stack"` - default for bars (shows totals with composition)
+   
    - `position = "fill"` - proportional stacking (all bars reach 100%)
+   
    - `position = "dodge"` - side-by-side bars
+   
    - `position = "jitter"` - adds random noise to avoid overplotting
 
 ### The grammar of graphics works like painting:
-Each `+` adds a new layer of paint on top. You can paint over something, but the old layer is still there underneath. **Data layers stack, but display elements (themes, labels, scales) can be modified.**
+Each `+` adds a new layer of paint on top. You can paint over something, but the old layer is still there underneath. 
 
-Two very useful resources for getting an overview of the complete `ggplot2` functionality are the `ggplot2` cheatsheet (which you can find at <https://posit.co/resources/cheatsheets>) and the `ggplot2` package documentation at <https://ggplot2.tidyverse.org/reference>.
+**Data layers stack, but display elements (themes, labels, scales) can be modified.**
+
+Two very useful resources for getting an overview of the complete `ggplot2` functionality are the `ggplot2` [cheatsheet](https://posit.co/resources) or in your lessons folder and the [`ggplot2` package documentation](https://ggplot2.tidyverse.org/reference).
