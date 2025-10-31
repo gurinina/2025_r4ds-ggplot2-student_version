@@ -4,7 +4,7 @@ student_notes/*
 
 # Ignore the output folder (where the book is built)
 # bookdown files
-_book/
+docs/
 _pdf/
 _epub/
 _bookdown_files/
