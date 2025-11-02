@@ -214,14 +214,19 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### The Universal Rule for ALL Aesthetics
 
+
 **Where can variables and constants go?**
 
-| Location | Variable (from data)<br/>Example: `color = class` | Constant (fixed value)<br/>Example: `color = "blue"` |
+| What you want to add | Where it goes | Example |
 |----------|---------------------|------------------------|
-| `ggplot(aes(...))` | ✅ YES<br/>`aes(color = class)` | ❌ NO |
-| `geom_*(aes(...))` | ✅ YES<br/>`aes(color = class)` | ❌ NO |
-| `geom_*(...)` outside aes | ❌ NO | ✅ YES<br/>`color = "blue"` |
+| Variable from data<br/>(column name) | INSIDE `aes()` | `ggplot(mpg, aes(color = class))` |
+| Variable from data<br/>(column name) | INSIDE `aes()` | `geom_point(aes(color = class))` |
+| Constant<br/>(fixed value) | OUTSIDE `aes()`, in geom | `geom_point(color = "blue")` |
 
+**Key rule:** 
+- Variable (column from data) → `aes(color = class)` ✅
+- Constant (fixed value) → `color = "blue"` (outside aes) ✅
+- Constant inside aes → `aes(color = "blue")` ❌ DON'T DO THIS
 
 So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point `geom`. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
 
@@ -258,16 +263,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
 
-
-**Where things can go:**
-
-- **In `ggplot()`**: Only `data` and `aes()` mappings
-
-- **In `geom_*()` outside `aes()`**: Constants like `color = "blue"`, `size = 3`
-
-- **In `aes()` (anywhere)**: Variables from your data like `color = class`
-
-## Geometric objects
+Where things can go
 
 You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, 
 
