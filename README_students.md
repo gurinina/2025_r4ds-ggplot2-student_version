@@ -17,7 +17,7 @@ We'll keep all personal work inside a folder named **`student_notes/`** in the R
 **Create your personal codebook from the template:**
 
 1. In the **Files** pane, navigate to `student_notes/`
-2. You'll see these template files:
+2. You'll see these files:
    - `01_ggplot2_layers_STUDENT.Rmd`
    - `02_ggplot2_communication_STUDENT.Rmd`
    
