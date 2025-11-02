@@ -1,4 +1,4 @@
-# Layers: STACK
+# Layers:
 
 Total points: 46
 
