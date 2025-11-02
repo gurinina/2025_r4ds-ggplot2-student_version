@@ -244,11 +244,13 @@ ggplot(mpg) +
 ```
 
 
+
 4. What's wrong with the following code? How would you fix it? +2pts
 ```{r, eval = FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = class, size = 3)
 ```
+
 
 
 5. What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? Try it by adding color to the following plot: +2pts
@@ -257,12 +259,13 @@ ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
 
 
-6. What's wrong with the following code? Why doesn't it make blue points? How would you fix it? +2pts
-```{r, eval = FALSE}
-ggplot(mpg, aes(x = displ, y = hwy), color = "blue") + 
-  geom_point()
-```
+**Where things can go:**
 
+- **In `ggplot()`**: Only `data` and `aes()` mappings
+
+- **In `geom_*()` outside `aes()`**: Constants like `color = "blue"`, `size = 3`
+
+- **In `aes()` (anywhere)**: Variables from your data like `color = class`
 
 ## Geometric objects
 
@@ -408,9 +411,7 @@ ggplot(mpg, aes(x = class, y = hwy,color=class)) +
 1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap? ('jitter plot') +4pts or +6pts (bonus point for line charts using TWO `geoms`, how do they differ?)
 
 
-
 2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
-
 
 
 3. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
@@ -420,7 +421,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 
+
 4. What does the `se` argument to `geom_smooth()` do? +2pts
+
 
 
 5. Will these two graphs look different? Why/why not? +2pts
@@ -434,6 +437,7 @@ ggplot() +
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
 ```
+
 
 
 ## Facets
@@ -490,7 +494,6 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
 ```
 
 
-
 2. Run the following code and facet on `drv` vs `cyl` using `facet_grid()`. What do the empty cells mean? +2pts
 
 ```{r}
@@ -510,7 +513,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(. ~ cyl)
 ```
-
 
 
 4. What's redundant about this plot? Why does `cyl` produce a gradient color scale instead of distinct colors? How could you improve the plot? +3pts
@@ -535,6 +537,7 @@ What are the advantages to using faceting instead of the color aesthetic? What a
 
 
 6. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
+
 
 
 ## Position adjustments
@@ -587,10 +590,12 @@ To learn more about position adjustments, see `?position_dodge`, `?position_fill
 
 1. What's the difference between `position = "stack"` and `position = "fill"` for bar charts? When would you use each? +2pts
 
-
 2. Create a dodged bar chart showing the count of cars by `class` and `drv`. +2pts
 
+
+
 3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
+
 
 ## Summary
 

@@ -1,4 +1,4 @@
-# Communication: POLISH for publication
+# Communication:
 
 
 Total points: 30
@@ -78,6 +78,7 @@ g1
 
 2. Recreate the following plot. Add appropriate labels for the axes and legend, AND add a meaningful title describing a pattern you see. Note that both color and shape vary by drive type. +6pts
 
+![Alt text](images/fueleconomy.png)
 
 ## Annotations
 
@@ -218,9 +219,7 @@ ggplot(mpg, aes(displ, hwy)) +
 2. How do labels with `geom_text()` interact with faceting? How can you add a label to a single facet? How can you put a different label in each facet? +4pts
 
 
-
 3. What arguments to `geom_label()` control the appearance of the background box? +2pts
-
 
 
 ## Scales
@@ -377,6 +376,7 @@ ggplot(df) +
 
 2. What is the first argument to every scale? How does it compare to `labs()`? +2pts
 
+
 ## Themes
 
 You can customize the overall appearance of your plot with built-in themes:
@@ -501,8 +501,6 @@ p3 <- ggplot(mpg, aes(x = cty, y = hwy)) +
 
 
 2. Using the three plots from the previous exercise, recreate the following patchwork with p1 on top and p2 and p3 side-by-side on the bottom: +2pts
-
-
 
 ## Summary
 
