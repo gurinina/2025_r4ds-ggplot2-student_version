@@ -266,10 +266,6 @@ ggplot(shapes, aes(x, y)) +
   theme(aspect.ratio = 1/2.75)
 ```
 
-So far we have discussed aesthetics that we can map or set in a scatterplot...
-
-In the next section we dive deeper into `geoms`.
-
 #### 1.2.1 Exercises {.unnumbered}
 
 1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
@@ -299,7 +295,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
 
-Where things can go
+
+## Geometric objects
 
 You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, 
 
