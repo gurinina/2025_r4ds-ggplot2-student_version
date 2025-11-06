@@ -178,7 +178,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = "blue") 
 ```
 
-::: {.infobox .tip}
+
 ### Where do aesthetics go in ggplot2?
 
 **The key question:** Is this value from your data, or is it a constant?
@@ -200,17 +200,20 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 **Memory trick:** Can you do `mpg$class` in R? YES → inside `aes()`  
 Can you do `mpg$pink`? NO → outside `aes()`
 
+
 **Important:** Constants must go in `geom_*()`, NOT in `ggplot()`:
 ```{r, eval=FALSE}
 # ❌ This fails!
 ggplot(mpg, aes(x = displ, y = hwy), color = "blue") +
   geom_point()
+```
 
+```{r}
 # ✅ This works!
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = "blue")
 ```
-:::
+
 
 ### The Universal Rule for ALL Aesthetics
 
@@ -224,13 +227,46 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 | Constant<br/>(fixed value) | OUTSIDE `aes()`, in geom | `geom_point(color = "blue")` |
 
 **Key rule:** 
+
 - Variable (column from data) → `aes(color = class)` ✅
+
 - Constant (fixed value) → `color = "blue"` (outside aes) ✅
+
 - Constant inside aes → `aes(color = "blue")` ❌ DON'T DO THIS
 
 So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point `geom`. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
 
 The specific aesthetics you can use for a plot depend on the `geom` you use to represent the data.
+
+### Setting Constant Values
+
+You'll need to pick appropriate values for each aesthetic:
+
+-   The name of a color as a character string, e.g., `color = "blue"`
+
+-   The size of a point in mm, e.g., `size = 1`
+
+-   The shape of a point as a number, e.g, `shape = 1`, as shown in the figure below:
+```{r fig-shapes, echo=FALSE, fig.asp=0.364, fig.cap='R has 25 built-in shapes that are identified by numbers. There are some seeming duplicates: for example, 0, 15, and 22 are all squares. The difference comes from the interaction of the color and fill aesthetics. The hollow shapes (0-14) have a border determined by color; the solid shapes (15-20) are filled with color; the filled shapes (21-25) have a border of color and are filled with fill.'}
+
+shapes <- tibble(
+  shape = c(0:25),
+  x = (0:25 %/% 5) / 2,
+  y = (-(0:25 %% 5)) / 4
+)
+
+ggplot(shapes, aes(x, y)) + 
+  geom_point(aes(shape = shape), size = 5, fill = "red") +
+  geom_text(aes(label = shape), hjust = 0, nudge_x = 0.15) +
+  scale_shape_identity() +
+  expand_limits(x = 4.1) +
+  scale_x_continuous(NULL, breaks = NULL) + 
+  scale_y_continuous(NULL, breaks = NULL, limits = c(-1.2, 0.2)) + 
+  theme_minimal() +
+  theme(aspect.ratio = 1/2.75)
+```
+
+So far we have discussed aesthetics that we can map or set in a scatterplot...
 
 In the next section we dive deeper into `geoms`.
 
