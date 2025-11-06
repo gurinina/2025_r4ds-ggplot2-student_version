@@ -23,7 +23,7 @@ We'll keep all personal work inside a folder named **`student_notes/`** in the R
    
 3. **Rename each file** to include your last name:
    - Right-click → Rename
-   - Example: `garcia_01_ggplot2_layers.Rmd`
+   - Example: `garcia_01_ggplot2_layers_STUDENT.Rmd`
    - Do the same for the communication file
    
 4. **Open your renamed files** - these are now YOUR working copies for exercises and homework
