@@ -1,5 +1,9 @@
 # Ignore everything under student_notes, but keep a placeholder so the folder exists
+# Ignore all student work in student_notes/
 student_notes/*
+
+# But keep the folder itself tracked
+!student_notes/.gitkeep
 
 
 # Ignore the output folder (where the book is built)
