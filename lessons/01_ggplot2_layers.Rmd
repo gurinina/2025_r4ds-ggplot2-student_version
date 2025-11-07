@@ -1,4 +1,4 @@
-# Layers:
+# Layers: STACK
 
 Total points: 46
 
@@ -28,6 +28,7 @@ library(tidyverse)                # for ggplot2 and mpg
 library(patchwork)                # for combining plots
 library(scales)                   # for axis formatting
 ```
+
 
 ## Aesthetic mappings
 
@@ -149,6 +150,8 @@ This is particularly useful when comparing different visualizations of the same 
 ggplot(mpg, aes(x = displ, y = hwy, size = class)) +
   geom_point() 
 ```
+
+
 ```{r}
 # class mapped to alpha
 ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +
@@ -177,6 +180,7 @@ You can also set the visual properties of your `geom` manually as an argument of
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(color = "blue") 
 ```
+  
 
 
 ### Where do aesthetics go in ggplot2?
@@ -200,7 +204,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 **Memory trick:** Can you do `mpg$class` in R? YES → inside `aes()`  
 Can you do `mpg$pink`? NO → outside `aes()`
 
-
 **Important:** Constants must go in `geom_*()`, NOT in `ggplot()`:
 ```{r, eval=FALSE}
 # ❌ This fails!
@@ -216,7 +219,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 ### The Universal Rule for ALL Aesthetics
-
 
 **Where can variables and constants go?**
 
@@ -262,20 +264,23 @@ ggplot(shapes, aes(x, y)) +
   theme(aspect.ratio = 1/2.75)
 ```
 
+
+
 #### 1.2.1 Exercises {.unnumbered}
 
-1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
 
+1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
+```
 
 2. What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point`). Add stroke to the above plot. +2pts
-
 
 3. Why did the following code not result in a plot with blue points? +2pts
 ```{r, eval = FALSE}
 ggplot(mpg) + 
   geom_point(aes(x = displ, y = hwy, color = "blue"))
 ```
-
 
 
 4. What's wrong with the following code? How would you fix it? +2pts
@@ -285,12 +290,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 
-
 5. What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? Try it by adding color to the following plot: +2pts
 ```{r, eval = FALSE}
 ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
 ```
-
 
 So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point `geom`. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
 
@@ -428,9 +431,17 @@ The `width` argument controls how much horizontal jitter to add. Try different v
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot(outlier.shape = NA) +  # Don't show outliers (we have jittered points)
   geom_jitter(aes(color = class), width = 0.2)
+```
+
+outlier.shape = NA - Don't show outliers at all
+
+Used when you're adding jittered points that already show ALL the data
+Prevents showing outliers twice (once in boxplot, once as jittered points)
 
 
-# Notice if you change the order of `geom_point` with `geom_jitter` the boxplot argument dominates (layers STACK)
+Notice if you change the order of `geom_point` with `geom_jitter` the boxplot argument dominates (layers STACK)
+```{r}
+
 ggplot(mpg, aes(x = class, y = hwy,color=class)) +
   geom_jitter(width = 0.2)+geom_boxplot(aes(color=class))
 
@@ -439,12 +450,10 @@ ggplot(mpg, aes(x = class, y = hwy,color=class)) +
 
 
 #### 1.3.1 Exercises {.unnumbered}
-
 1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap? ('jitter plot') +4pts or +6pts (bonus point for line charts using TWO `geoms`, how do they differ?)
 
 
 2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
-
 
 3. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
 ```{r}
@@ -452,11 +461,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(aes(color = drv), show.legend = FALSE)
 ```
 
-
-
 4. What does the `se` argument to `geom_smooth()` do? +2pts
-
-
 
 5. Will these two graphs look different? Why/why not? +2pts
 
@@ -465,11 +470,14 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth()
 
+```
+
+```{r}
+
 ggplot() +
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
 ```
-
 
 
 ## Facets
@@ -525,7 +533,6 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
   geom_point()
 ```
 
-
 2. Run the following code and facet on `drv` vs `cyl` using `facet_grid()`. What do the empty cells mean? +2pts
 
 ```{r}
@@ -533,19 +540,21 @@ ggplot(mpg, aes(x = drv, y = cyl)) +
   geom_point()
 ```
 
-
 3. What plots does the following code make? What does `.` do? +2pts
 
-```{r}
+```{r eval=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ .)
+```
+
+
+```{r}
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(. ~ cyl)
 ```
-
 
 4. What's redundant about this plot? Why does `cyl` produce a gradient color scale instead of distinct colors? How could you improve the plot? +3pts
 ```{r}
@@ -553,8 +562,6 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cyl)) +
   geom_point() +
   facet_grid(. ~ cyl)
 ```
-
-
 
 5. Take the first faceted plot in this section:
 
@@ -566,11 +573,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +4pts
 
-
-
 6. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
-
-
 
 ## Position adjustments
 
@@ -625,9 +628,7 @@ To learn more about position adjustments, see `?position_dodge`, `?position_fill
 2. Create a dodged bar chart showing the count of cars by `class` and `drv`. +2pts
 
 
-
 3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
-
 
 ## Summary
 
