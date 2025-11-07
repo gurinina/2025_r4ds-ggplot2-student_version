@@ -101,7 +101,7 @@ p3
 To actually change `p1`, you need to recreate it from scratch:
 ```{r}
 p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
-  geom_point(size = 6)
+  geom_point(size = 2)
 
 p1
 ```
@@ -465,14 +465,14 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 5. Will these two graphs look different? Why/why not? +2pts
 
-```{r}
+```{r eval=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth()
 
 ```
 
-```{r}
+```{r eval=FALSE}
 
 ggplot() +
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
