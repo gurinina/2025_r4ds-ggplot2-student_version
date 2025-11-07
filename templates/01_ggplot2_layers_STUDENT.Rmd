@@ -211,7 +211,6 @@ Once you map an aesthetic, `ggplot2` automatically:
 
 You can also set the visual properties of your `geom` manually as an argument of your `geom` function (*outside* of `aes()`) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:
 
-You can also set the visual properties of your `geom` manually as an argument of your `geom` function (*outside* of `aes()`) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) + 
