@@ -1,6 +1,6 @@
 # Layers: 
 
-Total points: 46
+Total points: 44
 
 ## Introduction
 
