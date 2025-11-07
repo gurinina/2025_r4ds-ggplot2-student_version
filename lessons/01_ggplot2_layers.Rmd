@@ -236,6 +236,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point `geom`. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
 
+
 The specific aesthetics you can use for a plot depend on the `geom` you use to represent the data.
 
 ### Setting Constant Values
