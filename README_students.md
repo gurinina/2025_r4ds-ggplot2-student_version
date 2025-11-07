@@ -14,32 +14,38 @@ We'll keep all personal work inside a folder named **`student_notes/`** in the R
 
 ## One-time setup (RStudio UI only)
 
-**Create your personal codebook from the template:**
+**Create your personal workbook from the templates:**
 
-1. In the **Files** pane, navigate to `student_notes/`
+1. In the **Files** pane, navigate to the `templates/` folder
 2. You'll see these files:
    - `01_ggplot2_layers_STUDENT.Rmd`
    - `02_ggplot2_communication_STUDENT.Rmd`
    
-3. **Rename each file** to include your last name:
+3. **Copy each file to `student_notes/`:**
+   - Check the box next to the file
+   - Click **More → Copy To...**
+   - Navigate to `student_notes/`
+   - Click **Choose**
+   
+4. **Navigate to `student_notes/` folder**
+
+5. **Rename each file** to include your last name:
    - Right-click → Rename
    - Example: `garcia_01_ggplot2_layers_STUDENT.Rmd`
    - Do the same for the communication file
    
-4. **Open your renamed files** - these are now YOUR working copies for exercises and homework
+6. **Open your renamed files** - these are now YOUR working copies for exercises and homework
 
-> **Important:** From now on, work ONLY inside `student_notes/`. Anything you create or edit there is yours and won't interfere with course updates.
+> **Important:** From now on, work ONLY inside `student_notes/`. Anything you create or edit there is yours and won't show up in Git, so you won't accidentally push changes.
 
 ---
 
 ## Getting instructor updates (no Terminal)
 
 - Use the **Git** pane → click **Pull** to fetch the latest course changes
-- If you see files in the Git pane that you didn't mean to change:
-  - Click the file → **Revert** (Discard) 
-  - Then **Pull** again
+- Your work in `student_notes/` is safe and won't be affected by updates
 
-> Your `student_notes/` folder is set up to be ignored by Git. If it ever appears in the Git pane, **do not stage it** - just keep working in that folder.
+> Your `student_notes/` folder is ignored by Git. Your work there will never appear in the Git pane - you can work freely!
 
 ---
 
@@ -47,24 +53,28 @@ We'll keep all personal work inside a folder named **`student_notes/`** in the R
 
 1. Open the project (`.Rproj` file) in the Rproject main directory
 2. **Git pane → Pull** (get latest updates)
-3. Work in files inside `student_notes/` only
-4. If something shows in the Git pane that you didn't intend to change → **Revert** it
+3. Work in your renamed files inside `student_notes/` only
+4. Save your work frequently (Ctrl+S or Cmd+S)
+5. Knit your Rmd files to check your work
 
 ---
 
 ## FAQ
 
 **Q: Where do I put my notes and answers?**  
-A: In `student_notes/` in the Rproject main directory.
+A: In the files you renamed inside `student_notes/` (e.g., `garcia_01_ggplot2_layers_STUDENT.Rmd`)
 
 **Q: Will updates overwrite my notes?**  
-A: No. Your notes live in `student_notes/`, which is separate from course files.
+A: No. Your notes live in `student_notes/`, which Git ignores. They're completely safe.
 
-**Q: I accidentally edited a course file outside `student_notes/`.**  
-A: Use the **Git** pane → select the file → **Revert**. Then **Pull** to sync.
+**Q: I don't see `student_notes/` folder!**  
+A: Create it: In Files pane → **New Folder** → name it `student_notes`
 
 **Q: Do I need to push my changes?**  
-A: No. Students don't push. Just **Pull** to get updates from the instructor.
+A: No. Students don't push. Just **Pull** to get updates from the instructor. Your work in `student_notes/` won't show in the Git pane anyway.
+
+**Q: I accidentally edited a template file in `templates/`.**  
+A: Use the **Git** pane → select the file → **Revert**. Then copy the template again to `student_notes/` and rename it.
 
 **Q: What if I need help?**  
-A: Ask in class, office hours, or post on the course discussion board!
+A: Ask in class, office hours, or email your instructor!

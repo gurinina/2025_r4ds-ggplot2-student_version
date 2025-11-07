@@ -1,0 +1,793 @@
+---
+title: "ggplot2 Layers - Student Workbook"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.width = 7,
+  fig.asp = 0.618,
+  dev = "png",       # Add this
+  dpi = 96           # Add this
+)
+```
+
+# Layers
+Total points: 44
+
+**Instructions:** 
+
+- Work through this chapter, running all the example code as you go
+- Complete the exercises using Think-Pair-Share (see the guide on the course site)
+- Type your solutions in the code chunks marked "Your code here"
+- Save your work frequently!
+
+## Introduction
+
+You've already learned the basics of ggplot2: how to create scatterplots and boxplots, how to map aesthetics like color and shape, and how to customize your plots with themes and labels. 
+
+In this chapter, we'll dive deeper into the **grammar of graphics** - the idea that you can build every graph from the same components: a dataset, a coordinate system, and geoms (geometric objects that represent data points). We'll explore:
+
+- A deeper understanding of **aesthetic mappings** (inside vs outside aes)
+
+- More **geometric objects** (geoms) for different plot types
+
+- **Faceting** - creating multiple plots split by categories
+
+- **Position adjustments** - how geoms are positioned relative to each other
+
+We won't cover every single function and option, but we'll walk you through the most important and commonly used functionality in ggplot2.
+
+
+### Prerequisites
+
+Load the necessary packages into your session:
+
+
+```{r}
+
+
+library(tidyverse)                # for ggplot2 and mpg
+library(patchwork)                # for combining plots
+library(scales)                   # for axis formatting
+
+```
+
+
+## Aesthetic mappings
+
+The `mpg` data frame is bundled with the ggplot2 package and contains
+`r nrow(mpg)` observations on `r mpg |> distinct(model) |> nrow()` car
+models from [fueleconomy.gov](https://fueleconomy.gov/). 
+```{r include = F}
+?mpg
+names(mpg)
+```
+
+Let's start by visualizing the relationship between `displ` and `hwy`
+for various `classes` of cars. We can do this with a scatterplot where
+the numerical variables are mapped to the `x` and `y` aesthetics and the
+categorical variable is mapped to an aesthetic like `color` or `shape`.
+```{r}
+# Mapping class to color works well
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+
+Notice how each class gets a different color automatically. Now let's try using shape instead:
+```{r}
+# Mapping class to shape produces warnings
+ggplot(mpg, aes(x = displ, y = hwy, shape = class)) +
+  geom_point()
+```
+
+When `class` is mapped to `shape`, we get two warnings:
+
+> 1: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to discriminate; we have 7.
+> Consider specifying shapes manually if you must have them.
+>
+> 2: Removed 62 rows containing missing values (`geom_point()`).
+
+Since `ggplot2` will only use six shapes at a time, by default, additional groups will go unplotted when you use the shape aesthetic.
+The second warning is related -- there are 62 SUVs in the dataset and they're not plotted.
+
+We have to remember that ggplot2 does not replace, but layers. For example:
+```{r}
+# Create a saved plot
+p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) + 
+  geom_point(size = 2)
+
+p1  # p1
+```
+
+### Step1: make the points bigger
+What if I wanted to make all the points bigger? If I add another geom_point(size = 6), it looks like it worked!
+```{r}
+
+p2 = p1 + geom_point(size = 6)
+
+p2
+```
+
+### Step 2: Now try to make them smaller  
+
+What if I wanted to make all the points smaller?
+```{r}
+p3 = p2+ geom_point(size = 2, color = "black") # "Wait... now I see BOTH layers! Small points on top of the original size!"
+
+p3
+```
+
+**The grammar of graphics works like painting; each `+` adds a new layer of paint on top.** You can paint over something, but the old layer is still there underneath. When the new layer is bigger, it hides the original.
+
+**Layers stack, they don't replace!**
+
+To actually change `p1`, you need to recreate it from scratch:
+```{r}
+p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 2)
+
+p1
+```
+
+However, you CAN modify **non-data elements** - these are like changing the frame around your painting, not the painting itself:
+```{r}
+# Change the labels
+p1 + labs(title = "Fuel Efficiency by Car Class")
+
+# Change the theme  
+p1 + theme_classic()
+```
+
+These don't add new data layers - they modify how the existing plot is displayed.
+
+**The rule:**
+
+- **Data layers** (geom_point, geom_line, etc.) → Stack like layers of paint
+
+- **Display elements** (labs, themes) → Modify the frame and presentation
+
+Sometimes it's helpful to compare plots side-by-side. The `patchwork` package makes this easy:
+```{r}
+# Save plots to variables
+p1 <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+
+p2 <- ggplot(mpg, aes(x = displ, y = hwy, shape = class)) +
+  geom_point()
+
+# Combine side-by-side with +
+p1 + p2
+```
+
+You can also stack plots vertically using `/`:
+```{r}
+# Stack plots vertically
+p1 / p2
+```
+
+This is particularly useful when comparing different visualizations of the same data, as you'll often need to do in your research when comparing treatment groups or experimental conditions.
+
+**What about other aesthetics?** Similarly, we can map `class` to `size` or `alpha` aesthetics as well, which control the size and the transparency of the points, respectively.
+```{r}
+# class mapped to size
+ggplot(mpg, aes(x = displ, y = hwy, size = class)) +
+  geom_point() 
+```
+
+
+```{r}
+# class mapped to alpha
+ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +
+  geom_point() 
+```
+
+Both of these produce warnings as well:
+
+> Using size for a discrete variable is not advised.
+> Using alpha for a discrete variable is not advised.
+
+Mapping an unordered discrete (categorical) variable (`class`) to an ordered aesthetic (`size` or `alpha`) is generally not a good idea because it implies a ranking that does not in fact exist.
+
+### Setting Visual Properties
+
+Once you map an aesthetic, `ggplot2` automatically:
+
+- Chooses appropriate values (colors, shapes, sizes)
+
+- Creates a legend showing what each value means
+
+- For x and y aesthetics, creates axis labels instead of legends
+
+You can also set the visual properties of your `geom` manually as an argument of your `geom` function (*outside* of `aes()`) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:
+
+You can also set the visual properties of your `geom` manually as an argument of your `geom` function (*outside* of `aes()`) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(color = "blue") 
+```
+
+
+
+### Where do aesthetics go in ggplot2?
+
+**The key question:** Is this value from your data, or is it a constant?
+
+**From your data** (a column name) → INSIDE `aes()`
+```{r}
+# color varies by class (class is a column in mpg)
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+
+**A constant** (same for all points) → OUTSIDE `aes()`, in the geom layer
+```{r}
+# all points are pink
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "pink", size = 3)
+```
+
+**Memory trick:** Can you do `mpg$class` in R? YES → inside `aes()`  
+Can you do `mpg$pink`? NO → outside `aes()`
+
+**Important:** Constants must go in `geom_*()`, NOT in `ggplot()`:
+```{r, eval=FALSE}
+# this fails!
+ggplot(mpg, aes(x = displ, y = hwy), color = "blue") +
+  geom_point()
+```
+
+```{r}
+# this works!
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "blue")
+```
+
+
+
+### The Universal Rule for ALL Aesthetics
+
+**Where can variables and constants go?**
+
+| What you want to add | Where it goes | Example |
+|----------|---------------------|------------------------|
+| Variable from data<br/>(column name) | INSIDE `aes()` | `ggplot(mpg, aes(color = class))` |
+| Variable from data<br/>(column name) | INSIDE `aes()` | `geom_point(aes(color = class))` |
+| Constant<br/>(fixed value) | OUTSIDE `aes()`, in geom | `geom_point(color = "blue")` |
+
+**Key rule:** 
+
+- Variable (column from data) → `aes(color = class)` ✅
+
+- Constant (fixed value) → `color = "blue"` (outside aes) ✅
+
+- Constant inside aes → `aes(color = "blue")` ❌ DON'T DO THIS
+
+### Setting Constant Values
+
+You'll need to pick appropriate values for each aesthetic:
+
+-   The name of a color as a character string, e.g., `color = "blue"`
+
+-   The size of a point in mm, e.g., `size = 1`
+
+-   The shape of a point as a number, e.g, `shape = 1`, as shown in the figure below:
+```{r fig-shapes, echo=FALSE, fig.asp=0.364, fig.cap='R has 25 built-in shapes that are identified by numbers. There are some seeming duplicates: for example, 0, 15, and 22 are all squares. The difference comes from the interaction of the color and fill aesthetics. The hollow shapes (0-14) have a border determined by color; the solid shapes (15-20) are filled with color; the filled shapes (21-25) have a border of color and are filled with fill.'}
+
+shapes <- tibble(
+  shape = c(0:25),
+  x = (0:25 %/% 5) / 2,
+  y = (-(0:25 %% 5)) / 4
+)
+
+ggplot(shapes, aes(x, y)) + 
+  geom_point(aes(shape = shape), size = 5, fill = "red") +
+  geom_text(aes(label = shape), hjust = 0, nudge_x = 0.15) +
+  scale_shape_identity() +
+  expand_limits(x = 4.1) +
+  scale_x_continuous(NULL, breaks = NULL) + 
+  scale_y_continuous(NULL, breaks = NULL, limits = c(-1.2, 0.2)) + 
+  theme_minimal() +
+  theme(aspect.ratio = 1/2.75)
+```
+
+
+#### 1.2.1 Exercises {.unnumbered}
+
+1. Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles. +2pts
+
+**Ans-1.2.1.1:**
+```{r}
+
+# Your code here
+```
+
+2. What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point`). Add stroke to the above plot. +2pts
+
+**Ans-1.2.1.2:**
+```{r}
+# Your code here 
+```
+
+
+3. Why did the following code not result in a plot with blue points? +2pts
+```{r, eval = FALSE}
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy, color = "blue"))
+```
+
+**Ans-1.2.1.3:**
+
+4. What's wrong with the following code? How would you fix it? +2pts
+```{r, eval = FALSE}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = class, size = 3)
+```
+
+**Ans-1.2.1.4:**
+```{r}
+
+# Your code here
+```
+
+
+5. What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? Try it by adding color to the following plot: +2pts
+```{r, eval = FALSE}
+ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
+```
+
+**Ans-1.2.1.5:**
+```{r}
+
+# Your code here
+```
+
+So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point `geom`. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
+
+
+The specific aesthetics you can use for a plot depend on the `geom` you use to represent the data.
+
+In the next section we dive deeper into `geoms`.
+
+## Geometric objects
+
+You've already learned about `geom_point()` and `geom_boxplot()` in your previous lessons. A `geom` is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, 
+
+- bar charts use bar geoms (`geom_bar()`)
+
+- line charts use line geoms (`geom_line()`)
+
+- histograms use histograms geoms (`geom_histogram()`)
+
+- density plots use density geoms (`geom_density()`). 
+
+How are these two plots similar?
+
+```{r}
+# Scatterplot
+ggplot(mpg, aes(x = displ, y = hwy)) +  
+  geom_point() 
+```
+
+```{r}
+# Smooth line
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_smooth()
+```
+
+Both plots contain the same x variable, the same y variable, and both describe the same data. But the plots are not identical. Each plot uses a different geometric object, `geom`, to represent the data. The first plot uses the point `geom`, and the second uses the smooth `geom`, a smooth line fitted to the data.
+
+To change the `geom` in your plot, change the `geom` function that you add to `ggplot()`.
+
+Every `geom` function in ggplot2 takes a `mapping` argument, either defined locally in the `geom` layer or globally in the `ggplot()` layer.
+
+However, not every aesthetic works with every `geom`. You could set the shape of a point, but you couldn't set the "shape" of a line. If you try, ggplot2 will silently ignore that aesthetic mapping. On the other hand, you *could* set the `linetype` of a line.
+
+`geom_smooth()` will draw a different line, with a different `linetype`, for each unique value of the variable that you map to `linetype`.
+
+```{r}
+# Shape doesn't work with geom_smooth - no legend appears
+ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) + 
+  geom_smooth()
+```
+
+```{r}
+# Linetype DOES work with geom_smooth
+ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) + 
+  geom_smooth()
+```
+
+Here, `geom_smooth()` separates the cars into three lines based on their `drv` value, which describes a car's drive train. 
+
+Here: 
+
+- `4` stands for four-wheel drive
+
+- `f` for front-wheel drive
+
+- `r` for rear-wheel drive
+
+**As long as the aesthetic in the `ggplot` argument is compatible with the `geoms` used you are ok.**
+
+**Notice there is no legend for the first plot because geom_smooth does not have a shape aesthetic.**
+
+We can make this clearer by overlaying the lines on top of the raw data and then coloring everything according to `drv`.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+  geom_point() + 
+  geom_smooth(aes(linetype = drv))
+```
+
+Notice that this plot contains **two geoms in the same graph**. This is a powerful feature of ggplot2 - you can layer multiple geoms to show different aspects of your data.
+
+You can use the same idea to specify different `data` for each layer.
+Here, we use red points to highlight two-seater cars.
+The local data argument in `geom_point()` overrides the global data argument in `ggplot()` for that layer only.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_point(
+   data  = mpg |> filter(class == '2seater'),
+    color = "red",
+    size = 3
+  )
+```
+
+`geoms` are the fundamental building blocks of `ggplot2`. You can completely transform the look of your plot by changing its geom, and different `geoms` can reveal different features of your data. 
+
+For example, these three plots show the same data (highway mileage) but reveal different patterns:
+
+```{r}
+# Histogram shows distribution
+ggplot(mpg, aes(x = hwy)) + 
+  geom_histogram(binwidth = 2)
+```
+
+```{r}
+# Density plot shows smooth distribution
+ggplot(mpg, aes(x = hwy)) + 
+  geom_density()
+```
+
+```{r}
+# Boxplot shows summary statistics and outliers
+ggplot(mpg, aes(x = hwy)) + 
+  geom_boxplot()
+```
+
+The histogram and density plot reveal that the distribution of highway mileage is bimodal and right skewed, while the boxplot reveals two potential outliers.
+
+`ggplot2` provides more than 40 `geoms` but these don't cover all possible plots one could make. The best place to get a comprehensive overview of all of the `geoms` `ggplot2` offers is the [reference page:](https://ggplot2.tidyverse.org/reference).
+To learn more about any single `geom`, use the help (e.g., `?geom_smooth`).
+
+### Dealing with Overplotting
+
+When you have many data points, they can overlap and hide each other. `geom_jitter()` adds a small amount of random noise to each point to spread them out:
+```{r}
+# Compare these two plots
+# Points overlap - hard to see how many there are
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_point()
+
+# Jittered points - easier to see individual observations
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_jitter(width = 0.2)
+```
+
+The `width` argument controls how much horizontal jitter to add. Try different values to see what works best!
+
+`geom_jitter` is most often used with `geom_boxplot` which allows you to see all the points, not just the outliers.
+
+
+```{r}
+ # Jittered points - easier to see individual observations
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot(outlier.shape = NA) +  # Don't show outliers (we have jittered points)
+  geom_jitter(aes(color = class), width = 0.2)
+
+
+# Notice if you change the order of `geom_point` with `geom_jitter` the boxplot argument dominates (layers STACK)
+ggplot(mpg, aes(x = class, y = hwy,color=class)) +
+  geom_jitter(width = 0.2)+geom_boxplot(aes(color=class))
+
+
+```
+
+
+#### 1.3.1 Exercises {.unnumbered}
+
+1. What `geom` would you use to draw a line chart? A boxplot? A histogram? A scatterplot with points spread out to avoid overlap? ('jitter plot') +4pts or +6pts (bonus point for line charts using TWO `geoms`, how do they differ?)
+
+**Ans-1.3.1.1:**
+
+2. Create a plot showing highway fuel economy (`hwy`) by car class (`class`) that includes both a boxplot and jittered individual points. Make the points semi-transparent. +3pts
+
+**Ans-1.3.1.2:**
+```{r}
+# Your code here 
+```
+
+
+
+3. What does `show.legend = FALSE` do in the code below? What happens if you remove it? +2pts
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(aes(color = drv), show.legend = FALSE)
+```
+
+**Ans-1.3.1.3:**
+```{r}
+# Your code here 
+```
+
+4. What does the `se` argument to `geom_smooth()` do? +2pts
+
+**Ans-1.3.1.4:**
+
+
+5. Will these two graphs look different? Why/why not? +2pts
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()
+
+ggplot() +
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+```
+
+**Ans-1.3.1.5:**
+
+
+
+## Facets
+
+Facets are a powerful way to split your plot into multiple subplots based on the values of one or more categorical variables. This is especially useful when you have **too many categories to distinguish by color alone**, or when you want to compare patterns across groups side-by-side.
+
+### Faceting by One Variable
+
+To facet your plot by a single variable, use `facet_wrap()`. The first argument of `facet_wrap()` is a formula (created with `~` followed by a variable name). The variable passed to `facet_wrap()` should be categorical.
+```{r}
+# Instead of trying to use 7 different colors for class...
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class, nrow = 2)
+```
+
+This makes it much easier to see the relationship between engine size and fuel efficiency within each vehicle class. Notice how 2seaters behave differently from SUVs!
+
+### Faceting by Two Variables
+
+To facet your plot with the combination of two variables, use `facet_grid()`. The first argument of `facet_grid()` is also a formula, but now it's a double sided formula: `rows ~ cols`.
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+geom_point() +
+facet_grid(drv ~ cyl)
+
+```
+
+The first variable (`drv`) determines the faceting by row, the second (`cyl`) by column. This lets you see how both drive type and number of cylinders affect the relationship between engine size and highway mileage.
+
+### Adjusting Scales
+
+By default each of the facets share the same scale and range for x and y axes. This is useful when you want to compare data across facets, but it can be limiting when you want to visualize the relationship within each facet better.
+
+Setting the `scales` argument in a faceting function to `"free"` will allow for different axis scales across both rows and columns, `"free_x"` will allow for different scales across columns, and `"free_y"` will allow for different scales across rows.
+```{r}
+
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+geom_point() +
+facet_grid(drv ~ cyl,scales="free_y")
+
+
+```
+
+Notice how the y-axis now adjusts for each row, making it easier to see the variation in highway mileage within each drive type.
+
+#### 1.4.1 Exercises {.unnumbered}
+
+1. What happens if you facet on a continuous variable? Try faceting the plot below on `hwy`. +2pts
+
+```{r}
+ggplot(mpg, aes(x = drv, y = cyl)) + 
+  geom_point()
+```
+
+
+**Ans-1.4.1.1:**
+```{r}
+# Your code here:
+```
+
+
+2. Run the following code and facet on `drv` vs `cyl` using `facet_grid()`. What do the empty cells mean? +2pts
+
+```{r}
+ggplot(mpg, aes(x = drv, y = cyl)) + 
+  geom_point()
+```
+
+
+**Ans-1.4.1.2:**
+```{r}
+# Your code here:
+```
+
+3. What plots does the following code make? What does `.` do? +2pts
+
+```{r eval=FALSE}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(drv ~ .)
+```
+
+
+```{r eval=FALSE}
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(. ~ cyl)
+```
+
+
+**Ans-1.4.1.3:**
+
+4. What's redundant about this plot? Why does `cyl` produce a gradient color scale instead of distinct colors? How could you improve the plot? +3pts
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = cyl)) +
+  geom_point() +
+  facet_grid(. ~ cyl)
+```
+
+
+**Ans-1.4.1.4:**
+
+
+5. Take the first faceted plot in this section:
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class)
+```
+
+What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? +4pts
+
+
+**Ans-1.4.1.5:**
+
+
+6. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments? +2pts
+
+**Ans-1.4.1.6:**
+
+
+## Position adjustments
+
+Position adjustments control how geoms are arranged when they might overlap. This is particularly important for bar charts.
+
+You can color bar charts using either the `color` aesthetic (outline) or the `fill` aesthetic (inside):
+```{r}
+# Fill colors the inside of the bars
+ggplot(mpg, aes(x = drv, fill = drv)) + 
+  geom_bar()
+```
+
+When you map `fill` to another variable, the bars are automatically **stacked**. Each colored rectangle represents a combination of the two variables:
+```{r}
+# Stacked bars (default)
+ggplot(mpg, aes(x = drv, fill = class)) + 
+  geom_bar()
+```
+
+The stacking is controlled by the `position` argument. You can use different positions to change how the bars are displayed:
+
+#### `position = "fill"` - Show proportions
+
+Makes each set of stacked bars the same height, making it easier to compare proportions across groups:
+```{r}
+# All bars go to 100%
+ggplot(mpg, aes(x = drv, fill = class)) +
+  geom_bar(position = "fill")
+```
+
+#### `position = "dodge"` - Side-by-side comparison
+
+Places bars directly beside one another, making it easier to compare individual counts:
+```{r}
+# Side-by-side bars
+ggplot(mpg, aes(x = drv, fill = class)) +
+  geom_bar(position = "dodge")
+```
+
+**Position adjustments summary:**
+- `position = "stack"` (default for bars): Shows total counts with composition breakdown
+- `position = "fill"`: Shows proportions (all bars reach 100%)
+- `position = "dodge"`: Shows side-by-side for easy comparison
+- `position = "jitter"`: Adds random noise to points to avoid overplotting (you learned this with `geom_jitter()` earlier!)
+
+To learn more about position adjustments, see `?position_dodge`, `?position_fill`, `?position_jitter`, and `?position_stack`.
+
+#### 1.6.1 Exercises {.unnumbered}
+
+1. What's the difference between `position = "stack"` and `position = "fill"` for bar charts? When would you use each? +2pts
+
+**Ans-1.6.1.1:**
+
+2. Create a dodged bar chart showing the count of cars by `class` and `drv`. +2pts
+
+**Ans-1.6.1.2:**
+```{r}
+# Your code here
+```
+
+
+3. What's the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. +2pts
+
+
+**Ans-1.6.1.3:**
+```{r}
+# Your code here
+```
+
+
+## Summary
+
+In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, and position adjustments for controlling how geoms are displayed when they might overlap.
+
+### Key concepts learned:
+
+1. **Aesthetics**: Map variables from your data to visual properties
+
+   - Inside `aes()` for variables: `aes(color = class)`
+   
+   - Outside `aes()` for constants: `color = "blue"`
+   
+   - **Memory trick:** Can you do `mpg$class`? YES → inside `aes()`
+
+2. **Geoms**: The geometric objects that represent your data
+
+   - `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`, `geom_jitter()`, etc.
+   
+   - Can layer multiple geoms in one plot
+   
+   - **Layers stack, they don't replace!**
+
+3. **Facets**: Split your plot into subplots
+
+   - `facet_wrap(~ variable)` for one variable
+   
+   - `facet_grid(rows ~ cols)` for two variables
+   
+   - Use `.` as placeholder: `facet_grid(. ~ cols)` or `facet_grid(rows ~ .)`
+
+4. **Position adjustments**: Fine-tune positioning for overlapping geoms
+
+   - `position = "stack"` - default for bars (shows totals with composition)
+   
+   - `position = "fill"` - proportional stacking (all bars reach 100%)
+   
+   - `position = "dodge"` - side-by-side bars
+   
+   - `position = "jitter"` - adds random noise to avoid overplotting
+
+### The grammar of graphics works like painting:
+Each `+` adds a new layer of paint on top. You can paint over something, but the old layer is still there underneath. 
+
+**Data layers stack, but display elements (themes, labels, scales) can be modified.**
+
+Two very useful resources for getting an overview of the complete `ggplot2` functionality are the `ggplot2` [cheatsheet](https://posit.co/resources) or in your lessons folder and the [`ggplot2` package documentation](https://ggplot2.tidyverse.org/reference).
